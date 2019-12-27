@@ -1,17 +1,17 @@
 import React, { Component } from 'react';
 import '../App.css';
 import { Menu, Icon } from 'antd';
-import {HashRouter, Route, Switch, Link, Redirect} from 'react-router-dom';
+import { HashRouter, Route, Switch, Link, Redirect } from 'react-router-dom';
 import { Home } from './Home';
 import { Apply } from './Apply';
-import { Content3 } from './Content3';
-import { Content4 } from './Content4';
-import { Content5 } from './Content5';
+import { Examine } from './Examine';
+import { Report } from './Report';
+import { Faq } from './Faq';
 
 const { SubMenu } = Menu;
 
 const menuItems=["首页", "申请", "出差审批", "报销审批", "Q&A"];
-const routeItems=["/home", "/apply", "/content3", "/content4", "/content5"];
+const routeItems=["/home", "/apply", "/examine", "/report", "/faq"];
 export class TopNavigationBar extends React.Component {
   state = {
     current: menuItems[0],
@@ -43,9 +43,9 @@ export class TopNavigationBar extends React.Component {
           <Switch>
               <Route exact path="/home" component={Home}/>
               <Route exact path="/apply" component={Apply}/>
-              <Route exact path="/content3" component={Content3}/>
-              <Route exact path="/content4" component={Content4}/>
-              <Route exact path="/content5" component={Content5}/>
+              <Route exact path="/examine" component={Examine}/>
+              <Route exact path="/report" component={Report}/>
+              <Route exact path="/faq" component={Faq}/>
               <Redirect to="/home"/>
           </Switch>
         </HashRouter>
