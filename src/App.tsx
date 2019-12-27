@@ -1,13 +1,16 @@
 import React, { Component } from 'react';
-import { Button } from 'antd';
 import './App.css';
-import { PopOver } from './popOver';
-
+import { Store1 } from './Stores/Store1';
+import {TopNavigationBar} from './Components/TopNavigationBar'
 class App extends Component {
+
+  store1 = new Store1;
+
+  
   render() {
     return (
-      <div className="App">
-        <PopOver />
+      <div>
+        <TopNavigationBar/>
       </div>
     );
   }
