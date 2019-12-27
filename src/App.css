@@ -64,3 +64,8 @@
 .allBackground{
   background: rgb(240, 240, 240);
 }
+
+:global(.ant-card-head){
+  background: #8b2727d6!important;
+  font-size: 100px!important;
+}

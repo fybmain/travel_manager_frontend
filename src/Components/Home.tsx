@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import '../App.css';
-import Grid from 'antd/lib/card/Grid';
-import { Row, Col } from 'antd';
+import { Row, Col, Card } from 'antd';
+//import '../my.module.less';
 export class Home extends Component {
   render() {
     return (
@@ -29,7 +29,10 @@ export class Home extends Component {
 
 const box = ()=>{
   return(
-    <div className="box">
+    <div className="card">
+      <Card title="报销流程" bordered={false}>
+        流程图
+      </Card>
     </div>
   );
 }
