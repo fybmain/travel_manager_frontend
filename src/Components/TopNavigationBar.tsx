@@ -1,26 +1,26 @@
 import React, { Component } from 'react';
 import '../App.css';
-import { Menu, Icon } from 'antd';
+import { Menu } from 'antd';
+import { ClickParam } from 'antd/lib/menu';
 import { HashRouter, Route, Switch, Link, Redirect } from 'react-router-dom';
 import { Home } from './Home';
-import { Apply } from './Apply';
-import { Examine } from './Examine';
+import { TravelApplyPage } from './TravelApplyPage';
+import { ReimbursementApplyPage } from './ReimbursementApplyPage';
+import { TravelExaminePage } from './TravelExaminePage';
+import { ReimbursementExaminePage } from './ReimbursementExaminePage';
 import { Report } from './Report';
 import { Faq } from './Faq';
 
 const { SubMenu } = Menu;
 
-const menuItems=["首页", "申请", "出差审批", "报销审批", "Q&A"];
-const routeItems=["/home", "/apply", "/examine", "/report", "/faq"];
 export class TopNavigationBar extends React.Component {
   state = {
-    current: menuItems[0],
-  };
+    current: '',
+  }
 
-  handleClick = (e:any) => {
-    console.log('click ', e);
+  handleClick = (e:ClickParam) => {
     this.setState({
-      current: e.key,
+      current: e.key
     });
   };
 
@@ -29,21 +29,49 @@ export class TopNavigationBar extends React.Component {
         <div>
         <HashRouter>
           <Menu onClick={this.handleClick} selectedKeys={[this.state.current]} mode="horizontal">
-              {
-                  menuItems.map((value:string, index:number)=>
-                  <Menu.Item key={value}>
-                    <Link to={routeItems[index]}>{value}</Link>
-                  </Menu.Item>
-                  )
-              }
-              <Menu.Item key="登录" style={{float: 'right'}}>
-              登录
+            <Menu.Item key="Home">
+              <Link to="/home">
+                首页
+              </Link>
+            </Menu.Item>
+            <SubMenu title="申请">
+              <Menu.Item key="TravelApply">
+                <Link to="/travel-apply">
+                  出差申请
+                </Link>
               </Menu.Item>
+              <Menu.Item key="ReimbursementApply">
+                <Link to="/reimbursement-apply">
+                  报销申请
+                </Link>
+              </Menu.Item>
+            </SubMenu>
+            <SubMenu title="审批">
+              <Menu.Item key="TravelExamine">
+                <Link to="/travel-examine">
+                  出差审批
+                </Link>
+              </Menu.Item>
+              <Menu.Item key="ReimbursementExamine">
+                <Link to="/reimbursement-examine">
+                  报销审批
+                </Link>
+              </Menu.Item>
+            </SubMenu>
+
+            <Menu.Item key="/register" style={{float: 'right'}}>
+              注册
+            </Menu.Item>
+            <Menu.Item key="/login" style={{float: 'right'}}>
+              登录
+            </Menu.Item>
           </Menu>
           <Switch>
               <Route exact path="/home" component={Home}/>
-              <Route exact path="/apply" component={Apply}/>
-              <Route exact path="/examine" component={Examine}/>
+              <Route exact path="/travel-apply" component={TravelApplyPage}/>
+              <Route exact path="/reimbursement-apply" component={ReimbursementApplyPage}/>
+              <Route exact path="/travel-examine" component={TravelExaminePage}/>
+              <Route exact path="/reimbursement-examine" component={ReimbursementExaminePage}/>
               <Route exact path="/report" component={Report}/>
               <Route exact path="/faq" component={Faq}/>
               <Redirect to="/home"/>
