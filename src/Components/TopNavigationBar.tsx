@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import '../App.css';
 import { Menu } from 'antd';
 import { ClickParam } from 'antd/lib/menu';
