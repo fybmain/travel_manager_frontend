@@ -37,6 +37,11 @@
   }
 }
 
+.page-central {
+  margin-left: 30%;
+  margin-right: 30%;
+}
+
 .background{
   width:100%;
   min-height:550px;
