@@ -41,3 +41,36 @@
   margin-left: 30%;
   margin-right: 30%;
 }
+
+.background{
+  width:100%;
+  min-height:550px;
+  background-position: top center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-image: url(./Pictures/background.jpg);
+}
+
+.introduction{
+  padding-left: 10%;
+  padding-top: 10%;
+  max-width: 40%;
+}
+
+.box{
+  background: rgb(255, 255, 255);
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+  overflow: hidden;
+  height: 300px;
+  margin-top: -20%;
+}
+
+.allBackground{
+  background: rgb(240, 240, 240);
+}
+
+:global(.ant-card-head){
+  background: #8b2727d6!important;
+  font-size: 100px!important;
+}
