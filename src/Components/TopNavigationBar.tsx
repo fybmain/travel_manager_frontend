@@ -10,6 +10,9 @@ import { TravelExaminePage } from './TravelExaminePage';
 import { ReimbursementExaminePage } from './ReimbursementExaminePage';
 import { Report } from './Report';
 import { Faq } from './Faq';
+import { PersonalReport } from './PersonalReport';
+import { DepartmentReport } from './DepartmentReport';
+import { CompanyReport } from './CompanyReport';
 
 const { SubMenu } = Menu;
 
@@ -58,6 +61,22 @@ export class TopNavigationBar extends React.Component {
                 </Link>
               </Menu.Item>
             </SubMenu>
+            <SubMenu title="统计">
+              <Menu.Item key="PersonalReport">
+                <Link to="/personal-report">
+                  个人报表
+                </Link>
+              </Menu.Item>
+              <Menu.Item key="DepartmentReport">
+                <Link to="/department-report">
+                  部门报表
+                </Link>
+              </Menu.Item><Menu.Item key="CompanyReport">
+                <Link to="/company-report">
+                  部门报表
+                </Link>
+              </Menu.Item>
+            </SubMenu>
 
             <Menu.Item key="/register" style={{float: 'right'}}>
               注册
@@ -72,7 +91,9 @@ export class TopNavigationBar extends React.Component {
               <Route exact path="/reimbursement-apply" component={ReimbursementApplyPage}/>
               <Route exact path="/travel-examine" component={TravelExaminePage}/>
               <Route exact path="/reimbursement-examine" component={ReimbursementExaminePage}/>
-              <Route exact path="/report" component={Report}/>
+              <Route exact path="/personal-report" component={PersonalReport}/>
+              <Route exact path="/department-report" component={DepartmentReport}/>
+              <Route exact path="/company-report" component={CompanyReport}/>
               <Route exact path="/faq" component={Faq}/>
               <Redirect to="/home"/>
           </Switch>
