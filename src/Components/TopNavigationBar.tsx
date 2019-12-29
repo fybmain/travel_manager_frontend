@@ -20,6 +20,7 @@ import { CompanyReport } from './CompanyReport';
 
 import { Faq } from './Faq';
 import { AllUsers } from './AllUsers';
+import { UserInfo } from './UserInfo';
 
 import { LoginDialog } from './LoginDialog';
 import { RegisterDialog } from './RegisterDialog';
@@ -106,8 +107,8 @@ export class TopNavigationBar extends Component {
               </Menu.Item>
             </SubMenu>
 
-            <Menu.Item key="AllUsers" style={{float: 'right'}}>
-              <Link to="/all-users">
+            <Menu.Item key="UserInfo" style={{float: 'right'}}>
+              <Link to="/user-info">
                 周东
               </Link>
             </Menu.Item>
@@ -141,6 +142,7 @@ export class TopNavigationBar extends Component {
 
             <Route exact path="/faq" component={Faq}/>
             <Route exact path="/all-users" component={AllUsers}/>
+            <Route exact path="/user-info" component={UserInfo}/>
             
             <Redirect to="/home"/>
           </Switch>
