@@ -56,12 +56,15 @@ export class TopNavigationBar extends Component {
       <div>
         <Router history={history}>
           <Menu onClick={this.handleClick} selectedKeys={[this.state.current]} mode="horizontal">
-            <Menu.Item key="Home">
+            <Menu.Item key="blank" style={{float: 'left'}}>
+                &nbsp;&nbsp;&nbsp;&nbsp;
+            </Menu.Item>
+            <Menu.Item key="Home" style={{float: 'left'}}>
               <Link to="/home">
                 首页
               </Link>
             </Menu.Item>
-            <SubMenu title="申请">
+            <SubMenu title="申请" style={{float: 'left'}}>
               <Menu.Item key="TravelApply">
                 <Link to="/travel-apply">
                   出差申请
@@ -73,7 +76,7 @@ export class TopNavigationBar extends Component {
                 </Link>
               </Menu.Item>
             </SubMenu>
-            <SubMenu title="审批">
+            <SubMenu title="审批" style={{float: 'left'}}>
               <Menu.Item key="TravelExamine">
                 <Link to="/travel-approval">
                   出差审批
@@ -85,7 +88,7 @@ export class TopNavigationBar extends Component {
                 </Link>
               </Menu.Item>
             </SubMenu>
-            <SubMenu title="统计">
+            <SubMenu title="统计" style={{float: 'left'}}>
               <Menu.Item key="PersonalReport">
                 <Link to="/personal-report">
                   个人报表
@@ -105,18 +108,18 @@ export class TopNavigationBar extends Component {
 
             <Menu.Item key="AllUsers" style={{float: 'right'}}>
               <Link to="/all-users">
-                武玥彤
+                周东
               </Link>
             </Menu.Item>
 
-            <Menu.Item key="Register" onClick={this.onClickRegister} style={{float: 'right'}}>
+            {/* <Menu.Item key="Register" onClick={this.onClickRegister} style={{float: 'right'}}>
               注册
               <RegisterDialog visible={this.state.registerDialogVisible}/>
             </Menu.Item>
             <Menu.Item key="Login" onClick={this.onClickLogin} style={{float: 'right'}}>
               登录
               <LoginDialog visible={this.state.loginDialogVisible}/>
-            </Menu.Item>
+            </Menu.Item> */}
           </Menu>
 
           <Switch>
