@@ -6,10 +6,10 @@ export interface LoginDialogProps {
 };
 
 export class LoginDialog extends React.Component<LoginDialogProps> {
-  handleCancel = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
+  handleCancel = (e: React.MouseEvent) => {
   }
 
-  handleOk = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
+  handleOk = (e: React.MouseEvent) => {
   }
 
   render() {

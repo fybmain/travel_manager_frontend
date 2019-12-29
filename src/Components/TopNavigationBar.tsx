@@ -2,9 +2,11 @@ import React from 'react';
 import '../App.css';
 import { Menu } from 'antd';
 import { ClickParam } from 'antd/lib/menu';
-import { HashRouter, Route, Switch, Link, Redirect } from 'react-router-dom';
+import { Route, Switch, Link, Redirect, Router } from 'react-router-dom';
+
+import history from '../history';
 import { Home } from './Home';
-import { TravelApplyPage } from './TravelApplyPage';
+import { TravelApplyListPage } from './TravelApplyListPage';
 import { ReimbursementApplyPage } from './ReimbursementApplyPage';
 import { TravelExaminePage } from './TravelExaminePage';
 import { ReimbursementExaminePage } from './ReimbursementExaminePage';
@@ -14,6 +16,7 @@ import { PersonalReport } from './PersonalReport';
 import { DepartmentReport } from './DepartmentReport';
 import { CompanyReport } from './CompanyReport';
 import { LoginDialog } from './LoginDialog';
+import { TravelApplyCreatePage } from './TravelApplyCreatePage';
 
 const { SubMenu } = Menu;
 
@@ -38,7 +41,7 @@ export class TopNavigationBar extends React.Component {
   render() {
     return (
       <div>
-        <HashRouter>
+        <Router history={history}>
           <Menu onClick={this.handleClick} selectedKeys={[this.state.current]} mode="horizontal">
             <Menu.Item key="Home">
               <Link to="/home">
@@ -96,19 +99,22 @@ export class TopNavigationBar extends React.Component {
             </Menu.Item>
           </Menu>
           <Switch>
-              <Route exact path="/home" component={Home}/>
-              <Route exact path="/travel-apply" component={TravelApplyPage}/>
-              <Route exact path="/reimbursement-apply" component={ReimbursementApplyPage}/>
-              <Route exact path="/travel-examine" component={TravelExaminePage}/>
-              <Route exact path="/reimbursement-examine" component={ReimbursementExaminePage}/>
-              <Route exact path="/personal-report" component={PersonalReport}/>
-              <Route exact path="/department-report" component={DepartmentReport}/>
-              <Route exact path="/company-report" component={CompanyReport}/>
-              <Route exact path="/faq" component={Faq}/>
-              <Redirect to="/home"/>
-          </Switch>
-        </HashRouter>
+            <Route exact path="/home" component={Home}/>
+            
+            <Route exact path="/travel-apply" component={TravelApplyListPage}/>
+            <Route exact path="/travel-apply/create" component={TravelApplyCreatePage}/>
 
+            <Route exact path="/reimbursement-apply" component={ReimbursementApplyPage}/>
+            <Route exact path="/travel-examine" component={TravelExaminePage}/>
+            <Route exact path="/reimbursement-examine" component={ReimbursementExaminePage}/>
+            <Route exact path="/personal-report" component={PersonalReport}/>
+            <Route exact path="/department-report" component={DepartmentReport}/>
+            <Route exact path="/company-report" component={CompanyReport}/>
+            <Route exact path="/faq" component={Faq}/>
+            
+            <Redirect to="/home"/>
+          </Switch>
+        </Router>
       </div>
     );
   }
