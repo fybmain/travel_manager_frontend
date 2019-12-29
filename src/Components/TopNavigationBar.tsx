@@ -73,7 +73,7 @@ export class TopNavigationBar extends Component {
                 </Link>
               </Menu.Item><Menu.Item key="CompanyReport">
                 <Link to="/company-report">
-                  部门报表
+                  公司报表
                 </Link>
               </Menu.Item>
             </SubMenu>

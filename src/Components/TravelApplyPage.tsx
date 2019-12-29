@@ -1,11 +1,32 @@
 import React, { Component } from 'react';
-import { Table, Select, Switch, Button } from 'antd';
 import Column from 'antd/lib/table/Column';
 import { ApplyStatus } from '../Models/AllModels';
+
+import { Table, Form, Input, Button, DatePicker } from 'antd';
+import { InputMoneyAmount } from './InputMoneyAmount';
+
+const { TextArea } = Input;
+const { RangePicker } = DatePicker;
 
 export class TravelApplyPage extends Component {
   
   render() {
+    const formItemLayout = {
+      labelCol: {
+        xs: { span: 8 },
+        sm: { span: 6 },
+      },
+      wrapperCol: {
+        xs: { span: 24 },
+        sm: { span: 16 },
+      },
+    };
+    const tailItemLayout = {
+      wrapperCol: {
+        xs: { span: 24, offset: 0},
+        sm: { span: 16, offset: 8},
+      },
+    };
     return (
       <div>
         <div className="tablePage">
