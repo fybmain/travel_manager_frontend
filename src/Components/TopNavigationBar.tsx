@@ -18,6 +18,7 @@ import { PersonalReport } from './PersonalReport';
 import { DepartmentReport } from './DepartmentReport';
 import { CompanyReport } from './CompanyReport';
 import { LoginDialog } from './LoginDialog';
+import { RegisterDialog } from './RegisterDialog';
 
 const { SubMenu } = Menu;
 
@@ -25,19 +26,26 @@ export class TopNavigationBar extends React.Component {
   state = {
     current: '',
     loginDialogVisible: false,
+    registerDialogVisible: false,
   }
 
   handleClick = (e: ClickParam) => {
     this.setState({
       current: e.key,
     });
-  };
+  }
 
   onClickLogin = (e: ClickParam) => {
     this.setState({
       loginDialogVisible: true,
     });
-  };
+  }
+
+  onClickRegister = (e: ClickParam) => {
+    this.setState({
+      registerDialogVisible: true,
+    });
+  }
 
   render() {
     return (
@@ -91,8 +99,9 @@ export class TopNavigationBar extends React.Component {
               </Menu.Item>
             </SubMenu>
 
-            <Menu.Item key="Register" style={{float: 'right'}}>
+            <Menu.Item key="Register" onClick={this.onClickRegister} style={{float: 'right'}}>
               注册
+              <RegisterDialog visible={this.state.registerDialogVisible}/>
             </Menu.Item>
             <Menu.Item key="Login" onClick={this.onClickLogin} style={{float: 'right'}}>
               登录

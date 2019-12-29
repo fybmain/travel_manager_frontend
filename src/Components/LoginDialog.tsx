@@ -1,5 +1,5 @@
 import React from 'react';
-import { Modal, Form, Button, Input } from 'antd';
+import { Modal, Form, Input, Icon, Row } from 'antd';
 
 export interface LoginDialogProps {
     visible: boolean;
@@ -20,15 +20,25 @@ export class LoginDialog extends React.Component<LoginDialogProps> {
         onCancel={this.handleCancel}
         okText="登录"
         cancelText="取消">
-        <h1 style={{ textAlign: "center" }}>Login</h1>
-        <Form>
+        <h1 style={{ textAlign: "center" }}>登录</h1>
+        <Form
+          layout="horizontal"
+          style={{marginLeft: "20%", marginRight: "20%"}}>
           
-          <Form.Item label="工号">
-            <Input></Input>
+          <Form.Item>
+            <Input
+              placeholder="工号"
+              prefix={<Icon type="number"/>}
+              size="large">
+            </Input>
           </Form.Item>
 
-          <Form.Item label="密码">
-            <Input.Password></Input.Password>
+          <Form.Item>
+            <Input.Password
+              placeholder="密码"
+              prefix={<Icon type="key"/>}
+              size="large">
+            </Input.Password>
           </Form.Item>
         
         </Form>
