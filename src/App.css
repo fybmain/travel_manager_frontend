@@ -39,11 +39,6 @@
   }
 }
 
-.page-central {
-  margin-left: 30%;
-  margin-right: 30%;
-}
-
 .background{
   width:100%;
   min-height:550px;
@@ -93,7 +88,7 @@
 }
 
 .tablePage{
-  height:700px;
+  height:800px;
   width:1000px;
   margin: auto;
   background-color: rgba(255, 255, 255, 0.9)

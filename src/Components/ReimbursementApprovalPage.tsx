@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Table } from 'antd';
 
+import '../App.css';
+
 export class ReimbursementApprovalPage extends Component {
   
   render() {
@@ -34,7 +36,9 @@ export class ReimbursementApprovalPage extends Component {
       },
     ];
     return (
-      <Table columns={columns} dataSource={data}/>
+      <div className="tablePage">
+        <Table columns={columns} dataSource={data}/>
+      </div>
     );
   }
 }

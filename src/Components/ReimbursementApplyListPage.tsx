@@ -3,9 +3,10 @@ import { Table, Row, Button, Switch } from 'antd';
 
 import history from '../history';
 import { ApplyStatus } from '../Models/AllModels';
-import Column from 'antd/lib/table/Column';
 import { observable } from 'mobx';
 import { observer } from 'mobx-react';
+
+const { Column } = Table;
 
 @observer
 export class ReimbursementApplyListPage extends React.Component {

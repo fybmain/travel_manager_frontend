@@ -31,8 +31,10 @@ export class ReimbursementApplyCreatePage extends Component {
       },
     };
     return (
-      <div className="page-central">
+      <div className="tablePage">
         <Form { ...formItemLayout } layout="horizontal">
+          <div style={{paddingTop: "50px"}}/>
+
           <Form.Item label="申请人">
             <Input disabled={true} value="张可"/>
           </Form.Item>
