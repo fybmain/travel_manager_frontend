@@ -1,10 +1,11 @@
-import React from 'react';
-import '../App.css';
+import React, { Component } from 'react';
 import { Menu } from 'antd';
 import { ClickParam } from 'antd/lib/menu';
 import { Route, Switch, Link, Redirect, Router } from 'react-router-dom';
 
+import '../App.css';
 import history from '../history';
+
 import { Home } from './Home';
 import { TravelApplyListPage } from './TravelApplyListPage';
 import { TravelApplyCreatePage } from './TravelApplyCreatePage';
@@ -12,17 +13,20 @@ import { ReimbursementApplyListPage } from './ReimbursementApplyListPage';
 import { ReimbursementApplyCreatePage } from './ReimbursementApplyCreatePage';
 import { TravelApprovalPage } from './TravelApprovalPage';
 import { ReimbursementApprovalPage } from './ReimbursementApprovalPage';
-import { Report } from './Report';
-import { Faq } from './Faq';
+
 import { PersonalReport } from './PersonalReport';
 import { DepartmentReport } from './DepartmentReport';
 import { CompanyReport } from './CompanyReport';
+
+import { Faq } from './Faq';
+import { AllUsers } from './AllUsers';
+
 import { LoginDialog } from './LoginDialog';
 import { RegisterDialog } from './RegisterDialog';
 
 const { SubMenu } = Menu;
 
-export class TopNavigationBar extends React.Component {
+export class TopNavigationBar extends Component {
   state = {
     current: '',
     loginDialogVisible: false,
@@ -99,6 +103,12 @@ export class TopNavigationBar extends React.Component {
               </Menu.Item>
             </SubMenu>
 
+            <Menu.Item key="AllUsers" style={{float: 'right'}}>
+              <Link to="/all-users">
+                武玥彤
+              </Link>
+            </Menu.Item>
+
             <Menu.Item key="Register" onClick={this.onClickRegister} style={{float: 'right'}}>
               注册
               <RegisterDialog visible={this.state.registerDialogVisible}/>
@@ -108,6 +118,7 @@ export class TopNavigationBar extends React.Component {
               <LoginDialog visible={this.state.loginDialogVisible}/>
             </Menu.Item>
           </Menu>
+
           <Switch>
             <Route exact path="/home" component={Home}/>
             
@@ -126,6 +137,7 @@ export class TopNavigationBar extends React.Component {
             <Route exact path="/company-report" component={CompanyReport}/>
 
             <Route exact path="/faq" component={Faq}/>
+            <Route exact path="/all-users" component={AllUsers}/>
             
             <Redirect to="/home"/>
           </Switch>

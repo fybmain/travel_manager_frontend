@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Form, Input, DatePicker, Upload, Icon, Button } from 'antd';
 import { InputMoneyAmount } from './InputMoneyAmount';
 
-const { TextArea } = Input;
 const { RangePicker } = DatePicker;
 
 export class ReimbursementApplyCreatePage extends Component {
