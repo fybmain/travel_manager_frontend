@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 
-export class DepartmentReport extends Component {
+export class PersonalReport extends Component {
   
   render() {
     return (
-      <h1>This is DepartmentReport page</h1>
+      <h1>This is PersonalReport page</h1>
     );
   }
 }

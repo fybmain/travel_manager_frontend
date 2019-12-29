@@ -1,5 +1,7 @@
 .App {
   text-align: center;
+  background: #1e90ff url(./Pictures/background2.jpg) center center no-repeat fixed;
+  background-size: cover;
 }
 
 .App-logo {
@@ -67,5 +69,40 @@
 
 :global(.ant-card-head){
   background: #8b2727d6!important;
-  font-size: 100px!important;
 }
+
+.myFont{
+  font-size: large;
+}
+
+.tablePage2{
+  position: absolute;
+  top:130px;
+  bottom:30px;
+  left:10%;
+  right:10%;
+  height:80%;
+  overflow: hidden;
+  width:80%;
+  margin: auto;
+}
+
+.tablePage{
+  height:700px;
+  width:1000px;
+  margin: auto;
+  background-color: rgba(255, 255, 255, 0.9)
+}
+
+.table{
+  padding:30px;
+}
+
+.bottomButton{
+  position: absolute;
+  bottom:40px;
+  left:10%;
+  right:10%;
+}
+
+
