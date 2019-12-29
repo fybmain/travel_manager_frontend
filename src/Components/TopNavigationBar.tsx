@@ -7,7 +7,9 @@ import { Route, Switch, Link, Redirect, Router } from 'react-router-dom';
 import history from '../history';
 import { Home } from './Home';
 import { TravelApplyListPage } from './TravelApplyListPage';
-import { ReimbursementApplyPage } from './ReimbursementApplyPage';
+import { TravelApplyCreatePage } from './TravelApplyCreatePage';
+import { ReimbursementApplyListPage } from './ReimbursementApplyListPage';
+import { ReimbursementApplyCreatePage } from './ReimbursementApplyCreatePage';
 import { TravelApprovalPage } from './TravelApprovalPage';
 import { ReimbursementApprovalPage } from './ReimbursementApprovalPage';
 import { Report } from './Report';
@@ -16,7 +18,6 @@ import { PersonalReport } from './PersonalReport';
 import { DepartmentReport } from './DepartmentReport';
 import { CompanyReport } from './CompanyReport';
 import { LoginDialog } from './LoginDialog';
-import { TravelApplyCreatePage } from './TravelApplyCreatePage';
 
 const { SubMenu } = Menu;
 
@@ -104,7 +105,8 @@ export class TopNavigationBar extends React.Component {
             <Route exact path="/travel-apply" component={TravelApplyListPage}/>
             <Route exact path="/travel-apply/create" component={TravelApplyCreatePage}/>
 
-            <Route exact path="/reimbursement-apply" component={ReimbursementApplyPage}/>
+            <Route exact path="/reimbursement-apply" component={ReimbursementApplyListPage}/>
+            <Route exact path="/reimbursement-apply/create" component={ReimbursementApplyCreatePage}/>
 
             <Route exact path="/travel-approval" component={TravelApprovalPage}/>
 

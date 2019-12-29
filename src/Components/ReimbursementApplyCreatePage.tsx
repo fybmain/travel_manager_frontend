@@ -5,7 +5,7 @@ import { InputMoneyAmount } from './InputMoneyAmount';
 const { TextArea } = Input;
 const { RangePicker } = DatePicker;
 
-export class ReimbursementApplyPage extends Component {
+export class ReimbursementApplyCreatePage extends Component {
   
   render() {
     const formItemLayout = {
