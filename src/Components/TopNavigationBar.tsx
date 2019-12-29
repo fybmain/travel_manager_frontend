@@ -13,23 +13,31 @@ import { Faq } from './Faq';
 import { PersonalReport } from './PersonalReport';
 import { DepartmentReport } from './DepartmentReport';
 import { CompanyReport } from './CompanyReport';
+import { LoginDialog } from './LoginDialog';
 
 const { SubMenu } = Menu;
 
 export class TopNavigationBar extends React.Component {
   state = {
     current: '',
+    loginDialogVisible: false,
   }
 
-  handleClick = (e:ClickParam) => {
+  handleClick = (e: ClickParam) => {
     this.setState({
-      current: e.key
+      current: e.key,
+    });
+  };
+
+  onClickLogin = (e: ClickParam) => {
+    this.setState({
+      loginDialogVisible: true,
     });
   };
 
   render() {
     return (
-        <div>
+      <div>
         <HashRouter>
           <Menu onClick={this.handleClick} selectedKeys={[this.state.current]} mode="horizontal">
             <Menu.Item key="Home">
@@ -71,18 +79,20 @@ export class TopNavigationBar extends React.Component {
                 <Link to="/department-report">
                   部门报表
                 </Link>
-              </Menu.Item><Menu.Item key="CompanyReport">
+              </Menu.Item>
+              <Menu.Item key="CompanyReport">
                 <Link to="/company-report">
                   公司报表
                 </Link>
               </Menu.Item>
             </SubMenu>
 
-            <Menu.Item key="/register" style={{float: 'right'}}>
+            <Menu.Item key="Register" style={{float: 'right'}}>
               注册
             </Menu.Item>
-            <Menu.Item key="/login" style={{float: 'right'}}>
+            <Menu.Item key="Login" onClick={this.onClickLogin} style={{float: 'right'}}>
               登录
+              <LoginDialog visible={this.state.loginDialogVisible}/>
             </Menu.Item>
           </Menu>
           <Switch>
@@ -99,7 +109,7 @@ export class TopNavigationBar extends React.Component {
           </Switch>
         </HashRouter>
 
-        </div>
+      </div>
     );
   }
 }
