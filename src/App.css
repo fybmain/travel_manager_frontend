@@ -109,3 +109,8 @@
   left:10%;
   right:10%;
 }
+
+.floatLeft{
+  padding:30px;
+  text-align: left;
+}

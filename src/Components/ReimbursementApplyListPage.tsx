@@ -15,19 +15,19 @@ export class ReimbursementApplyListPage extends React.Component {
   render() {
     return (
       <div className="tablePage">
-        <br/>
-        <span className="myFont">&nbsp;&nbsp;待审核 &nbsp;</span>
-        <span><Switch defaultChecked onChange={this.onChange} /></span>
-        <br/>
-        <br/>
+        <div  className="floatLeft">
+          <br/>
+          <span className="myFont">&nbsp;&nbsp;待提交 &nbsp;</span>
+          <span><Switch defaultChecked onChange={this.onChange} /></span>
+        </div>
         {this.showData(this.showPendingReview)}
       </div>
     );
   }
 
-
     onChange=(checked: boolean, event: MouseEvent)=>{
         this.showPendingReview=!this.showPendingReview;
+        console.log("click")
     }
 
     showData=(showPendingReview:boolean)=>{
@@ -42,23 +42,23 @@ const data1 = [
   {
     id: "4",
     key: "4",
-    name: "李四",
+    name: "周东",
     applyTIme:"2019-05-10 10:55:23",
     applyStatus:ApplyStatus[3],
   },
   {
     id: "10",
     key: "10",
-    name: "王五",
-    applyTIme:"2019-12-28 10:01:02",
-    applyStatus:ApplyStatus[1],
+    name: "周东",
+    applyTIme:"2019-12-20 10:01:02",
+    applyStatus:ApplyStatus[2],
   },
   {
     id: "12",
     key: "12",
-    name: "张可",
+    name: "周东",
     applyTIme:"2019-12-30 08:01:02",
-    applyStatus:ApplyStatus[2],
+    applyStatus:ApplyStatus[1],
   },
 ];
 
@@ -72,7 +72,7 @@ const table2=()=>{
             title="详情"
             key="action"
             render={(text, record) => (
-              <Button onClick={handleCreate} type="primary">查看详情</Button>
+              <Button onClick={handleCreate} type="primary">提交报销申请</Button>
             )}
             />
     </Table>
