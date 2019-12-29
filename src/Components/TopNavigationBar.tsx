@@ -1,36 +1,60 @@
 import React, { Component } from 'react';
-import '../App.css';
 import { Menu } from 'antd';
 import { ClickParam } from 'antd/lib/menu';
-import { HashRouter, Route, Switch, Link, Redirect, Router } from 'react-router-dom';
+import { Route, Switch, Link, Redirect, Router } from 'react-router-dom';
+
+import '../App.css';
+import history from '../history';
+
 import { Home } from './Home';
-import { TravelApplyPage } from './TravelApplyPage';
-import { ReimbursementApplyPage } from './ReimbursementApplyPage';
-import { TravelExaminePage } from './TravelExaminePage';
-import { ReimbursementExaminePage } from './ReimbursementExaminePage';
-import { Faq } from './Faq';
-import { AllUsers } from './AllUsers';
+import { TravelApplyListPage } from './TravelApplyListPage';
+import { TravelApplyCreatePage } from './TravelApplyCreatePage';
+import { ReimbursementApplyListPage } from './ReimbursementApplyListPage';
+import { ReimbursementApplyCreatePage } from './ReimbursementApplyCreatePage';
+import { TravelApprovalPage } from './TravelApprovalPage';
+import { ReimbursementApprovalPage } from './ReimbursementApprovalPage';
+
+import { PersonalReport } from './PersonalReport';
 import { DepartmentReport } from './DepartmentReport';
 import { CompanyReport } from './CompanyReport';
-import { PersonalReport } from './PersonalReport';
+
+import { Faq } from './Faq';
+import { AllUsers } from './AllUsers';
+
+import { LoginDialog } from './LoginDialog';
+import { RegisterDialog } from './RegisterDialog';
 
 const { SubMenu } = Menu;
 
 export class TopNavigationBar extends Component {
   state = {
     current: '',
+    loginDialogVisible: false,
+    registerDialogVisible: false,
   }
 
-  handleClick = (e:ClickParam) => {
+  handleClick = (e: ClickParam) => {
     this.setState({
-      current: e.key
+      current: e.key,
     });
-  };
+  }
+
+  onClickLogin = (e: ClickParam) => {
+    this.setState({
+      loginDialogVisible: true,
+    });
+  }
+
+  onClickRegister = (e: ClickParam) => {
+    this.setState({
+      registerDialogVisible: true,
+    });
+  }
 
   render() {
     return (
-        <div>
-        <HashRouter>
+      <div>
+        <Router history={history}>
           <Menu onClick={this.handleClick} selectedKeys={[this.state.current]} mode="horizontal">
             <Menu.Item key="Home">
               <Link to="/home">
@@ -51,12 +75,12 @@ export class TopNavigationBar extends Component {
             </SubMenu>
             <SubMenu title="审批">
               <Menu.Item key="TravelExamine">
-                <Link to="/travel-examine">
+                <Link to="/travel-approval">
                   出差审批
                 </Link>
               </Menu.Item>
               <Menu.Item key="ReimbursementExamine">
-                <Link to="/reimbursement-examine">
+                <Link to="/reimbursement-approval">
                   报销审批
                 </Link>
               </Menu.Item>
@@ -71,7 +95,8 @@ export class TopNavigationBar extends Component {
                 <Link to="/department-report">
                   部门报表
                 </Link>
-              </Menu.Item><Menu.Item key="CompanyReport">
+              </Menu.Item>
+              <Menu.Item key="CompanyReport">
                 <Link to="/company-report">
                   公司报表
                 </Link>
@@ -79,33 +104,45 @@ export class TopNavigationBar extends Component {
             </SubMenu>
 
             <Menu.Item key="AllUsers" style={{float: 'right'}}>
-              <Link to="/allUsers">
+              <Link to="/all-users">
                 武玥彤
               </Link>
             </Menu.Item>
-            {/*<Menu.Item key="/register" style={{float: 'right'}}>
-              注册
-            </Menu.Item>
-            <Menu.Item key="/login" style={{float: 'right'}}>
-              登录
-    </Menu.Item>*/}
-          </Menu>
-          <Switch>
-              <Route exact path="/home" component={Home}/>
-              <Route exact path="/travel-apply" component={TravelApplyPage}/>
-              <Route exact path="/reimbursement-apply" component={ReimbursementApplyPage }/>
-              <Route exact path="/travel-examine" component={TravelExaminePage}/>
-              <Route exact path="/reimbursement-examine" component={ReimbursementExaminePage}/>
-              <Route exact path="/personal-report" component={PersonalReport}/>
-              <Route exact path="/department-report" component={DepartmentReport}/>
-              <Route exact path="/company-report" component={CompanyReport}/>
-              <Route exact path="/faq" component={Faq}/>
-              <Route exact path="/allUsers" component={AllUsers}/>
-              <Redirect to="/home"/>
-          </Switch>
-        </HashRouter>
 
-        </div>
+            <Menu.Item key="Register" onClick={this.onClickRegister} style={{float: 'right'}}>
+              注册
+              <RegisterDialog visible={this.state.registerDialogVisible}/>
+            </Menu.Item>
+            <Menu.Item key="Login" onClick={this.onClickLogin} style={{float: 'right'}}>
+              登录
+              <LoginDialog visible={this.state.loginDialogVisible}/>
+            </Menu.Item>
+          </Menu>
+
+          <Switch>
+            <Route exact path="/home" component={Home}/>
+            
+            <Route exact path="/travel-apply" component={TravelApplyListPage}/>
+            <Route exact path="/travel-apply/create" component={TravelApplyCreatePage}/>
+
+            <Route exact path="/reimbursement-apply" component={ReimbursementApplyListPage}/>
+            <Route exact path="/reimbursement-apply/create" component={ReimbursementApplyCreatePage}/>
+
+            <Route exact path="/travel-approval" component={TravelApprovalPage}/>
+
+            <Route exact path="/reimbursement-approval" component={ReimbursementApprovalPage}/>
+
+            <Route exact path="/personal-report" component={PersonalReport}/>
+            <Route exact path="/department-report" component={DepartmentReport}/>
+            <Route exact path="/company-report" component={CompanyReport}/>
+
+            <Route exact path="/faq" component={Faq}/>
+            <Route exact path="/all-users" component={AllUsers}/>
+            
+            <Redirect to="/home"/>
+          </Switch>
+        </Router>
+      </div>
     );
   }
 }

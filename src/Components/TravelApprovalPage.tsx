@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Table } from 'antd';
 
-export class ReimbursementExaminePage extends Component {
+export class TravelApprovalPage extends Component {
   
   render() {
     const columns = [
@@ -24,13 +24,28 @@ export class ReimbursementExaminePage extends Component {
     const data = [
       {
         name: '张可',
-        time: '2019-12-27 11:00:00',
+        time: '2019-12-24 10:00:00',
         status: '待部门经理审核',
       },
       {
         name: '赵可',
-        time: '2019-12-28 12:00:00',
+        time: '2019-12-25 11:00:00',
         status: '待总经理审核',
+      },
+      {
+        name: '钱可',
+        time: '2019-12-26 12:00:00',
+        status: '待部门经理审核',
+      },
+      {
+        name: '孙可',
+        time: '2019-12-27 13:00:00',
+        status: '审核通过',
+      },
+      {
+        name: '李可',
+        time: '2019-12-28 14:00:00',
+        status: '审核未通过',
       },
     ];
     return (
