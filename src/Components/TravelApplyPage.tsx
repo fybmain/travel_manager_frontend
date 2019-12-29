@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
-import { Form, Input, Button, DatePicker } from 'antd';
+import Column from 'antd/lib/table/Column';
+import { ApplyStatus } from '../Models/AllModels';
+
+import { Table, Form, Input, Button, DatePicker } from 'antd';
 import { InputMoneyAmount } from './InputMoneyAmount';
 
 const { TextArea } = Input;
@@ -25,47 +28,44 @@ export class TravelApplyPage extends Component {
       },
     };
     return (
-      <div className="page-central">
-        <Form { ...formItemLayout } layout="horizontal">
-          <Form.Item label="申请人">
-            <Input disabled={true} value="张可"/>
-          </Form.Item>
-
-          <Form.Item label="出差时间">
-            <RangePicker></RangePicker>
-          </Form.Item>
-
-          <Form.Item label="出差地点">
-            <Input></Input>
-          </Form.Item>
-
-          <Form.Item label="出差事由">
-            <TextArea rows={10} />
-          </Form.Item>
-
-          <Form.Item label="酒店预算">
-           <InputMoneyAmount />
-          </Form.Item>
-
-          <Form.Item label="车旅预算">
-           <InputMoneyAmount />
-          </Form.Item>
-
-          <Form.Item label="饮食预算">
-            <InputMoneyAmount />
-          </Form.Item>
-
-          <Form.Item label="其他预算">
-            <InputMoneyAmount />
-          </Form.Item>
-
-          <Form.Item { ...tailItemLayout }>
-            <Button type="primary" htmlType="submit">
-              提交出差申请
-            </Button>
-          </Form.Item>
-        </Form>
+      <div>
+        <div className="tablePage">
+          <br/><br/>
+          {table2()}
+          <div className="bottomButton">
+            <Button type="primary">提交申请</Button>
+          </div>
+        </div>
       </div>
     );
   }
 }
+
+const data1 = [
+  {
+    id: "4",
+    key: "4",
+    name: "李四",
+    applyTIme:"2019-05-10 10:55:23",
+    applyStatus:ApplyStatus[3],
+  },
+  {
+    id: "10",
+    key: "10",
+    name: "李四",
+    applyTIme:"2019-12-28 10:01:02",
+    applyStatus:ApplyStatus[0],
+  },
+];
+
+const table2=()=>{
+  return(
+      <Table dataSource={data1} className="table">
+          <Column title="申请ID" dataIndex="id" key="id" />
+          <Column title="申请人" dataIndex="name" key="name" />
+          <Column title="申请时间" dataIndex="applyTIme" key="applyTIme" />
+          <Column title="申请状态" dataIndex="applyStatus" key="applyStatus" />
+      </Table>
+  );
+}
+

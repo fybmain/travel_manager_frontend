@@ -1,22 +1,22 @@
-import React from 'react';
+import React, { Component } from 'react';
 import '../App.css';
 import { Menu } from 'antd';
 import { ClickParam } from 'antd/lib/menu';
-import { HashRouter, Route, Switch, Link, Redirect } from 'react-router-dom';
+import { HashRouter, Route, Switch, Link, Redirect, Router } from 'react-router-dom';
 import { Home } from './Home';
 import { TravelApplyPage } from './TravelApplyPage';
 import { ReimbursementApplyPage } from './ReimbursementApplyPage';
 import { TravelExaminePage } from './TravelExaminePage';
 import { ReimbursementExaminePage } from './ReimbursementExaminePage';
-import { Report } from './Report';
 import { Faq } from './Faq';
-import { PersonalReport } from './PersonalReport';
+import { AllUsers } from './AllUsers';
 import { DepartmentReport } from './DepartmentReport';
 import { CompanyReport } from './CompanyReport';
+import { PersonalReport } from './PersonalReport';
 
 const { SubMenu } = Menu;
 
-export class TopNavigationBar extends React.Component {
+export class TopNavigationBar extends Component {
   state = {
     current: '',
   }
@@ -78,23 +78,29 @@ export class TopNavigationBar extends React.Component {
               </Menu.Item>
             </SubMenu>
 
-            <Menu.Item key="/register" style={{float: 'right'}}>
+            <Menu.Item key="AllUsers" style={{float: 'right'}}>
+              <Link to="/allUsers">
+                武玥彤
+              </Link>
+            </Menu.Item>
+            {/*<Menu.Item key="/register" style={{float: 'right'}}>
               注册
             </Menu.Item>
             <Menu.Item key="/login" style={{float: 'right'}}>
               登录
-            </Menu.Item>
+    </Menu.Item>*/}
           </Menu>
           <Switch>
               <Route exact path="/home" component={Home}/>
               <Route exact path="/travel-apply" component={TravelApplyPage}/>
-              <Route exact path="/reimbursement-apply" component={ReimbursementApplyPage}/>
+              <Route exact path="/reimbursement-apply" component={ReimbursementApplyPage }/>
               <Route exact path="/travel-examine" component={TravelExaminePage}/>
               <Route exact path="/reimbursement-examine" component={ReimbursementExaminePage}/>
               <Route exact path="/personal-report" component={PersonalReport}/>
               <Route exact path="/department-report" component={DepartmentReport}/>
               <Route exact path="/company-report" component={CompanyReport}/>
               <Route exact path="/faq" component={Faq}/>
+              <Route exact path="/allUsers" component={AllUsers}/>
               <Redirect to="/home"/>
           </Switch>
         </HashRouter>
