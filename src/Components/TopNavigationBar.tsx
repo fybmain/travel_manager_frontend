@@ -8,8 +8,8 @@ import history from '../history';
 import { Home } from './Home';
 import { TravelApplyListPage } from './TravelApplyListPage';
 import { ReimbursementApplyPage } from './ReimbursementApplyPage';
-import { TravelExaminePage } from './TravelExaminePage';
-import { ReimbursementExaminePage } from './ReimbursementExaminePage';
+import { TravelApprovalPage } from './TravelApprovalPage';
+import { ReimbursementApprovalPage } from './ReimbursementApprovalPage';
 import { Report } from './Report';
 import { Faq } from './Faq';
 import { PersonalReport } from './PersonalReport';
@@ -62,12 +62,12 @@ export class TopNavigationBar extends React.Component {
             </SubMenu>
             <SubMenu title="审批">
               <Menu.Item key="TravelExamine">
-                <Link to="/travel-examine">
+                <Link to="/travel-approval">
                   出差审批
                 </Link>
               </Menu.Item>
               <Menu.Item key="ReimbursementExamine">
-                <Link to="/reimbursement-examine">
+                <Link to="/reimbursement-approval">
                   报销审批
                 </Link>
               </Menu.Item>
@@ -105,11 +105,15 @@ export class TopNavigationBar extends React.Component {
             <Route exact path="/travel-apply/create" component={TravelApplyCreatePage}/>
 
             <Route exact path="/reimbursement-apply" component={ReimbursementApplyPage}/>
-            <Route exact path="/travel-examine" component={TravelExaminePage}/>
-            <Route exact path="/reimbursement-examine" component={ReimbursementExaminePage}/>
+
+            <Route exact path="/travel-approval" component={TravelApprovalPage}/>
+
+            <Route exact path="/reimbursement-approval" component={ReimbursementApprovalPage}/>
+
             <Route exact path="/personal-report" component={PersonalReport}/>
             <Route exact path="/department-report" component={DepartmentReport}/>
             <Route exact path="/company-report" component={CompanyReport}/>
+
             <Route exact path="/faq" component={Faq}/>
             
             <Redirect to="/home"/>
