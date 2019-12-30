@@ -21,6 +21,8 @@ import { CompanyReport } from './CompanyReport';
 import { Faq } from './Faq';
 import { AllUsers } from './AllUsers';
 import { UserInfoPage } from './UserInfoPage';
+import { UserInfoEditPage } from './UserInfoEditPage';
+import { UserPasswordEditPage } from './UserPasswordEditPage';
 
 import { LoginDialog } from './LoginDialog';
 import { RegisterDialog } from './RegisterDialog';
@@ -200,6 +202,8 @@ export class MainLayout extends Component {
                   <Route exact path="/faq" component={Faq} />
                   <Route exact path="/all-users" component={AllUsers} />
                   <Route exact path="/user-info" component={UserInfoPage} />
+                  <Route exact path="/user-info/edit" component={UserInfoEditPage} />
+                  <Route exact path="/user-info/edit-password" component={UserPasswordEditPage} />
 
                   <Redirect to="/home" />
                 </Switch>
