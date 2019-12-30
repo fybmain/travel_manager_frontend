@@ -44,9 +44,12 @@ export class TravelApplyListPage extends React.Component {
       <div className="tablePage">
         <br/><br/>
         { table2() }
-        <div className="bottomButton">
-          <Button onClick={this.handleCreate} type="primary">提交申请</Button>
-        </div>
+        <Row>
+          <Col span={11}></Col>
+          <Col span={2}>
+            <Button onClick={this.handleCreate} type="primary">提交申请</Button>
+          </Col>
+        </Row>
       </div>
     );
   }
