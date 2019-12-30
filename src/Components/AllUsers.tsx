@@ -1,38 +1,41 @@
 import React, { Component } from 'react';
-import { Switch, Dropdown, Button, Icon, Menu, Select } from 'antd';
+import { Switch, Select, Table, Divider, Radio } from 'antd';
+import { RadioChangeEvent } from 'antd/lib/radio';
 import {observable} from 'mobx';
 import { observer } from 'mobx-react';
-import { Table, Divider, Tag } from 'antd';
-import Column from 'antd/lib/table/Column';
+
 import '../App.css';
 
+const { Column } = Table;
 const { Option } = Select;
 
 @observer
 export class AllUsers extends Component {
     
-    @observable showAllData:boolean = false;
+    @observable showAllData: boolean = true;
     render() {
         return (
             <div className="tablePage">
               <div className="floatLeft">
                 <br />
-                <span className="myFont">&nbsp;&nbsp;待审核 &nbsp;</span>
-                <span><Switch defaultChecked onChange={this.onChange} /></span>
+                <Radio.Group value={this.showAllData} onChange={this.handleChange}>
+                    <Radio.Button value={false}>已审核</Radio.Button>
+                    <Radio.Button value={true}>待审核</Radio.Button>
+                </Radio.Group>
               </div>
               {this.showData(this.showAllData)}
             </div>
         );
     }
 
-    onChange=(checked: boolean, event: MouseEvent)=>{
-        this.showAllData=!this.showAllData;
+    handleChange = (e: RadioChangeEvent) => {
+        this.showAllData = !this.showAllData;
     }
 
     showData=(showAllData:boolean)=>{
         return (showAllData?
-            <div>{table2()}</div>
-        :<div>{table1()}</div>)
+            <div>{table1()}</div>
+        :<div>{table2()}</div>)
     }
 
 }

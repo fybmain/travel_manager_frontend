@@ -1,5 +1,6 @@
 import React from 'react';
-import { Table, Row, Button, Switch } from 'antd';
+import { Table, Button, Radio } from 'antd';
+import { RadioChangeEvent } from 'antd/lib/radio';
 
 import history from '../history';
 import { ApplyStatus } from '../Models/AllModels';
@@ -18,24 +19,25 @@ export class ReimbursementApplyListPage extends React.Component {
       <div className="tablePage">
         <div  className="floatLeft">
           <br/>
-          <span className="myFont">&nbsp;&nbsp;待提交 &nbsp;</span>
-          <span><Switch defaultChecked onChange={this.onChange} /></span>
+          <Radio.Group value={this.showPendingReview} onChange={this.handleChange}>
+            <Radio.Button value={false}>已报销</Radio.Button>
+            <Radio.Button value={true}>未报销</Radio.Button>
+          </Radio.Group>
         </div>
         {this.showData(this.showPendingReview)}
       </div>
     );
   }
 
-    onChange=(checked: boolean, event: MouseEvent)=>{
-        this.showPendingReview=!this.showPendingReview;
-        console.log("click")
-    }
+  handleChange = (e: RadioChangeEvent) => {
+    this.showPendingReview = !this.showPendingReview;
+  }
 
-    showData=(showPendingReview:boolean)=>{
-        return (showPendingReview?
-            <div>{table2()}</div>
-        :<div>{table3()}</div>)
-    }
+  showData=(showPendingReview:boolean)=>{
+      return (showPendingReview?
+          <div>{table2()}</div>
+      :<div>{table3()}</div>)
+  }
 }
 
 
@@ -70,12 +72,12 @@ const table2=()=>{
       <Column title="申请人" dataIndex="name" key="name" />
       <Column title="申请时间" dataIndex="applyTIme" key="applyTIme" />
       <Column
-            title="详情"
-            key="action"
-            render={(text, record) => (
-              <Button onClick={handleCreate} type="primary">提交报销申请</Button>
-            )}
-            />
+        title="详情"
+        key="action"
+        render={(text, record) => (
+          <Button onClick={handleCreate} type="primary">提交报销申请</Button>
+        )}
+        />
     </Table>
   );
 }
