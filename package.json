@@ -10,6 +10,8 @@
     "axios": "^0.19.0",
     "babel-plugin-import": "^1.13.0",
     "customize-cra": "^0.9.1",
+    "highcharts": "^8.0.0",
+    "highcharts-react-official": "^2.2.2",
     "http-proxy-middleware": "^0.20.0",
     "mobx": "^5.15.1",
     "mobx-react": "^6.1.4",
