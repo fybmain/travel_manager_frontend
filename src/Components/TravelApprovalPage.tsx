@@ -1,55 +1,101 @@
-import React, { Component } from 'react';
-import { Table } from 'antd';
+import React from 'react';
+import { Table, Row, Button, Switch } from 'antd';
 
-export class TravelApprovalPage extends Component {
+import history from '../history';
+import { ApplyStatus } from '../Models/AllModels';
+import Column from 'antd/lib/table/Column';
+import { observable } from 'mobx';
+import { observer } from 'mobx-react';
+
+@observer
+export class TravelApprovalPage extends React.Component {
   
+  @observable showPendingReview:boolean = true;
+
   render() {
-    const columns = [
-      {
-        title: '申请人',
-        dataIndex: 'name',
-        key: 'name',
-      },
-      {
-        title: '申请时间',
-        dataIndex: 'time',
-        key: 'time',
-      },
-      {
-        title: '申请状态',
-        dataIndex: 'status',
-        key: 'status',
-      },
-    ];
-    const data = [
-      {
-        name: '张可',
-        time: '2019-12-24 10:00:00',
-        status: '待部门经理审核',
-      },
-      {
-        name: '赵可',
-        time: '2019-12-25 11:00:00',
-        status: '待总经理审核',
-      },
-      {
-        name: '钱可',
-        time: '2019-12-26 12:00:00',
-        status: '待部门经理审核',
-      },
-      {
-        name: '孙可',
-        time: '2019-12-27 13:00:00',
-        status: '审核通过',
-      },
-      {
-        name: '李可',
-        time: '2019-12-28 14:00:00',
-        status: '审核未通过',
-      },
-    ];
     return (
-      <Table columns={columns} dataSource={data}/>
+      <div className="tablePage">
+        <div  className="floatLeft">
+          <br/>
+          <span className="myFont">&nbsp;&nbsp;待审批 &nbsp;</span>
+          <span><Switch defaultChecked onChange={this.onChange} /></span>
+        </div>
+        {this.showData(this.showPendingReview)}
+      </div>
     );
   }
+
+    onChange=(checked: boolean, event: MouseEvent)=>{
+        this.showPendingReview=!this.showPendingReview;
+        console.log("click")
+    }
+
+    showData=(showPendingReview:boolean)=>{
+      return <div>{table2(showPendingReview)}</div>;
+    }
 }
+
+
+const data1 = [
+  {
+    id: "4",
+    key: "4",
+    name: "李可",
+    applyTIme:"2018-05-10 10:55:23",
+    applyStatus:ApplyStatus[2],
+  },
+  {
+    id: "9",
+    key: "9",
+    name: "陈可",
+    applyTIme:"2018-12-20 10:01:02",
+    applyStatus:ApplyStatus[2],
+  },
+  {
+    id: "13",
+    key: "13",
+    name: "周北",
+    applyTIme:"2018-12-30 08:01:02",
+    applyStatus:ApplyStatus[1],
+  },
+  {
+    id: "9",
+    key: "9",
+    name: "周西",
+    applyTIme:"2019-12-20 10:01:02",
+    applyStatus:ApplyStatus[0],
+  },
+  {
+    id: "13",
+    key: "13",
+    name: "周北",
+    applyTIme:"2019-12-30 08:01:02",
+    applyStatus:ApplyStatus[0],
+  },
+];
+
+const table2=(showPendingReview:boolean)=>{
+  const data2=showPendingReview?
+    data1.filter(x=>x.applyStatus==ApplyStatus[0])
+    :data1.filter(x=>x.applyStatus!=ApplyStatus[0])
+  return(
+    <Table dataSource={data2} className="table">
+      <Column title="申请ID" dataIndex="id" key="id" />
+      <Column title="申请人" dataIndex="name" key="name" />
+      <Column title="申请时间" dataIndex="applyTIme" key="applyTIme" />
+      <Column title="申请状态" dataIndex="applyStatus" key="applyStatus" />
+      <Column
+            title="详情"
+            key="action"
+            render={(text, record) => (
+              <Button onClick={handleCreate} type="primary">查看详情</Button>
+            )}
+            />
+    </Table>
+  );
+}
+
+const  handleCreate = (e: React.MouseEvent) => {
+  history.push('/reimbursement-apply/create');
+}
+
