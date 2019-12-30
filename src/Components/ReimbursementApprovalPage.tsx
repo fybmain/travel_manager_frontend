@@ -1,11 +1,13 @@
 import React from 'react';
-import { Table, Row, Button, Switch } from 'antd';
+import { Table, Radio } from 'antd';
+import { RadioChangeEvent } from 'antd/lib/radio';
+import { observable } from 'mobx';
+import { observer } from 'mobx-react';
 
 import history from '../history';
 import { ApplyStatus } from '../Models/AllModels';
-import Column from 'antd/lib/table/Column';
-import { observable } from 'mobx';
-import { observer } from 'mobx-react';
+
+const { Column } = Table;
 
 @observer
 export class ReimbursementApprovalPage extends React.Component {
@@ -17,17 +19,18 @@ export class ReimbursementApprovalPage extends React.Component {
       <div className="tablePage">
         <div className="floatLeft">
           <br />
-          <span className="myFont">&nbsp;&nbsp;待审批 &nbsp;</span>
-          <span><Switch defaultChecked onChange={this.onChange} /></span>
+          <Radio.Group value={this.showPendingReview} onChange={this.handleChange}>
+            <Radio.Button value={false}>已审批</Radio.Button>
+            <Radio.Button value={true}>待审批</Radio.Button>
+          </Radio.Group>
         </div>
         {this.showData(this.showPendingReview)}
       </div>
     );
   }
 
-  onChange = (checked: boolean, event: MouseEvent) => {
+  handleChange = (e: RadioChangeEvent) => {
     this.showPendingReview = !this.showPendingReview;
-    console.log("click")
   }
 
   showData = (showPendingReview: boolean) => {
