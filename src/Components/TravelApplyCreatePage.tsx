@@ -25,7 +25,9 @@ export class TravelApplyCreatePage extends Component {
       },
     };
     return (
-      <div className="page-central">
+      <div className="tablePage">
+        <div style={{paddingTop: "50px"}}/>
+
         <Form { ...formItemLayout } layout="horizontal">
           <Form.Item label="申请人">
             <Input disabled={true} value="张可"/>

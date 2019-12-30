@@ -49,7 +49,9 @@ export class TravelApprovalPage extends Component {
       },
     ];
     return (
-      <Table columns={columns} dataSource={data}/>
+      <div className="tablePage">
+        <Table columns={columns} dataSource={data}/>
+      </div>
     );
   }
 }
