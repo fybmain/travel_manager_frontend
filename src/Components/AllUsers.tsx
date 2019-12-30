@@ -14,13 +14,13 @@ export class AllUsers extends Component {
     @observable showAllData:boolean = false;
     render() {
         return (
-            <div>
-                <br/>
+            <div className="tablePage">
+              <div className="floatLeft">
+                <br />
                 <span className="myFont">&nbsp;&nbsp;待审核 &nbsp;</span>
-                <span><Switch onChange={this.onChange} /></span>
-                <br/>
-                <br/>
-                {this.showData(this.showAllData)}
+                <span><Switch defaultChecked onChange={this.onChange} /></span>
+              </div>
+              {this.showData(this.showAllData)}
             </div>
         );
     }
@@ -45,7 +45,7 @@ function handleChange(e: any) {
   
 const table1=()=>{
     return(
-        <Table dataSource={data1}>
+        <Table dataSource={data1} className="table">
             <Column title="用户ID" dataIndex="id" key="id" />
             <Column title="工号" dataIndex="workId" key="workId" />
             <Column title="姓名" dataIndex="name" key="name" />
@@ -122,7 +122,7 @@ const data1 = [
 
 const table2=()=>{
     return(
-        <Table dataSource={data1}>
+        <Table dataSource={data1} className="table">
             <Column title="用户ID" dataIndex="id" key="id" />
             <Column title="工号" dataIndex="workId" key="workId" />
             <Column title="姓名" dataIndex="name" key="name" />

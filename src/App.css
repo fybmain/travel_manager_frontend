@@ -101,10 +101,7 @@
 }
 
 .bottomButton{
-  position: absolute;
-  bottom:40px;
-  left:10%;
-  right:10%;
+  margin:auto;
 }
 
 .floatLeft{

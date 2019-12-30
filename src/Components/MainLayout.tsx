@@ -63,21 +63,23 @@ export class MainLayout extends Component {
                 mode="horizontal"
                 style={{ lineHeight: '64px' }}
               >
-                {/*<Menu.Item key="AllUsers" style={{ float: 'right' }}>
-                  周东
-                </Menu.Item> */}
+                <Menu.Item key="AllUsers" style={{ float: 'right' }}>
+                  <Link to="/all-users">
+                    周东
+                  </Link>
+                </Menu.Item>
                 <Menu.Item key="logo" style={{ float: 'left' }} disabled>
                   <p className='logo'>Travel Manager</p>
-                
+
                 </Menu.Item>
 
-                 <Menu.Item key="Register" onClick={this.onClickRegister} style={{float: 'right'}}>
+                <Menu.Item key="Register" onClick={this.onClickRegister} style={{ float: 'right' }}>
                   注册
-                  <RegisterDialog visible={this.state.registerDialogVisible}/>
+                  <RegisterDialog visible={this.state.registerDialogVisible} />
                 </Menu.Item>
-                <Menu.Item key="Login" onClick={this.onClickLogin} style={{float: 'right'}}>
+                <Menu.Item key="Login" onClick={this.onClickLogin} style={{ float: 'right' }}>
                   登录
-                  <LoginDialog visible={this.state.loginDialogVisible}/>
+                  <LoginDialog visible={this.state.loginDialogVisible} />
                 </Menu.Item>
               </Menu>
             </Header>
