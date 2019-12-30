@@ -69,7 +69,7 @@ export class MainLayout extends Component {
                   </Link>
                 </Menu.Item>
                 <Menu.Item key="logo" style={{ float: 'left' }} disabled>
-                  <p className='logo'>Travel Manager</p>
+                  <p className='logo'>Travel Reimbursement System</p>
 
                 </Menu.Item>
 
