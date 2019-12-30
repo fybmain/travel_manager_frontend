@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import '../App.css';
 import { Row, Col, Card, Icon } from 'antd';
 import { ApplyFlowChart } from './ApplyFlowChart';
+import { ApproveFlowChart } from './ApproveFlowChart';
+
 //import '../my.module.less';
 export class Home extends Component {
   render() {
@@ -56,8 +58,15 @@ const box1 = () => {
 const box2 = () => {
   return (
     <div className="box">
-      <Card title="经理审批流程" bordered={false}>
-        流程图
+      <Card
+        title={
+          <span>
+            <Icon type="form" />
+            &nbsp;&nbsp;经理审批流程
+          </span>
+        }
+        bordered={false}>
+        <ApproveFlowChart/>
       </Card>
     </div>
   );
