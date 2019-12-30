@@ -1,7 +1,7 @@
 import React from 'react';
 import { Form, Input, Button, Icon } from 'antd';
 
-export class UserInfo extends React.Component {
+export class UserInfoPage extends React.Component {
   render() {
     const formItemLayout = {
       labelCol: {

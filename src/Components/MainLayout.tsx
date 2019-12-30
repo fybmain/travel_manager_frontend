@@ -19,6 +19,7 @@ import { CompanyReport } from './CompanyReport';
 
 import { Faq } from './Faq';
 import { AllUsers } from './AllUsers';
+import { UserInfoPage } from './UserInfoPage';
 
 import { LoginDialog } from './LoginDialog';
 import { RegisterDialog } from './RegisterDialog';
@@ -63,14 +64,19 @@ export class MainLayout extends Component {
                 mode="horizontal"
                 style={{ lineHeight: '64px' }}
               >
-                <Menu.Item key="AllUsers" style={{ float: 'right' }}>
-                  <Link to="/all-users">
-                    周东
-                  </Link>
-                </Menu.Item>
                 <Menu.Item key="logo" style={{ float: 'left' }} disabled>
                   <p className='logo'>Travel Reimbursement System</p>
+                </Menu.Item>
 
+                <Menu.Item key="AllUsers" style={{ float: 'right' }}>
+                  <Link to="/all-users">
+                    管理员
+                  </Link>
+                </Menu.Item>
+                <Menu.Item key="UserInfo" style={{ float: 'right' }}>
+                  <Link to="/user-info">
+                    周东
+                  </Link>
                 </Menu.Item>
 
                 <Menu.Item key="Register" onClick={this.onClickRegister} style={{ float: 'right' }}>
@@ -191,6 +197,7 @@ export class MainLayout extends Component {
 
                   <Route exact path="/faq" component={Faq} />
                   <Route exact path="/all-users" component={AllUsers} />
+                  <Route exact path="/user-info" component={UserInfoPage} />
 
                   <Redirect to="/home" />
                 </Switch>

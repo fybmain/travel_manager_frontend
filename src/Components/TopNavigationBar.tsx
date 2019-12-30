@@ -20,7 +20,7 @@ import { CompanyReport } from './CompanyReport';
 
 import { Faq } from './Faq';
 import { AllUsers } from './AllUsers';
-import { UserInfo } from './UserInfo';
+import { UserInfoPage } from './UserInfoPage';
 
 import { LoginDialog } from './LoginDialog';
 import { RegisterDialog } from './RegisterDialog';
@@ -142,7 +142,7 @@ export class TopNavigationBar extends Component {
 
             <Route exact path="/faq" component={Faq}/>
             <Route exact path="/all-users" component={AllUsers}/>
-            <Route exact path="/user-info" component={UserInfo}/>
+            <Route exact path="/user-info" component={UserInfoPage}/>
             
             <Redirect to="/home"/>
           </Switch>
