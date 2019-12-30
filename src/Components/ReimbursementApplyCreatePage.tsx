@@ -7,18 +7,18 @@ export class ReimbursementApplyCreatePage extends Component {
   render() {
     const formItemLayout = {
       labelCol: {
-        xs: { span: 8 },
-        sm: { span: 6 },
+        xs: { span: 8, offset: 5 },
+        sm: { span: 6, offset: 4 },
       },
       wrapperCol: {
-        xs: { span: 24 },
-        sm: { span: 16 },
+        xs: { span: 16 },
+        sm: { span: 11 },
       },
     };
     const tailItemLayout = {
       wrapperCol: {
-        xs: { span: 24, offset: 24 },
-        sm: { span: 8, offset: 8 },
+        xs: { span: 24, offset: 12 },
+        sm: { span: 17, offset: 8 },
       },
     };
     const uploadProps = {
@@ -30,7 +30,7 @@ export class ReimbursementApplyCreatePage extends Component {
     };
     return (
       <div className="tablePage">
-        <Form { ...formItemLayout } layout="horizontal">
+        <Form { ...formItemLayout } layout="horizontal" labelAlign="left">
           <div style={{paddingTop: "50px"}}/>
 
           <Row>
@@ -78,11 +78,20 @@ export class ReimbursementApplyCreatePage extends Component {
             </Col>
           </Row>
 
-          <Form.Item { ...tailItemLayout }>
-            <Button type="primary" htmlType="submit">
-              提交报销申请
-            </Button>
-          </Form.Item>
+          <Row>
+            <Col span={7}/>
+            <Col span={4}>
+              <Button type="primary" htmlType="submit">
+                提交
+              </Button>
+            </Col>
+            <Col span={2}/>
+            <Col span={4}>
+              <Button type="default" htmlType="button">
+                取消
+              </Button>
+            </Col>
+          </Row>
         </Form>
       </div>
     );
