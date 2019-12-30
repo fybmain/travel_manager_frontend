@@ -1,7 +1,9 @@
 .App {
   text-align: center;
+  /*
   background: #1e90ff url(./Pictures/background2.jpg) center center no-repeat fixed;
   background-size: cover;
+  */
 }
 
 .App-logo {
@@ -37,11 +39,6 @@
   to {
     transform: rotate(360deg);
   }
-}
-
-.page-central {
-  margin-left: 30%;
-  margin-right: 30%;
 }
 
 .background{
@@ -93,7 +90,7 @@
 }
 
 .tablePage{
-  height:700px;
+  height:800px;
   width:1000px;
   margin: auto;
   background-color: rgba(255, 255, 255, 0.9)
