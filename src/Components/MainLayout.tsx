@@ -11,6 +11,7 @@ import { TravelApplyCreatePage } from './TravelApplyCreatePage';
 import { ReimbursementApplyListPage } from './ReimbursementApplyListPage';
 import { ReimbursementApplyCreatePage } from './ReimbursementApplyCreatePage';
 import { TravelApprovalPage } from './TravelApprovalPage';
+import { ReimbursementApprovalListPage } from './ReimbursementApprovalListPage';
 import { ReimbursementApprovalPage } from './ReimbursementApprovalPage';
 
 import { PersonalReport } from './PersonalReport';
@@ -68,25 +69,25 @@ export class MainLayout extends Component {
                   <p className='logo'>Travel Reimbursement System</p>
                 </Menu.Item>
 
-                <Menu.Item key="AllUsers" style={{ float: 'right' }}>
+                {/* <Menu.Item key="AllUsers" style={{ float: 'right' }}>
                   <Link to="/all-users">
-                    管理员
+                    Admin
                   </Link>
-                </Menu.Item>
+                </Menu.Item> */}
                 <Menu.Item key="UserInfo" style={{ float: 'right' }}>
                   <Link to="/user-info">
                     周东
                   </Link>
                 </Menu.Item>
 
-                <Menu.Item key="Register" onClick={this.onClickRegister} style={{ float: 'right' }}>
+                {/* <Menu.Item key="Register" onClick={this.onClickRegister} style={{ float: 'right' }}>
                   注册
                   <RegisterDialog visible={this.state.registerDialogVisible} />
                 </Menu.Item>
                 <Menu.Item key="Login" onClick={this.onClickLogin} style={{ float: 'right' }}>
                   登录
                   <LoginDialog visible={this.state.loginDialogVisible} />
-                </Menu.Item>
+                </Menu.Item> */}
               </Menu>
             </Header>
             <Layout>
@@ -100,7 +101,7 @@ export class MainLayout extends Component {
                   <Menu.Item key="Home" style={{ float: 'left' }}>
                     <Link to="/home">
                       <span>
-                        <Icon type="user" />
+                        <Icon type="home" />
                         首页
                       </span>
                     </Link>
@@ -109,7 +110,7 @@ export class MainLayout extends Component {
                     key="Apply"
                     title={
                       <span>
-                        <Icon type="laptop" />
+                        <Icon type="form" />
                         申请
                       </span>
                     }
@@ -129,7 +130,7 @@ export class MainLayout extends Component {
                     key="Examine"
                     title={
                       <span>
-                        <Icon type="laptop" />
+                        <Icon type="check-square" />
                         审批
                       </span>
                     }
@@ -149,7 +150,7 @@ export class MainLayout extends Component {
                     key="Report"
                     title={
                       <span>
-                        <Icon type="laptop" />
+                        <Icon type="bar-chart" />
                         统计
                       </span>
                     }
@@ -189,7 +190,8 @@ export class MainLayout extends Component {
 
                   <Route exact path="/travel-approval" component={TravelApprovalPage} />
 
-                  <Route exact path="/reimbursement-approval" component={ReimbursementApprovalPage} />
+                  <Route exact path="/reimbursement-approval" component={ReimbursementApprovalListPage} />
+                  <Route exact path="/reimbursement-approval/detail" component={ReimbursementApprovalPage} />
 
                   <Route exact path="/personal-report" component={PersonalReport} />
                   <Route exact path="/department-report" component={DepartmentReport} />

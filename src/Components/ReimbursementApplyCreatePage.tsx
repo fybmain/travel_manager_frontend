@@ -36,7 +36,7 @@ export class ReimbursementApplyCreatePage extends Component {
           <Row>
             <Col span={11}>
               <Form.Item label="申请人">
-                <p style={{textAlign: "left"}}>张可</p>
+                <p style={{textAlign: "left"}}>周东</p>
               </Form.Item>
 
               <Form.Item label="出差申请编号">

@@ -12,7 +12,7 @@ import { TravelApplyCreatePage } from './TravelApplyCreatePage';
 import { ReimbursementApplyListPage } from './ReimbursementApplyListPage';
 import { ReimbursementApplyCreatePage } from './ReimbursementApplyCreatePage';
 import { TravelApprovalPage } from './TravelApprovalPage';
-import { ReimbursementApprovalPage } from './ReimbursementApprovalPage';
+import { ReimbursementApprovalListPage } from './ReimbursementApprovalListPage';
 
 import { PersonalReport } from './PersonalReport';
 import { DepartmentReport } from './DepartmentReport';
@@ -134,7 +134,7 @@ export class TopNavigationBar extends Component {
 
             <Route exact path="/travel-approval" component={TravelApprovalPage}/>
 
-            <Route exact path="/reimbursement-approval" component={ReimbursementApprovalPage}/>
+            <Route exact path="/reimbursement-approval" component={ReimbursementApprovalListPage}/>
 
             <Route exact path="/personal-report" component={PersonalReport}/>
             <Route exact path="/department-report" component={DepartmentReport}/>

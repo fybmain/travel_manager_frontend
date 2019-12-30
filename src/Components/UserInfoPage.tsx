@@ -1,12 +1,12 @@
 import React from 'react';
-import { Form, Input, Button, Icon } from 'antd';
+import { Form, Input, Button, Icon, Row, Col } from 'antd';
 
 export class UserInfoPage extends React.Component {
   render() {
     const formItemLayout = {
       labelCol: {
-        xs: { span: 8 },
-        sm: { span: 6 },
+        xs: { span: 5 },
+        sm: { span: 5 },
       },
       wrapperCol: {
         xs: { span: 24 },
@@ -15,48 +15,59 @@ export class UserInfoPage extends React.Component {
     };
     const tailItemLayout = {
       wrapperCol: {
-        xs: { span: 4, offset: 10},
-        sm: { span: 4, offset: 10},
+        xs: { span: 4, offset: 10 },
+        sm: { span: 4, offset: 10 },
       },
     };
     return (
       <div className="tablePage">
-        <div style={{paddingTop: "50px"}}/>
+        <div style={{ paddingTop: "50px" }} />
 
-        <Form { ...formItemLayout } layout="horizontal">
+        <Form {...formItemLayout} layout="horizontal">
           <Form.Item label="姓名">
             <Input
               value="王晓明"
               placeholder="姓名"
-              prefix={<Icon type="user"/>}
-              size="large"/>
+              prefix={<Icon type="user" />}
+              size="large" />
           </Form.Item>
 
           <Form.Item label="工号">
-            <p style={{textAlign: "left"}}>2016242976</p>
+            <p style={{ textAlign: "left" }}>2016242976</p>
           </Form.Item>
 
           <Form.Item label="邮箱">
             <Input
-              prefix={<Icon type="mail"/>}
+              prefix={<Icon type="mail" />}
               size="large">
             </Input>
           </Form.Item>
 
           <Form.Item label="手机号">
             <Input
-              prefix={<Icon type="phone"/>}
+              prefix={<Icon type="phone" />}
               size="large">
             </Input>
           </Form.Item>
 
-          <Form.Item { ...tailItemLayout }>
-            <Button type="primary" htmlType="submit">
-              修改个人信息
-            </Button>
+          <Form.Item {...tailItemLayout}>
+            <Row>
+              <Col span={8}>
+                <Button type="primary" htmlType="submit">
+                  修改信息
+                </Button>
+              </Col>
+              <Col span={8}/>
+              <Col span={8}>
+                <Button type="primary" htmlType="submit">
+                  修改密码
+                </Button>
+              </Col>
+            </Row>
+
           </Form.Item>
         </Form>
-    </div>
+      </div>
     );
   }
 }
