@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
 import { Store1 } from './Stores/Store1';
-import {TopNavigationBar} from './Components/TopNavigationBar'
 import { MainLayout } from './Components/MainLayout';
 class App extends Component {
 
