@@ -5,14 +5,27 @@ import {observable} from 'mobx';
 import { observer } from 'mobx-react';
 
 import '../App.css';
+import { withRouter, RouteComponentProps } from 'react-router';
 
 const { Column } = Table;
 const { Option } = Select;
 
+interface props extends RouteComponentProps{
+  // your props here
+}
+interface states {
+  // attributes needed in your component here
+}
+
 @observer
-export class AllUsers extends Component {
+class AllUsers extends Component<props, states> {
 
   @observable showAllData: boolean = true;
+
+  componentDidMount() {
+    console.log(this.props.location);
+  }
+
   render() {
     return (
       <div className="tablePage">
@@ -143,13 +156,6 @@ const data1 = [
     telephone:"15865485249",
     department:"人力资源部",
   },
-  {
-    id: "4",
-    key: "4",
-    workId:"2016211946",
-    name:"张六",
-    email:"825375417@qq.com",
-    telephone:"15865485249",
-    department:"信息科技部",
-  },
 ];
+
+export default withRouter(AllUsers as any);

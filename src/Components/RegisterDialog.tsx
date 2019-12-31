@@ -28,7 +28,7 @@ export class RegisterDialog extends React.Component<RegisterDialogProps> {
           <Form.Item>
             <Input
               placeholder="工号"
-              prefix={<Icon type="number"/>}
+              prefix={<Icon type="user"/>}
               size="large">
             </Input>
           </Form.Item>
@@ -52,7 +52,7 @@ export class RegisterDialog extends React.Component<RegisterDialogProps> {
           <Form.Item>
             <Input
               placeholder="姓名"
-              prefix={<Icon type="user"/>}
+              prefix={<Icon type="robot"/>}
               size="large">
             </Input>
           </Form.Item>

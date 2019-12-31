@@ -2,14 +2,25 @@ import React from 'react';
 import { Form, Input, Button, Icon, Row, Col, Card } from 'antd';
 
 import history from '../history';
+import { RouteComponentProps, withRouter } from 'react-router-dom';
 
-export class UserInfoPage extends React.Component {
+
+interface props extends RouteComponentProps{
+  // your props here
+}
+
+class UserInfoPage extends React.Component<props, {}> {
   handleEdit = (e: React.MouseEvent) => {
     history.push('/user-info/edit');
   }
 
   handleEditPassword = (e: React.MouseEvent) => {
     history.push('/user-info/edit-password');
+  }
+  
+  constructor(props:any){
+    super(props);
+    console.log("construct iserinfopage")
   }
 
   render() {
@@ -86,3 +97,5 @@ export class UserInfoPage extends React.Component {
     );
   }
 }
+
+export default withRouter(UserInfoPage as any);
