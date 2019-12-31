@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { RegisterRequest, BaseResponse, LoginRequest } from '../Models/AllModels';
+import { RegisterRequest, BaseResponse, LoginRequest, UserInfo } from '../Models/AllModels';
 
 export class HttpHelper{
   public getData(){
@@ -12,22 +12,34 @@ export class HttpHelper{
       });
   }
 
-  public static async register(request:RegisterRequest){
-    const result= await axios.post("api/auth/register",request);
-    console.log(result);
-    switch(result.status){
-      case 200:
-        return {status:true};
-      case 400:
-        return {status:false,message:"work id exists"};
-      default:
-        return {status:false};
+  public static async register(request:RegisterRequest):Promise<{message:string}>{
+    try{
+      const result= await axios.post("api/auth/register",request);
+      console.log(result);
+      return {message:"ok"};
+    }catch(e){
+      switch(e.response.status){
+        case 400: return {message:"work id exists"};
+        default: return {message:"unknown exception"};
+      }
     }
   }
 
-  public static async login(request:LoginRequest){
-    const result= await axios.post("api/auth/token",request);
-    console.log(result);
+  public static async login(request:LoginRequest):Promise<{userInfo?:UserInfo,token?:string,message:string}>{
+    try{
+      const result= await axios.post("api/auth/token",request);
+      console.log(result);
+      return {
+        userInfo:result.data.userInfo,
+        token:result.data.token,
+        message:"ok"
+      }
+    }catch(e){
+      switch(e.response.status){
+        case 401: return {message:"username or password incorrect"};
+        default: return {message:"unknown exception"};
+      }
+    }
   }
 }
 
