@@ -1,13 +1,11 @@
 import axios from 'axios'
 import { RegisterRequest, BaseResponse, LoginRequest } from '../Models/AllModels';
 
-export class Store1{
-  
-
+export class HttpHelper{
   public getData(){
       axios.get("/api/test")
       .then(function (response) {
-        console.log(response);
+        console.log("/api/test "+response);
       })
       .catch(function (error) {
         console.log(error);
@@ -38,7 +36,7 @@ Sample:
 <Button
                 onClick={(e) => {
                   console.log("register");
-                  Store1.register({
+                  HttpHelper.register({
                     email: "825823497@qq.com",
                     name: "武玥彤",
                     password: "123456",
