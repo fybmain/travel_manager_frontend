@@ -1,6 +1,6 @@
 import { Layout, Menu, Breadcrumb, Icon } from 'antd';
 import React, { Component } from 'react';
-import { Route, Switch, Link, Redirect, Router } from 'react-router-dom';
+import { Route, Switch, Link, Redirect, Router, RouteComponentProps, withRouter } from 'react-router-dom';
 
 import '../App.css';
 import history from '../history';
@@ -19,23 +19,31 @@ import { DepartmentReport } from './DepartmentReport';
 import { CompanyReport } from './CompanyReport';
 
 import { Faq } from './Faq';
-import { AllUsers } from './AllUsers';
-import { UserInfoPage } from './UserInfoPage';
+import UserInfoPage from './UserInfoPage';
 import { UserInfoEditPage } from './UserInfoEditPage';
 import { UserPasswordEditPage } from './UserPasswordEditPage';
 
 import { LoginDialog } from './LoginDialog';
 import { RegisterDialog } from './RegisterDialog';
 import { ClickParam } from 'antd/lib/menu';
+import AllUsers from './AllUsers';
 
 const { SubMenu } = Menu;
 const { Header, Content, Sider } = Layout;
 
-export class MainLayout extends Component {
+interface props extends RouteComponentProps{
+  // your props here
+}
+
+class MainLayout extends Component<props, {}> {
   state = {
     current: '',
     loginDialogVisible: false,
     registerDialogVisible: false,
+  }
+
+  constructor(props:any){
+    super(props);
   }
 
   handleClick = (e: ClickParam) => {
@@ -59,7 +67,6 @@ export class MainLayout extends Component {
   render() {
     return (
       <div>
-        <Router history={history}>
           <Layout>
             <Header className="header">
               <Menu
@@ -71,25 +78,25 @@ export class MainLayout extends Component {
                   <p className='logo'>Travel Reimbursement System</p>
                 </Menu.Item>
 
-                {/* <Menu.Item key="AllUsers" style={{ float: 'right' }}>
+                <Menu.Item key="AllUsers" style={{ float: 'right' }}>
                   <Link to="/all-users">
                     Admin
                   </Link>
-                </Menu.Item> */}
+                </Menu.Item>
                 <Menu.Item key="UserInfo" style={{ float: 'right' }}>
                   <Link to="/user-info">
                     周东
-                  </Link>
+                    </Link>
                 </Menu.Item>
 
-                {/* <Menu.Item key="Register" onClick={this.onClickRegister} style={{ float: 'right' }}>
+                 <Menu.Item key="Register" onClick={this.onClickRegister} style={{ float: 'right' }}>
                   注册
                   <RegisterDialog visible={this.state.registerDialogVisible} />
                 </Menu.Item>
                 <Menu.Item key="Login" onClick={this.onClickLogin} style={{ float: 'right' }}>
                   登录
                   <LoginDialog visible={this.state.loginDialogVisible} />
-                </Menu.Item> */}
+                </Menu.Item> 
               </Menu>
             </Header>
             <Layout>
@@ -98,7 +105,7 @@ export class MainLayout extends Component {
                   mode="inline"
                   defaultSelectedKeys={['Home']}
                   defaultOpenKeys={['Home']}
-                  style={{ height: '100%', borderRight: 0 }}
+                  style={{ height: '655px', borderRight: 0 }}
                 >
                   <Menu.Item key="Home" style={{ float: 'left' }}>
                     <Link to="/home">
@@ -158,7 +165,7 @@ export class MainLayout extends Component {
                     }
                   >
                     <Menu.Item key="PersonalReport">
-                      <Link to="/personal-report">
+                       <Link to="/personal-report">
                         个人报表
                       </Link>
                     </Menu.Item>
@@ -182,8 +189,9 @@ export class MainLayout extends Component {
                   <Breadcrumb.Item>App</Breadcrumb.Item>
                 </Breadcrumb>
                 <Switch>
+                  <Route path="/user-info" component={UserInfoPage} />
                   <Route exact path="/home" component={Home} />
-
+                  
                   <Route exact path="/travel-apply" component={TravelApplyListPage} />
                   <Route exact path="/travel-apply/create" component={TravelApplyCreatePage} />
 
@@ -201,19 +209,15 @@ export class MainLayout extends Component {
 
                   <Route exact path="/faq" component={Faq} />
                   <Route exact path="/all-users" component={AllUsers} />
-                  <Route exact path="/user-info" component={UserInfoPage} />
                   <Route exact path="/user-info/edit" component={UserInfoEditPage} />
                   <Route exact path="/user-info/edit-password" component={UserPasswordEditPage} />
-
-                  <Redirect to="/home" />
+                  <Redirect to="/home"/>
                 </Switch>
               </Layout>
             </Layout>
           </Layout>
-
-        </Router>
-
       </div>
     );
   }
 }
+export default withRouter(MainLayout as any);
