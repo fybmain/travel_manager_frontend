@@ -1,5 +1,5 @@
-import axios from 'axios'
-import { RegisterRequest, BaseResponse, LoginRequest, UserInfo } from '../Models/AllModels';
+import { RegisterRequest, LoginRequest, UserInfo } from '../Models/AllModels';
+import axios from '../axios';
 
 export class HttpHelper{
   public getData(){
