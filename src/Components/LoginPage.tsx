@@ -1,10 +1,26 @@
 import React from 'react';
-import { Layout, Card, Form, Input, Icon, Row, Col, Button, Checkbox } from 'antd';
+import { Form, Input, Icon, Row, Col, Button, Checkbox } from 'antd';
 
 import '../App.css';
-import { Link } from 'react-router-dom';
+import { RegisterDialog } from './RegisterDialog';
 
 export class LoginPage extends React.Component {
+  state = {
+    registerDialogVisible: false,
+  }
+
+  handleRegister = (e: React.MouseEvent) => {
+    this.setState({
+      registerDialogVisible: true,
+    });
+  }
+
+  handleRegisterCancel = (e: React.MouseEvent) => {
+    this.setState({
+      registerDialogVisible: false,
+    });
+  }
+
   render() {
     return (
       <div className="login-background">
@@ -32,7 +48,7 @@ export class LoginPage extends React.Component {
 
             <Row style={{marginTop: 0}}>
               <Checkbox style={{float:"left"}}>记住密码</Checkbox>
-              <a style={{float:"right"}}>员工注册</a>
+              <a style={{float:"right"}} onClick={this.handleRegister}>员工注册</a>
               <a style={{float:"right"}}>忘记密码？</a>
             </Row>
 
@@ -46,6 +62,9 @@ export class LoginPage extends React.Component {
               </Button>
             </Form.Item>
           </Form>
+          <RegisterDialog
+            visible={this.state.registerDialogVisible}
+            onCancel={this.handleRegisterCancel}/>
         </div>
       </div>
     )
