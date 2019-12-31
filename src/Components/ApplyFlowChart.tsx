@@ -4,24 +4,6 @@ import * as Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
 import { SVGPathArray } from 'highcharts';
 
-// The wrapper exports only a default component class that at the same time is a
-// namespace for the related Props interface (HighchartsReact.Props). All other
-// interfaces like Options come from the Highcharts module itself.
-
-// const options: Highcharts.Options = {
-// 	title: {
-// 		text: 'My chart'
-// 	},
-// 	series: [{
-// 		type: 'line',
-// 		data: [1, 2, 3]
-// 	}]
-// }
-
-// React supports function components as a simple way to write components that
-// only contain a render method without any state (the App component in this
-// example).
-
 const colors = ["#7cb5ec", "#434348", "#90ed7d", "#f7a35c", "#8085e9", "#f15c80", "#e4d354", "#2b908f", "#f45b5b", "#91e8e1"];
 const App = (props: HighchartsReact.Props) => <div>
 	<HighchartsReact
@@ -33,7 +15,6 @@ const App = (props: HighchartsReact.Props) => <div>
 export class ApplyFlowChart extends React.Component {
 
 	render() {
-		console.log(Highcharts.getOptions().colors);
 		return <App />;
 	}
 }

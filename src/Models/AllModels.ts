@@ -1,12 +1,12 @@
 
 export interface UserInfo {
-    id: string,
-    key: string,
-    workId: string,
-    name: string,
-    email: string,
-    telephone: string,
-    department: string,
+    id?: string,
+    key?: string,
+    workId?: string,
+    name?: string,
+    email?: string,
+    telephone?: string,
+    department?: string,
 }
 
 export interface TravelApplyInfo{
@@ -15,3 +15,25 @@ export interface TravelApplyInfo{
 }
 
 export const ApplyStatus=["部门经理未审批","总经理未审批","审批通过","审批未通过"];
+
+
+//wyt start
+export interface RegisterRequest{
+  email: string,
+  name: string,
+  password: string,
+  telephone: string,
+  workId: string
+}
+
+export interface LoginRequest{
+    workId: string,
+    password: string
+  }
+
+export interface BaseResponse{
+  code: number,
+  data: any,
+  message: string
+}
+//wyt end
