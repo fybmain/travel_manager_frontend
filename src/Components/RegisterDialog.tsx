@@ -3,10 +3,14 @@ import { Modal, Form, Input, Icon } from 'antd';
 
 export interface RegisterDialogProps {
     visible: boolean;
+    onCancel?: (e: React.MouseEvent) => void;
 };
 
 export class RegisterDialog extends React.Component<RegisterDialogProps> {
   handleCancel = (e: React.MouseEvent) => {
+    if(this.props.onCancel!==undefined){
+      this.props.onCancel(e);
+    }
   }
 
   handleOk = (e: React.MouseEvent) => {
