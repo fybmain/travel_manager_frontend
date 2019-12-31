@@ -1,7 +1,7 @@
 
 export interface UserInfo {
     id?: string,
-    key?: string,
+    password?: string,
     workId?: string,
     name?: string,
     email?: string,
@@ -36,4 +36,5 @@ export interface BaseResponse{
   data: any,
   message: string
 }
+
 //wyt end

@@ -21,17 +21,23 @@ export class RegisterDialog extends React.Component<RegisterDialogProps> {
     }
   }
 
-  handleOk = (e: React.MouseEvent) => {
+  handleOk = async(e: React.MouseEvent) => {
     if(this.password!==this.repeatPassword){
       alert("两次密码输入不一致");
     }
-    HttpHelper.register({
+    const result= await HttpHelper.register({
       email: this.email,
       name: this.name,
       password: this.password,
       telephone: this.telephone,
       workId: this.workId
     });
+    if(result.message=="ok"){
+      alert("注册成功")
+    }else{
+      alert(result.message);
+    }
+    
   }
 
   render() {

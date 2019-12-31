@@ -23,8 +23,13 @@ export class LoginPage extends React.Component {
     this.registerDialogVisible=false;
   }
 
-  handleLogin =(e:React.MouseEvent)=>{
-    HttpHelper.login({workId:this.workId,password:this.password});
+  handleLogin =async(e:React.MouseEvent)=>{
+    const result= await HttpHelper.login({workId:this.workId,password:this.password});
+    if(result.message=="ok"){
+      alert("登录成功（但并不能跳到首页，因为没做）");
+    }else{
+      alert(result.message);
+    }
   }
 
   render() {
