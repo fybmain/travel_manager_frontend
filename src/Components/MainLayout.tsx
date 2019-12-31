@@ -27,14 +27,17 @@ import { LoginDialog } from './LoginDialog';
 import { RegisterDialog } from './RegisterDialog';
 import { ClickParam } from 'antd/lib/menu';
 import AllUsers from './AllUsers';
+import { MainStore } from '../Stores/MainStore';
+import { inject, observer } from 'mobx-react';
 
 const { SubMenu } = Menu;
 const { Header, Content, Sider } = Layout;
 
 interface props extends RouteComponentProps{
-  // your props here
+  mainStore:MainStore;
 }
 
+@inject("mainStore") @observer
 class MainLayout extends Component<props, {}> {
   state = {
     current: '',
@@ -44,6 +47,7 @@ class MainLayout extends Component<props, {}> {
 
   constructor(props:any){
     super(props);
+    console.log(this.props.mainStore.userInfo);
   }
 
   handleClick = (e: ClickParam) => {
@@ -211,7 +215,7 @@ class MainLayout extends Component<props, {}> {
                   <Route exact path="/all-users" component={AllUsers} />
                   <Route exact path="/user-info/edit" component={UserInfoEditPage} />
                   <Route exact path="/user-info/edit-password" component={UserPasswordEditPage} />
-                  <Redirect to="/home"/>
+                  <Redirect to="/login"/>
                 </Switch>
               </Layout>
             </Layout>
