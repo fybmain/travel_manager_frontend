@@ -1,4 +1,4 @@
-import axios from 'axios'
+import axios from '../axios';
 import { RegisterRequest, BaseResponse, LoginRequest } from '../Models/AllModels';
 
 export class HttpHelper{
