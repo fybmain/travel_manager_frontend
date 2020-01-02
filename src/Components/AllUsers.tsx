@@ -19,7 +19,7 @@ interface AllUsersProps extends RouteComponentProps{
 @inject("mainStore") @observer
 class AllUsers extends React.Component<AllUsersProps> {
 
-  @observable showAllData: boolean = true;
+  @observable showApproved: boolean = false;
 
   constructor(props: AllUsersProps) {
     super(props);
@@ -34,22 +34,18 @@ class AllUsers extends React.Component<AllUsersProps> {
       <div className="tablePage">
         <div className="floatLeft">
           <br />
-          <Radio.Group value={this.showAllData} onChange={this.handleChange}>
-            <Radio.Button value={false}>已审核</Radio.Button>
-            <Radio.Button value={true}>待审核</Radio.Button>
+          <Radio.Group value={this.showApproved} onChange={this.handleChange}>
+            <Radio.Button value={false}>待审核</Radio.Button>
+            <Radio.Button value={true}>已审核</Radio.Button>
           </Radio.Group>
         </div>
-        {this.showData(this.showAllData)}
+        { (this.showApproved)?table2():table1() }
       </div>
     );
   }
 
   handleChange = (e: RadioChangeEvent) => {
-    this.showAllData = !this.showAllData;
-  }
-
-  showData=(showAllData:boolean)=>{
-    return (showAllData?table1():table2())
+    this.showApproved = !this.showApproved;
   }
 }
 

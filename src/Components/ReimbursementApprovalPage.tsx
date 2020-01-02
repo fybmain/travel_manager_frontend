@@ -101,7 +101,7 @@ export class ReimbursementApprovalPage extends Component {
                 </Row>
               </Form.Item>
             </Col> 
-</Row>
+          </Row>
           <Row>
             <Col span={7}/>
             <Col span={4}>

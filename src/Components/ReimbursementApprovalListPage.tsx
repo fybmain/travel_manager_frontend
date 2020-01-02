@@ -17,7 +17,7 @@ interface ReimbursementApprovalListPageProps {
 @inject("mainStore") @observer
 export class ReimbursementApprovalListPage extends React.Component<ReimbursementApprovalListPageProps> {
 
-  @observable showPendingReview: boolean = true;
+  @observable showApproved: boolean = false;
 
   constructor(props: ReimbursementApprovalListPageProps) {
     super(props);
@@ -29,22 +29,18 @@ export class ReimbursementApprovalListPage extends React.Component<Reimbursement
       <div className="tablePage">
         <div className="floatLeft">
           <br />
-          <Radio.Group value={this.showPendingReview} onChange={this.handleChange}>
-            <Radio.Button value={false}>已审批</Radio.Button>
-            <Radio.Button value={true}>待审批</Radio.Button>
+          <Radio.Group value={this.showApproved} onChange={this.handleChange}>
+            <Radio.Button value={false}>待审批</Radio.Button>
+            <Radio.Button value={true}>已审批</Radio.Button>
           </Radio.Group>
         </div>
-        {this.showData(this.showPendingReview)}
+        { table2(this.showApproved) }
       </div>
     );
   }
 
   handleChange = (e: RadioChangeEvent) => {
-    this.showPendingReview = !this.showPendingReview;
-  }
-
-  showData = (showPendingReview: boolean) => {
-    return <div>{table2(showPendingReview)}</div>;
+    this.showApproved = !this.showApproved;
   }
 }
 
@@ -87,10 +83,10 @@ const data1 = [
   },
 ];
 
-const table2 = (showPendingReview: boolean) => {
-  const data2 = showPendingReview ?
-    data1.filter(x => x.applyStatus == ApplyStatus[0])
-    : data1.filter(x => x.applyStatus != ApplyStatus[0])
+const table2 = (showApproved: boolean) => {
+  const data2 = showApproved ?
+    data1.filter(x => x.applyStatus !== ApplyStatus[0])
+    : data1.filter(x => x.applyStatus === ApplyStatus[0])
   return (
     <Table dataSource={data2} className="table"
       onRow={record => {
