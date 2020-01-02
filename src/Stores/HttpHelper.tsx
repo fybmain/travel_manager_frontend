@@ -30,8 +30,8 @@ export class HttpHelper{
       const result= await axios.post("api/auth/token",request);
       console.log(result);
       return {
-        userInfo:result.data.userInfo,
-        token:result.data.token,
+        userInfo:result.data.data.userInfo,
+        token:result.data.data.token,
         message:"ok"
       }
     }catch(e){

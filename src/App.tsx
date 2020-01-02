@@ -9,15 +9,17 @@ import { LoginPage } from './Components/LoginPage';
 import AllUsers from './Components/AllUsers';
 import { Provider } from 'mobx-react';
 
-const mainStore = new MainStore();
 class App extends Component {
+
+  mainStore = new MainStore();
+
   render() {
     return (
-      <Provider mainStore={mainStore}>
+      <Provider mainStore={this.mainStore}>
         <div>
           <Router history={history}>
             <Switch>
-              <Route path="/login" component={LoginPage} />
+              <Route path="/login" component={LoginPage} clearStore={this.clearStore} />
               <Route path="/" component={MainLayout} />
               <Redirect to="/login" />
             </Switch>
@@ -26,6 +28,11 @@ class App extends Component {
       </Provider>
     );
   }
+clearStore=()=>{
+  console.log("clear")
+  this.mainStore=new MainStore();
 }
+}
+
 
 export default App;

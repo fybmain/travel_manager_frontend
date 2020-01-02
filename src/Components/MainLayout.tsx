@@ -33,8 +33,8 @@ import { inject, observer } from 'mobx-react';
 const { SubMenu } = Menu;
 const { Header, Content, Sider } = Layout;
 
-interface props extends RouteComponentProps{
-  mainStore:MainStore;
+interface props extends RouteComponentProps {
+  mainStore: MainStore;
 }
 
 @inject("mainStore") @observer
@@ -45,7 +45,7 @@ class MainLayout extends Component<props, {}> {
     registerDialogVisible: false,
   }
 
-  constructor(props:any){
+  constructor(props: any) {
     super(props);
     console.log(this.props.mainStore.userInfo);
   }
@@ -71,155 +71,160 @@ class MainLayout extends Component<props, {}> {
   render() {
     return (
       <div>
-          <Layout>
-            <Header className="header">
-              <Menu
-                theme="dark"
-                mode="horizontal"
-                style={{ lineHeight: '64px' }}
-              >
-                <Menu.Item key="logo" style={{ float: 'left' }} disabled>
-                  <p className='logo'>Travel Reimbursement System</p>
-                </Menu.Item>
+        <Layout>
+          <Header className="header">
+            <Menu
+              theme="dark"
+              mode="horizontal"
+              style={{ lineHeight: '64px' }}
+            >
+              <Menu.Item key="logo" style={{ float: 'left' }} disabled>
+                <p className='logo'>Travel Reimbursement System</p>
+              </Menu.Item>
 
-                <Menu.Item key="AllUsers" style={{ float: 'right' }}>
-                  <Link to="/all-users">
-                    Admin
+              {
+                this.props.mainStore.userInfo.name == "Admin" ?
+                  <Menu.Item key="AllUsers" style={{ float: 'right' }}>
+                    <Link to="/all-users">
+                      Admin
+                  </Link>
+                  </Menu.Item>
+                  : <SubMenu
+                    key="Apply"
+                    title={this.props.mainStore.userInfo.name as string}
+                    style={{ float: 'right' }}
+                  >
+                    <Menu.Item key="UserInfo">
+                      <Link to="/user-info">
+                        个人信息
+                    </Link>
+                    </Menu.Item>
+                    <Menu.Item key="LogOut">
+                      <Link to="/login">
+                        退出登录
+                      </Link>
+                    </Menu.Item>
+                  </SubMenu>
+              }
+            </Menu>
+          </Header>
+          <Layout>
+            <Sider width={250} style={{ background: '#fff' }}>
+              <Menu
+                mode="inline"
+                defaultSelectedKeys={['Home']}
+                defaultOpenKeys={['Home']}
+                style={{ height: '655px', borderRight: 0 }}
+              >
+                <Menu.Item key="Home" style={{ float: 'left' }}>
+                  <Link to="/home">
+                    <span>
+                      <Icon type="home" />
+                      首页
+                      </span>
                   </Link>
                 </Menu.Item>
-                <Menu.Item key="UserInfo" style={{ float: 'right' }}>
-                  <Link to="/user-info">
-                    周东
-                    </Link>
-                </Menu.Item>
-
-                 <Menu.Item key="Register" onClick={this.onClickRegister} style={{ float: 'right' }}>
-                  注册
-                  <RegisterDialog visible={this.state.registerDialogVisible} />
-                </Menu.Item>
-                <Menu.Item key="Login" onClick={this.onClickLogin} style={{ float: 'right' }}>
-                  登录
-                  <LoginDialog visible={this.state.loginDialogVisible} />
-                </Menu.Item> 
-              </Menu>
-            </Header>
-            <Layout>
-              <Sider width={250} style={{ background: '#fff' }}>
-                <Menu
-                  mode="inline"
-                  defaultSelectedKeys={['Home']}
-                  defaultOpenKeys={['Home']}
-                  style={{ height: '655px', borderRight: 0 }}
+                <SubMenu
+                  key="Apply"
+                  title={
+                    <span>
+                      <Icon type="form" />
+                      申请
+                      </span>
+                  }
                 >
-                  <Menu.Item key="Home" style={{ float: 'left' }}>
-                    <Link to="/home">
-                      <span>
-                        <Icon type="home" />
-                        首页
-                      </span>
-                    </Link>
+                  <Menu.Item key="TravelApply">
+                    <Link to="/travel-apply">
+                      出差申请
+                      </Link>
                   </Menu.Item>
-                  <SubMenu
-                    key="Apply"
-                    title={
-                      <span>
-                        <Icon type="form" />
-                        申请
+                  <Menu.Item key="ReimbursementApply">
+                    <Link to="/reimbursement-apply">
+                      报销申请
+                      </Link>
+                  </Menu.Item>
+                </SubMenu>
+                <SubMenu
+                  key="Examine"
+                  title={
+                    <span>
+                      <Icon type="check-square" />
+                      审批
                       </span>
-                    }
-                  >
-                    <Menu.Item key="TravelApply">
-                      <Link to="/travel-apply">
-                        出差申请
+                  }
+                >
+                  <Menu.Item key="TravelExamine">
+                    <Link to="/travel-approval">
+                      出差审批
                       </Link>
-                    </Menu.Item>
-                    <Menu.Item key="ReimbursementApply">
-                      <Link to="/reimbursement-apply">
-                        报销申请
+                  </Menu.Item>
+                  <Menu.Item key="ReimbursementExamine">
+                    <Link to="/reimbursement-approval">
+                      报销审批
                       </Link>
-                    </Menu.Item>
-                  </SubMenu>
-                  <SubMenu
-                    key="Examine"
-                    title={
-                      <span>
-                        <Icon type="check-square" />
-                        审批
+                  </Menu.Item>
+                </SubMenu>
+                <SubMenu
+                  key="Report"
+                  title={
+                    <span>
+                      <Icon type="bar-chart" />
+                      统计
                       </span>
-                    }
-                  >
-                    <Menu.Item key="TravelExamine">
-                      <Link to="/travel-approval">
-                        出差审批
+                  }
+                >
+                  <Menu.Item key="PersonalReport">
+                    <Link to="/personal-report">
+                      个人报表
                       </Link>
-                    </Menu.Item>
-                    <Menu.Item key="ReimbursementExamine">
-                      <Link to="/reimbursement-approval">
-                        报销审批
+                  </Menu.Item>
+                  <Menu.Item key="DepartmentReport">
+                    <Link to="/department-report">
+                      部门报表
                       </Link>
-                    </Menu.Item>
-                  </SubMenu>
-                  <SubMenu
-                    key="Report"
-                    title={
-                      <span>
-                        <Icon type="bar-chart" />
-                        统计
-                      </span>
-                    }
-                  >
-                    <Menu.Item key="PersonalReport">
-                       <Link to="/personal-report">
-                        个人报表
+                  </Menu.Item>
+                  <Menu.Item key="CompanyReport">
+                    <Link to="/company-report">
+                      公司报表
                       </Link>
-                    </Menu.Item>
-                    <Menu.Item key="DepartmentReport">
-                      <Link to="/department-report">
-                        部门报表
-                      </Link>
-                    </Menu.Item>
-                    <Menu.Item key="CompanyReport">
-                      <Link to="/company-report">
-                        公司报表
-                      </Link>
-                    </Menu.Item>
-                  </SubMenu>
-                </Menu>
-              </Sider>
-              <Layout style={{ padding: '0 24px 24px' }}>
-                <Breadcrumb style={{ margin: '16px 0' }}>
-                  <Breadcrumb.Item>Home</Breadcrumb.Item>
-                  <Breadcrumb.Item>List</Breadcrumb.Item>
-                  <Breadcrumb.Item>App</Breadcrumb.Item>
-                </Breadcrumb>
-                <Switch>
-                  <Route path="/user-info" component={UserInfoPage} />
-                  <Route exact path="/home" component={Home} />
-                  
-                  <Route exact path="/travel-apply" component={TravelApplyListPage} />
-                  <Route exact path="/travel-apply/create" component={TravelApplyCreatePage} />
+                  </Menu.Item>
+                </SubMenu>
+              </Menu>
+            </Sider>
+            <Layout style={{ padding: '0 24px 24px' }}>
+              <Breadcrumb style={{ margin: '16px 0' }}>
+                <Breadcrumb.Item>Home</Breadcrumb.Item>
+                <Breadcrumb.Item>List</Breadcrumb.Item>
+                <Breadcrumb.Item>App</Breadcrumb.Item>
+              </Breadcrumb>
+              <Switch>
+                <Route path="/user-info" component={UserInfoPage} />
+                <Route exact path="/home" component={Home} />
 
-                  <Route exact path="/reimbursement-apply" component={ReimbursementApplyListPage} />
-                  <Route exact path="/reimbursement-apply/create" component={ReimbursementApplyCreatePage} />
+                <Route exact path="/travel-apply" component={TravelApplyListPage} />
+                <Route exact path="/travel-apply/create" component={TravelApplyCreatePage} />
 
-                  <Route exact path="/travel-approval" component={TravelApprovalPage} />
+                <Route exact path="/reimbursement-apply" component={ReimbursementApplyListPage} />
+                <Route exact path="/reimbursement-apply/create" component={ReimbursementApplyCreatePage} />
 
-                  <Route exact path="/reimbursement-approval" component={ReimbursementApprovalListPage} />
-                  <Route exact path="/reimbursement-approval/detail" component={ReimbursementApprovalPage} />
+                <Route exact path="/travel-approval" component={TravelApprovalPage} />
 
-                  <Route exact path="/personal-report" component={PersonalReport} />
-                  <Route exact path="/department-report" component={DepartmentReport} />
-                  <Route exact path="/company-report" component={CompanyReport} />
+                <Route exact path="/reimbursement-approval" component={ReimbursementApprovalListPage} />
+                <Route exact path="/reimbursement-approval/detail" component={ReimbursementApprovalPage} />
 
-                  <Route exact path="/faq" component={Faq} />
-                  <Route exact path="/all-users" component={AllUsers} />
-                  <Route exact path="/user-info/edit" component={UserInfoEditPage} />
-                  <Route exact path="/user-info/edit-password" component={UserPasswordEditPage} />
-                  <Redirect to="/login"/>
-                </Switch>
-              </Layout>
+                <Route exact path="/personal-report" component={PersonalReport} />
+                <Route exact path="/department-report" component={DepartmentReport} />
+                <Route exact path="/company-report" component={CompanyReport} />
+
+                <Route exact path="/faq" component={Faq} />
+                <Route exact path="/all-users" component={AllUsers} />
+                <Route exact path="/user-info/edit" component={UserInfoEditPage} />
+                <Route exact path="/user-info/edit-password" component={UserPasswordEditPage} />
+                <Redirect to="/login" />
+              </Switch>
             </Layout>
           </Layout>
+        </Layout>
       </div>
     );
   }

@@ -5,16 +5,27 @@ import '../App.css';
 import { Link } from 'react-router-dom';
 import { HttpHelper } from '../Stores/HttpHelper';
 import { RegisterDialog } from './RegisterDialog';
-import { observer } from 'mobx-react';
+import { observer, inject } from 'mobx-react';
 import { observable } from 'mobx';
 import { render } from '@testing-library/react';
+import history from '../history';
+import { MainStore } from '../Stores/MainStore';
+import { userInfo } from 'os';
+import { UserInfo } from '../Models/AllModels';
 
-@observer
-export class LoginPage extends React.Component {
+interface LoginPageProps{
+  mainStore:MainStore;
+}
+@inject("mainStore") @observer
+export class LoginPage extends React.Component<LoginPageProps> {
   @observable registerDialogVisible=false;
   workId="";
   password="";
 
+  constructor(props:LoginPageProps){
+    super(props);
+    this.props.mainStore.init();
+  }
   handleRegister = (e: React.MouseEvent) => {
     this.registerDialogVisible=true;
   }
@@ -26,7 +37,11 @@ export class LoginPage extends React.Component {
   handleLogin =async(e:React.MouseEvent)=>{
     const result= await HttpHelper.login({workId:this.workId,password:this.password});
     if(result.message=="ok"){
-      alert("登录成功（但并不能跳到首页，因为没做）");
+      alert("登录成功");
+      console.log(result.userInfo)
+      this.props.mainStore.userInfo=result.userInfo as UserInfo;
+      this.props.mainStore.token=result.token as string;
+      history.push("/home");
     }else{
       alert(result.message);
     }
