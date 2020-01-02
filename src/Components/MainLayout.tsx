@@ -23,12 +23,11 @@ import UserInfoPage from './UserInfoPage';
 import { UserInfoEditPage } from './UserInfoEditPage';
 import { UserPasswordEditPage } from './UserPasswordEditPage';
 
-import { LoginDialog } from './LoginDialog';
-import { RegisterDialog } from './RegisterDialog';
 import { ClickParam } from 'antd/lib/menu';
 import AllUsers from './AllUsers';
 import { MainStore } from '../Stores/MainStore';
 import { inject, observer } from 'mobx-react';
+import UserInfoStore from '../Stores/UserInfoStore';
 
 const { SubMenu } = Menu;
 const { Header, Content, Sider } = Layout;
@@ -47,7 +46,6 @@ class MainLayout extends Component<props, {}> {
 
   constructor(props: any) {
     super(props);
-    console.log(this.props.mainStore.userInfo);
   }
 
   handleClick = (e: ClickParam) => {
@@ -83,7 +81,7 @@ class MainLayout extends Component<props, {}> {
               </Menu.Item>
 
               {
-                this.props.mainStore.userInfo.name == "Admin" ?
+                UserInfoStore.userInfo.name == "Admin" ?
                   <Menu.Item key="AllUsers" style={{ float: 'right' }}>
                     <Link to="/all-users">
                       Admin
@@ -91,7 +89,7 @@ class MainLayout extends Component<props, {}> {
                   </Menu.Item>
                   : <SubMenu
                     key="Apply"
-                    title={this.props.mainStore.userInfo.name as string}
+                    title={UserInfoStore.userInfo.name as string}
                     style={{ float: 'right' }}
                   >
                     <Menu.Item key="UserInfo">
@@ -99,8 +97,8 @@ class MainLayout extends Component<props, {}> {
                         个人信息
                     </Link>
                     </Menu.Item>
-                    <Menu.Item key="LogOut" onClick={(e:any)=>{localStorage.removeItem('Travel-Manager-User-Token');}}>
-                      <Link to="/login">
+                    <Menu.Item key="LogOut" onClick={() => {UserInfoStore.logout();}}>
+                      <Link to="/home">
                         退出登录
                       </Link>
                     </Menu.Item>
@@ -220,7 +218,7 @@ class MainLayout extends Component<props, {}> {
                 <Route exact path="/all-users" component={AllUsers} />
                 <Route exact path="/user-info/edit" component={UserInfoEditPage} />
                 <Route exact path="/user-info/edit-password" component={UserPasswordEditPage} />
-                <Redirect to="/login" />
+                <Redirect to="/home" />
               </Switch>
             </Layout>
           </Layout>
