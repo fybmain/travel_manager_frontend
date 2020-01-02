@@ -3,10 +3,8 @@ import { ClickParam } from 'antd/lib/menu';
 import React, { Component } from 'react';
 import { Route, Switch, Link, Redirect, Router, RouteComponentProps, withRouter } from 'react-router-dom';
 import { inject, observer } from 'mobx-react';
-import { observable } from 'mobx';
 
 import '../App.css';
-import history from '../history';
 
 import { Home } from './Home';
 import { TravelApplyListPage } from './TravelApplyListPage';
@@ -29,6 +27,7 @@ import { UserPasswordEditPage } from './UserPasswordEditPage';
 import AllUsers from './AllUsers';
 import { MainStore } from '../Stores/MainStore';
 import UserInfoStore from '../Stores/UserInfoStore';
+import { MainMenu } from './MainMenu';
 
 const { SubMenu } = Menu;
 const { Header, Content, Sider } = Layout;
@@ -40,26 +39,12 @@ interface props extends RouteComponentProps {
 @inject("mainStore") @observer
 class MainLayout extends Component<props, {}> {
   state = {
-    current: '/home',
-    currentOpen:'home',
     loginDialogVisible: false,
     registerDialogVisible: false,
   }
 
   constructor(props: any) {
     super(props);
-    console.log(history.location);
-    const pathname = history.location.pathname;
-    this.state.current = pathname;
-    if(pathname.endsWith("apply")) this.state.currentOpen="apply";
-    if(pathname.endsWith("approval")) this.state.currentOpen="approval";
-    if(pathname.endsWith("report")) this.state.currentOpen="report";
-  }
-
-  handleClick = (e: ClickParam) => {
-    this.setState({
-      current: e.key,
-    });
   }
 
   onClickLogin = (e: ClickParam) => {
@@ -80,86 +65,7 @@ class MainLayout extends Component<props, {}> {
         <Layout>
           <Layout>
             <Sider width={300} style={{ background: '#fff' }}>
-              <Menu
-                mode="inline"
-                defaultSelectedKeys={[this.state.current]}
-                defaultOpenKeys={[this.state.currentOpen]}
-                style={{ borderBottom: 0, position: "fixed", bottom: 0, top: 64, width: 300 }}
-              >
-                <Menu.Item key="/home" style={{ float: 'left' }}>
-                  <Link to="/home">
-                    <span style={{ fontSize: "large" }}>
-                      <Icon type="home" />
-                      首页
-                      </span>
-                  </Link>
-                </Menu.Item>
-                <SubMenu
-                  key="apply"
-                  title={
-                    <span style={{ fontSize: "large" }}>
-                      <Icon type="form" />
-                      申请
-                      </span>
-                  }
-                >
-                  <Menu.Item key="/travel-apply" style={{ fontSize: "medium" }}>
-                    <Link to="/travel-apply">
-                      出差申请
-                      </Link>
-                  </Menu.Item>
-                  <Menu.Item key="/reimbursement-apply" style={{ fontSize: "medium" }}>
-                    <Link to="/reimbursement-apply">
-                      报销申请
-                      </Link>
-                  </Menu.Item>
-                </SubMenu>
-                <SubMenu
-                  key="approval"
-                  title={
-                    <span style={{ fontSize: "large" }}>
-                      <Icon type="check-square" />
-                      审批
-                      </span>
-                  }
-                >
-                  <Menu.Item key="/travel-approval" style={{ fontSize: "medium" }}>
-                    <Link to="/travel-approval">
-                      出差审批
-                      </Link>
-                  </Menu.Item>
-                  <Menu.Item key="/reimbursement-approval" style={{ fontSize: "medium" }}>
-                    <Link to="/reimbursement-approval">
-                      报销审批
-                      </Link>
-                  </Menu.Item>
-                </SubMenu>
-                <SubMenu
-                  key="Report"
-                  title={
-                    <span style={{ fontSize: "large" }}>
-                      <Icon type="bar-chart" />
-                      统计
-                      </span>
-                  }
-                >
-                  <Menu.Item key="/personal-report" style={{ fontSize: "medium" }}>
-                    <Link to="/personal-report">
-                      个人报表
-                      </Link>
-                  </Menu.Item>
-                  <Menu.Item key="/department-report" style={{ fontSize: "medium" }}>
-                    <Link to="/department-report">
-                      部门报表
-                      </Link>
-                  </Menu.Item>
-                  <Menu.Item key="/company-report" style={{ fontSize: "medium" }}>
-                    <Link to="/company-report">
-                      公司报表
-                      </Link>
-                  </Menu.Item>
-                </SubMenu>
-              </Menu>
+              <MainMenu/>
             </Sider>
             <Layout style={{ padding: '0 24px 24px', position: "fixed", top: 64, left: 300, right: 0, bottom: 0 }}>
               <Breadcrumb style={{ margin: '16px 0' }}>
