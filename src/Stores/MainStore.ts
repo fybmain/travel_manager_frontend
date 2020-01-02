@@ -13,7 +13,8 @@ export class MainStore{
       name: "undefine",
       workId: "undefine",
       telephone: "undefine",
-      department: "undefine",
+      departmentId: 0,
+      role: 0,
     }
   }
 
@@ -25,7 +26,8 @@ export class MainStore{
       name: "undefine",
       workId: "undefine",
       telephone: "undefine",
-      department: "undefine",
+      departmentId: 0,
+      role: 0,
     }
   }
 }

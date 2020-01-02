@@ -95,11 +95,10 @@
 }
 
 .tablePage{
-  height:500px;
-  width:1000px;
-  margin: auto;
+  margin:3%;
   background-color: rgba(255, 255, 255, 0.9)
 }
+
 
 .table{
   padding:30px;
@@ -179,4 +178,11 @@
   position: relative;
   top: 50%; /*偏移*/
   transform: translateY(-70%);
+}
+
+.menuTop{
+  position: fixed;
+  left:0;
+  right:0;
+  top:0;
 }
