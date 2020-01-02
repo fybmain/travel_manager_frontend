@@ -21,7 +21,6 @@ import { PersonalReport } from './PersonalReport';
 import { DepartmentReport } from './DepartmentReport';
 import { CompanyReport } from './CompanyReport';
 
-import { Faq } from './Faq';
 import UserInfoPage from './UserInfoPage';
 import { UserInfoEditPage } from './UserInfoEditPage';
 import { UserPasswordEditPage } from './UserPasswordEditPage';
@@ -41,13 +40,20 @@ interface props extends RouteComponentProps {
 @inject("mainStore") @observer
 class MainLayout extends Component<props, {}> {
   state = {
-    current: '',
+    current: '/home',
+    currentOpen:'home',
     loginDialogVisible: false,
     registerDialogVisible: false,
   }
 
   constructor(props: any) {
     super(props);
+    console.log(history.location);
+    const pathname = history.location.pathname;
+    this.state.current = pathname;
+    if(pathname.endsWith("apply")) this.state.currentOpen="apply";
+    if(pathname.endsWith("approval")) this.state.currentOpen="approval";
+    if(pathname.endsWith("report")) this.state.currentOpen="report";
   }
 
   handleClick = (e: ClickParam) => {
@@ -76,11 +82,11 @@ class MainLayout extends Component<props, {}> {
             <Sider width={300} style={{ background: '#fff' }}>
               <Menu
                 mode="inline"
-                defaultSelectedKeys={['Home']}
-                defaultOpenKeys={['Home']}
+                defaultSelectedKeys={[this.state.current]}
+                defaultOpenKeys={[this.state.currentOpen]}
                 style={{ borderBottom: 0, position: "fixed", bottom: 0, top: 64, width: 300 }}
               >
-                <Menu.Item key="Home" style={{ float: 'left' }}>
+                <Menu.Item key="/home" style={{ float: 'left' }}>
                   <Link to="/home">
                     <span style={{ fontSize: "large" }}>
                       <Icon type="home" />
@@ -89,7 +95,7 @@ class MainLayout extends Component<props, {}> {
                   </Link>
                 </Menu.Item>
                 <SubMenu
-                  key="Apply"
+                  key="apply"
                   title={
                     <span style={{ fontSize: "large" }}>
                       <Icon type="form" />
@@ -97,19 +103,19 @@ class MainLayout extends Component<props, {}> {
                       </span>
                   }
                 >
-                  <Menu.Item key="TravelApply" style={{ fontSize: "medium" }}>
+                  <Menu.Item key="/travel-apply" style={{ fontSize: "medium" }}>
                     <Link to="/travel-apply">
                       出差申请
                       </Link>
                   </Menu.Item>
-                  <Menu.Item key="ReimbursementApply" style={{ fontSize: "medium" }}>
+                  <Menu.Item key="/reimbursement-apply" style={{ fontSize: "medium" }}>
                     <Link to="/reimbursement-apply">
                       报销申请
                       </Link>
                   </Menu.Item>
                 </SubMenu>
                 <SubMenu
-                  key="Approval"
+                  key="approval"
                   title={
                     <span style={{ fontSize: "large" }}>
                       <Icon type="check-square" />
@@ -117,12 +123,12 @@ class MainLayout extends Component<props, {}> {
                       </span>
                   }
                 >
-                  <Menu.Item key="TravelApproval" style={{ fontSize: "medium" }}>
+                  <Menu.Item key="/travel-approval" style={{ fontSize: "medium" }}>
                     <Link to="/travel-approval">
                       出差审批
                       </Link>
                   </Menu.Item>
-                  <Menu.Item key="ReimbursementApproval" style={{ fontSize: "medium" }}>
+                  <Menu.Item key="/reimbursement-approval" style={{ fontSize: "medium" }}>
                     <Link to="/reimbursement-approval">
                       报销审批
                       </Link>
@@ -137,17 +143,17 @@ class MainLayout extends Component<props, {}> {
                       </span>
                   }
                 >
-                  <Menu.Item key="PersonalReport" style={{ fontSize: "medium" }}>
+                  <Menu.Item key="/personal-report" style={{ fontSize: "medium" }}>
                     <Link to="/personal-report">
                       个人报表
                       </Link>
                   </Menu.Item>
-                  <Menu.Item key="DepartmentReport" style={{ fontSize: "medium" }}>
+                  <Menu.Item key="/department-report" style={{ fontSize: "medium" }}>
                     <Link to="/department-report">
                       部门报表
                       </Link>
                   </Menu.Item>
-                  <Menu.Item key="CompanyReport" style={{ fontSize: "medium" }}>
+                  <Menu.Item key="/company-report" style={{ fontSize: "medium" }}>
                     <Link to="/company-report">
                       公司报表
                       </Link>
@@ -180,7 +186,6 @@ class MainLayout extends Component<props, {}> {
                 <Route exact path="/department-report" component={DepartmentReport} />
                 <Route exact path="/company-report" component={CompanyReport} />
 
-                <Route exact path="/faq" component={Faq} />
                 <Route exact path="/all-users" component={AllUsers} />
                 <Route exact path="/user-info/edit" component={UserInfoEditPage} />
                 <Route exact path="/user-info/edit-password" component={UserPasswordEditPage} />
