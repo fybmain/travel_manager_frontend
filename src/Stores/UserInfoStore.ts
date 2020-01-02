@@ -11,7 +11,8 @@ class UserInfoStore {
     name: "undefined",
     workId: "undefined",
     telephone: "undefined",
-    department: "undefined",
+    departmentId: 0,
+    role: 0,
   };
 
   constructor(){
@@ -30,7 +31,8 @@ class UserInfoStore {
       name: "undefined",
       workId: "undefined",
       telephone: "undefined",
-      department: "undefined",
+      departmentId: 0,
+      role: 0,
     };
   }
 

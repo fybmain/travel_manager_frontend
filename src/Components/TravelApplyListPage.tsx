@@ -25,7 +25,7 @@ const data1 = [
 
 const table2=()=>{
   return(
-    <Table dataSource={data1} className="table">
+    <Table dataSource={data1} className="table" size="small">
       <Column title="申请ID" dataIndex="id" key="id" />
       <Column title="申请人" dataIndex="name" key="name" />
       <Column title="申请时间" dataIndex="applyTIme" key="applyTIme" />

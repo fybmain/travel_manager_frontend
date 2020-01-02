@@ -19,7 +19,6 @@ export class LoginPage extends React.Component<LoginPageProps> {
 
   constructor(props: LoginPageProps) {
     super(props);
-    this.props.mainStore.init();
   }
   handleRegister = (e: React.MouseEvent) => {
     this.registerDialogVisible = true;

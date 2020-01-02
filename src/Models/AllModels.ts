@@ -6,7 +6,8 @@ export interface UserInfo {
     name?: string,
     email?: string,
     telephone?: string,
-    department?: string,
+    departmentId?: number,
+    role?: number,
 }
 
 export interface TravelApplyInfo{

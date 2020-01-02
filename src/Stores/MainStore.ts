@@ -7,7 +7,5 @@ export class MainStore{
   constructor(){
   }
 
-  public init=()=>{
-    console.log("init store");
-  }
+  
 }
