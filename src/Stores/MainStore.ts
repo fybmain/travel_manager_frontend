@@ -16,4 +16,16 @@ export class MainStore{
       department: "undefine",
     }
   }
+
+  public init=()=>{
+    console.log("init store");
+    this.userInfo={
+      id: "undefine",
+      email: "undefine",
+      name: "undefine",
+      workId: "undefine",
+      telephone: "undefine",
+      department: "undefine",
+    }
+  }
 }

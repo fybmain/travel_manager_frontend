@@ -7,17 +7,22 @@ import { Route, Switch, Link, Redirect, Router } from 'react-router-dom';
 import history from './history';
 import { LoginPage } from './Components/LoginPage';
 import AllUsers from './Components/AllUsers';
-import { Provider } from 'mobx-react';
+import { Provider, observer } from 'mobx-react';
+import { observable } from 'mobx';
 
-const mainStore = new MainStore();
+@observer
 class App extends Component {
+
+  mainStore = new MainStore();
+  @observable login = false;
+
   render() {
     return (
-      <Provider mainStore={mainStore}>
+      <Provider mainStore={this.mainStore}>
         <div>
           <Router history={history}>
             <Switch>
-              <Route path="/login" component={LoginPage} />
+              <Route path="/login" component={LoginPage}/>
               <Route path="/" component={MainLayout} />
               <Redirect to="/login" />
             </Switch>
@@ -27,5 +32,6 @@ class App extends Component {
     );
   }
 }
+
 
 export default App;
