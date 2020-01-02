@@ -126,7 +126,7 @@ export class TravelApplyListPage extends React.Component<TravelApplyListPageProp
           </Radio.Group>
         </div>
         { table2() }
-        <Row style={{padding:30}}>
+        <Row style={{paddingBottom: 20}}>
           <Col span={11}></Col>
           <Col span={2}>
             <Button onClick={this.handleCreate} type="primary">提交申请</Button>

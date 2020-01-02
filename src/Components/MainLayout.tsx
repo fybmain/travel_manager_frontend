@@ -51,7 +51,7 @@ class MainLayout extends Component<props, {}> {
             <MainMenu/>
           </Sider>
           <Content>
-            <Layout style={{ padding: '0 24px 24px', position: "fixed", top: 64, left: 300, right: 0, bottom: 0 }}>
+            <Layout style={{ padding: '0 24px 24px', position: "fixed", top: 64, left: 300, right: 0, bottom: 0, overflowY: "auto" }}>
               <Breadcrumb style={{ margin: '16px 0' }}>
                 {
                   this.props.mainStore.breadcrumb.map((value, index) => <Breadcrumb.Item>{value}</Breadcrumb.Item>)
