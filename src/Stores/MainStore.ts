@@ -4,7 +4,6 @@ import { UserInfo } from "../Models/AllModels";
 
 export class MainStore{
   @observable public userInfo:UserInfo;
-  @observable public token:string;
 
 
   constructor(){
@@ -16,7 +15,6 @@ export class MainStore{
       telephone: "undefine",
       department: "undefine",
     }
-    this.token="";
   }
 
   public init=()=>{
@@ -29,6 +27,5 @@ export class MainStore{
       telephone: "undefine",
       department: "undefine",
     }
-    this.token="";
   }
 }

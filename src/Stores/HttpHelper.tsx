@@ -41,6 +41,23 @@ export class HttpHelper{
       }
     }
   }
+
+  public static async autoLogin():Promise<{userInfo?:UserInfo,token?:string,message:string}>{
+    try{
+      const result= await axios.get("api/auth/token");
+      console.log(result);
+      return {
+        userInfo:result.data.data.userInfo,
+        token:result.data.data.token,
+        message:"ok"
+      }
+    }catch(e){
+      switch(e.response.status){
+        case 401: return {message:"not a valid token"};
+        default: return {message:"unknown exception"};
+      }
+    }
+  }
 }
 
 /*

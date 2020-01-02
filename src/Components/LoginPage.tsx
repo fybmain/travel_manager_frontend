@@ -12,38 +12,51 @@ import history from '../history';
 import { MainStore } from '../Stores/MainStore';
 import { userInfo } from 'os';
 import { UserInfo } from '../Models/AllModels';
+import Axios from 'axios';
 
-interface LoginPageProps{
-  mainStore:MainStore;
+interface LoginPageProps {
+  mainStore: MainStore;
 }
 @inject("mainStore") @observer
 export class LoginPage extends React.Component<LoginPageProps> {
-  @observable registerDialogVisible=false;
-  workId="";
-  password="";
+  @observable registerDialogVisible = false;
+  workId = "";
+  password = "";
 
-  constructor(props:LoginPageProps){
+  constructor(props: LoginPageProps) {
     super(props);
     this.props.mainStore.init();
+    this.autoLogin();
   }
   handleRegister = (e: React.MouseEvent) => {
-    this.registerDialogVisible=true;
+    this.registerDialogVisible = true;
   }
 
   handleRegisterCancel = (e: React.MouseEvent) => {
-    this.registerDialogVisible=false;
+    this.registerDialogVisible = false;
   }
 
-  handleLogin =async(e:React.MouseEvent)=>{
-    const result= await HttpHelper.login({workId:this.workId,password:this.password});
-    if(result.message=="ok"){
+  handleLogin = async (e: React.MouseEvent) => {
+    const result = await HttpHelper.login({ workId: this.workId, password: this.password });
+    if (result.message == "ok") {
       alert("登录成功");
       console.log(result.userInfo)
-      this.props.mainStore.userInfo=result.userInfo as UserInfo;
-      this.props.mainStore.token=result.token as string;
+      this.props.mainStore.userInfo = result.userInfo as UserInfo;
+      localStorage.setItem('Travel-Manager-User-Token', result.token as string);
       history.push("/home");
-    }else{
+    } else {
       alert(result.message);
+    }
+  }
+
+  autoLogin = async () => {
+    const result = await HttpHelper.autoLogin();
+    if (result.message == "ok") {
+      alert("自动登录成功");
+      console.log(result.userInfo)
+      this.props.mainStore.userInfo = result.userInfo as UserInfo;
+      localStorage.setItem('Travel-Manager-User-Token', result.token as string);
+      history.push("/home");
     }
   }
 
@@ -58,26 +71,26 @@ export class LoginPage extends React.Component<LoginPageProps> {
             <Form.Item>
               <Input
                 placeholder="工号"
-                prefix={<Icon type="workId"/>}
+                prefix={<Icon type="workId" />}
                 size="large"
-                onChange={(e)=>{this.workId=e.target.value;}}>
+                onChange={(e) => { this.workId = e.target.value; }}>
               </Input>
             </Form.Item>
 
             <Form.Item>
               <Input.Password
                 placeholder="密码"
-                prefix={<Icon type="password"/>}
+                prefix={<Icon type="password" />}
                 size="large"
-                onChange={(e)=>{this.password=e.target.value;}}>
+                onChange={(e) => { this.password = e.target.value; }}>
               </Input.Password>
             </Form.Item>
 
 
-            <Row style={{marginTop: 0}}>
-              <Checkbox style={{float:"left"}}>记住密码</Checkbox>
-              <a style={{float:"right"}} onClick={this.handleRegister}>&nbsp;&nbsp;&nbsp;注册</a>
-              <a style={{float:"right"}}>忘记密码</a>
+            <Row style={{ marginTop: 0 }}>
+              <Checkbox style={{ float: "left" }}>记住密码</Checkbox>
+              <a style={{ float: "right" }} onClick={this.handleRegister}>&nbsp;&nbsp;&nbsp;注册</a>
+              <a style={{ float: "right" }}>忘记密码</a>
             </Row>
 
             <Form.Item>
@@ -85,14 +98,14 @@ export class LoginPage extends React.Component<LoginPageProps> {
                 onClick={this.handleLogin}
                 type="primary"
                 htmlType="submit"
-                style={{width: "100%"}}>
+                style={{ width: "100%" }}>
                 立即登录
               </Button>
             </Form.Item>
           </Form>
           <RegisterDialog
             visible={this.registerDialogVisible}
-            onCancel={this.handleRegisterCancel}/>
+            onCancel={this.handleRegisterCancel} />
         </div>
       </div>
     )

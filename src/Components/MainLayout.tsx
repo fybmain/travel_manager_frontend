@@ -99,7 +99,7 @@ class MainLayout extends Component<props, {}> {
                         个人信息
                     </Link>
                     </Menu.Item>
-                    <Menu.Item key="LogOut">
+                    <Menu.Item key="LogOut" onClick={(e:any)=>{localStorage.removeItem('Travel-Manager-User-Token');}}>
                       <Link to="/login">
                         退出登录
                       </Link>

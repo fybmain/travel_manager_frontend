@@ -7,11 +7,14 @@ import { Route, Switch, Link, Redirect, Router } from 'react-router-dom';
 import history from './history';
 import { LoginPage } from './Components/LoginPage';
 import AllUsers from './Components/AllUsers';
-import { Provider } from 'mobx-react';
+import { Provider, observer } from 'mobx-react';
+import { observable } from 'mobx';
 
+@observer
 class App extends Component {
 
   mainStore = new MainStore();
+  @observable login = false;
 
   render() {
     return (
@@ -19,7 +22,7 @@ class App extends Component {
         <div>
           <Router history={history}>
             <Switch>
-              <Route path="/login" component={LoginPage} clearStore={this.clearStore} />
+              <Route path="/login" component={LoginPage}/>
               <Route path="/" component={MainLayout} />
               <Redirect to="/login" />
             </Switch>
@@ -28,10 +31,6 @@ class App extends Component {
       </Provider>
     );
   }
-clearStore=()=>{
-  console.log("clear")
-  this.mainStore=new MainStore();
-}
 }
 
 
