@@ -17,7 +17,7 @@ interface ReimbursementApplyListPageProps{
 @inject("mainStore") @observer
 export class ReimbursementApplyListPage extends React.Component<ReimbursementApplyListPageProps> {
   
-  @observable showPendingReview:boolean = true;
+  @observable showFinished:boolean = false;
 
   constructor(props: ReimbursementApplyListPageProps) {
     super(props);
@@ -29,24 +29,18 @@ export class ReimbursementApplyListPage extends React.Component<ReimbursementApp
       <div className="tablePage">
         <div  className="floatLeft">
           <br/>
-          <Radio.Group value={this.showPendingReview} onChange={this.handleChange}>
-            <Radio.Button value={false}>已报销</Radio.Button>
-            <Radio.Button value={true}>未报销</Radio.Button>
+          <Radio.Group value={this.showFinished} onChange={this.handleChange}>
+            <Radio.Button value={false}>未报销</Radio.Button>
+            <Radio.Button value={true}>已报销</Radio.Button>
           </Radio.Group>
         </div>
-        {this.showData(this.showPendingReview)}
+        { (this.showFinished)?table3():table2() }
       </div>
     );
   }
 
   handleChange = (e: RadioChangeEvent) => {
-    this.showPendingReview = !this.showPendingReview;
-  }
-
-  showData=(showPendingReview:boolean)=>{
-      return (showPendingReview?
-          <div>{table2()}</div>
-      :<div>{table3()}</div>)
+    this.showFinished = !this.showFinished;
   }
 }
 

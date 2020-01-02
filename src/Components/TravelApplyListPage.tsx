@@ -121,8 +121,8 @@ export class TravelApplyListPage extends React.Component<TravelApplyListPageProp
         <div className="floatLeft">
           <br />
           <Radio.Group value={this.showFinished} onChange={this.handleChange}>
-            <Radio.Button value={true}>已完成</Radio.Button>
             <Radio.Button value={false}>未完成</Radio.Button>
+            <Radio.Button value={true}>已完成</Radio.Button>
           </Radio.Group>
         </div>
         { table2() }
