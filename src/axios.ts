@@ -10,16 +10,17 @@ const instance = axios.create({
 instance.interceptors.request.use(
   (config) => {
 
-    const token = localStorage.getItem('Travel-Manager-User-Token');
-    if(token!==null){
-
-      // Add token to HTTP header before request is sent
-      if(!('headers' in config)){
-        config.headers = {};
-      }
-
-      config.headers['Authorization'] = token;
+    let token = localStorage.getItem('Travel-Manager-User-Token');
+    if(token===null){
+      token = "";
     }
+
+    // Add token to HTTP header before request is sent
+    if(!('headers' in config)){
+      config.headers = {};
+    }
+
+    config.headers['Authorization'] = token;
 
     return config;
   }
