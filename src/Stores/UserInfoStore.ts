@@ -1,6 +1,6 @@
 import { observable } from "mobx";
 import { UserInfo, LoginRequest } from "../Models/AllModels";
-import { HttpHelper } from './HttpHelper';
+import { UserApi } from '../api/UserApi';
 
 class UserInfoStore {
   @observable public whenAutoLogin = true;
@@ -40,7 +40,7 @@ class UserInfoStore {
     }else{
       let result;
       try{
-        result = await HttpHelper.autoLogin();
+        result = await UserApi.autoLogin();
       }catch(e){
         this.setNotLogin();
         throw e;
@@ -57,7 +57,7 @@ class UserInfoStore {
   }
 
   async login(loginRequest: LoginRequest): Promise<string> {
-    const result = await HttpHelper.login(loginRequest);
+    const result = await UserApi.login(loginRequest);
     if (result.message == "ok") {
       const token = result.token as string;
       const userInfo = result.userInfo as UserInfo;

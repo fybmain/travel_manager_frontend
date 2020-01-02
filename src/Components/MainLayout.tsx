@@ -23,8 +23,6 @@ import UserInfoPage from './UserInfoPage';
 import { UserInfoEditPage } from './UserInfoEditPage';
 import { UserPasswordEditPage } from './UserPasswordEditPage';
 
-import { LoginDialog } from './LoginDialog';
-import { RegisterDialog } from './RegisterDialog';
 import { ClickParam } from 'antd/lib/menu';
 import AllUsers from './AllUsers';
 import { MainStore } from '../Stores/MainStore';

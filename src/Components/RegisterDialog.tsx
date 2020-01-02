@@ -1,6 +1,6 @@
 import React from 'react';
 import { Modal, Form, Input, Icon } from 'antd';
-import { HttpHelper } from '../Stores/HttpHelper';
+import { UserApi } from '../api/UserApi';
 import { observer } from 'mobx-react';
 import { observable } from 'mobx';
 import { RegisterRequest } from '../Models/AllModels';
@@ -36,7 +36,7 @@ export class RegisterDialog extends React.Component<RegisterDialogProps> {
     if(this.password!==this.repeatPassword){
       alert("两次密码输入不一致");
     }
-    const result= await HttpHelper.register({
+    const result= await UserApi.register({
       email: this.email,
       name: this.name,
       password: this.password,

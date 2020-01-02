@@ -2,16 +2,10 @@ import React from 'react';
 import { Form, Input, Icon, Row, Col, Button, Checkbox } from 'antd';
 
 import '../App.css';
-import { Link } from 'react-router-dom';
-import { HttpHelper } from '../Stores/HttpHelper';
 import { RegisterDialog } from './RegisterDialog';
 import { observer, inject } from 'mobx-react';
 import { observable } from 'mobx';
-import { render } from '@testing-library/react';
-import history from '../history';
 import { MainStore } from '../Stores/MainStore';
-import { UserInfo } from '../Models/AllModels';
-import Axios from 'axios';
 import UserInfoStore from '../Stores/UserInfoStore';
 
 interface LoginPageProps {
