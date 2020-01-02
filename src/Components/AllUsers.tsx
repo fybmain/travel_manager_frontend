@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { withRouter, RouteComponentProps } from 'react-router';
 import { Switch, Select, Table, Divider, Radio } from 'antd';
 import { RadioChangeEvent } from 'antd/lib/radio';
@@ -82,9 +82,9 @@ const table1=()=>{
         key="action"
         render={(text, record) => (
           <span>
-          <a>Pass</a>
+          <button className="button-like-link">Pass</button>
           <Divider type="vertical" />
-          <a>Delete</a>
+          <button className="button-like-link">Delete</button>
           </span>
         )}
       />

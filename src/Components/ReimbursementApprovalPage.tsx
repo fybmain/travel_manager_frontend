@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import { Form, Input, Upload, Icon, Button, Divider, Row, Col } from 'antd';
+import { Form, Button, Divider, Row, Col } from 'antd';
 
-import { InputMoneyAmount } from './InputMoneyAmount';
 import pic from "../Pictures/invoice1.png";
 
 export class ReimbursementApprovalPage extends Component {
@@ -17,19 +16,14 @@ export class ReimbursementApprovalPage extends Component {
         sm: { span: 11 },
       },
     };
+    /*
     const tailItemLayout = {
       wrapperCol: {
         xs: { span: 24, offset: 12 },
         sm: { span: 17, offset: 8 },
       },
     };
-    const uploadProps = {
-      name: 'file',
-      action: 'https://example.com/upload',
-      headers: { },
-      onChange() {
-      },
-    };
+    */
     return (
       <div className="tablePage">
         <Form { ...formItemLayout } layout="horizontal" labelAlign="left">

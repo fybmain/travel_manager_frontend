@@ -1,7 +1,6 @@
-import { Layout, Menu, Breadcrumb, Icon } from 'antd';
-import { ClickParam } from 'antd/lib/menu';
+import { Layout, Breadcrumb } from 'antd';
 import React, { Component } from 'react';
-import { Route, Switch, Link, Redirect, Router, RouteComponentProps, withRouter } from 'react-router-dom';
+import { Route, Switch, Redirect, RouteComponentProps, withRouter } from 'react-router-dom';
 import { inject, observer } from 'mobx-react';
 
 import '../App.css';
@@ -26,11 +25,9 @@ import { UserPasswordEditPage } from './UserPasswordEditPage';
 
 import AllUsers from './AllUsers';
 import { MainStore } from '../Stores/MainStore';
-import UserInfoStore from '../Stores/UserInfoStore';
 import { MainMenu } from './MainMenu';
 import { UserStateMenu } from './UserStateMenu';
 
-const { SubMenu } = Menu;
 const { Header, Content, Sider } = Layout;
 
 interface props extends RouteComponentProps {
@@ -39,9 +36,11 @@ interface props extends RouteComponentProps {
 
 @inject("mainStore") @observer
 class MainLayout extends Component<props, {}> {
+  /*
   constructor(props: any) {
     super(props);
   }
+  */
 
   render() {
     return (
@@ -54,7 +53,7 @@ class MainLayout extends Component<props, {}> {
             <Layout style={{ padding: '0 24px 24px', position: "fixed", top: 64, left: 300, right: 0, bottom: 0, overflowY: "auto" }}>
               <Breadcrumb style={{ margin: '16px 0' }}>
                 {
-                  this.props.mainStore.breadcrumb.map((value, index) => <Breadcrumb.Item>{value}</Breadcrumb.Item>)
+                  this.props.mainStore.breadcrumb.map((value, index) => <Breadcrumb.Item key={index}>{value}</Breadcrumb.Item>)
                 }
               </Breadcrumb>
               <Switch>

@@ -2,7 +2,7 @@ import React from 'react';
 import './App.css';
 import { MainStore } from './Stores/MainStore';
 import MainLayout from './Components/MainLayout';
-import { Route, Switch, Link, Redirect, Router } from 'react-router-dom';
+import { Route, Switch, Redirect, Router } from 'react-router-dom';
 import { Provider, observer } from 'mobx-react';
 
 import history from './history';
@@ -14,9 +14,11 @@ class App extends React.Component {
 
   mainStore = new MainStore();
 
+  /*
   constructor(props: any) {
     super(props);
   }
+  */
 
   renderContent(){
     if(UserInfoStore.whenAutoLogin) {

@@ -10,10 +10,6 @@ export interface UserStateMenuProps {
 }
 
 export class UserStateMenu extends React.Component<UserStateMenuProps> {
-  constructor(props: UserStateMenuProps) {
-    super(props);
-  }
-
   handleLogout = () => {
     UserInfoStore.logout();
   }

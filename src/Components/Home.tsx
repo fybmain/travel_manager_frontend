@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { inject, observer } from 'mobx-react';
 
 import '../App.css';
-import { Row, Col, Card, Icon } from 'antd';
+import { Card, Icon } from 'antd';
 import { ApplyFlowChart } from './ApplyFlowChart';
 import { ApproveFlowChart } from './ApproveFlowChart';
 import { MainStore } from '../Stores/MainStore';

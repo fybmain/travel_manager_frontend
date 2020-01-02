@@ -1,5 +1,4 @@
 import * as React from 'react';
-import * as ReactDom from 'react-dom';
 import * as Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
 
@@ -20,7 +19,7 @@ const options: Highcharts.Options = {
 				// Draw the flow chart
         const ren = this.renderer;
         const	colors = Highcharts.getOptions().colors;
-        if(colors==undefined){
+        if(colors===undefined){
           return;
         }
         const rightArrow: Highcharts.SVGPathArray = ['M', 0, 0, 'L', 150, 0, 'L', 145, 5, 'M', 150, 0, 'L', 145, -5];
@@ -66,9 +65,11 @@ const options: Highcharts.Options = {
 // only contain a render method without any state (the App component in this
 // example).
 export class ApproveFlowChart extends React.Component {
+  /*
   constructor(props: HighchartsReact.Props) {
     super(props);
   }
+  */
 
   render() {
     return (
