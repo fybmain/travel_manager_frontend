@@ -23,13 +23,12 @@ import UserInfoPage from './UserInfoPage';
 import { UserInfoEditPage } from './UserInfoEditPage';
 import { UserPasswordEditPage } from './UserPasswordEditPage';
 
-import { LoginDialog } from './LoginDialog';
-import { RegisterDialog } from './RegisterDialog';
 import { ClickParam } from 'antd/lib/menu';
 import AllUsers from './AllUsers';
 import { MainStore } from '../Stores/MainStore';
 import { inject, observer } from 'mobx-react';
 import { observable } from 'mobx';
+import UserInfoStore from '../Stores/UserInfoStore';
 
 const { SubMenu } = Menu;
 const { Header, Content, Sider } = Layout;
@@ -49,7 +48,6 @@ class MainLayout extends Component<props, {}> {
 
   constructor(props: any) {
     super(props);
-    console.log(this.props.mainStore.userInfo);
   }
 
   handleClick = (e: ClickParam) => {
@@ -74,7 +72,6 @@ class MainLayout extends Component<props, {}> {
     return (
       <div>
         <Layout>
-          
           <Layout>
             <Sider width={300} style={{ background: '#fff' }}>
               <Menu
@@ -187,7 +184,7 @@ class MainLayout extends Component<props, {}> {
                 <Route exact path="/all-users" component={AllUsers} />
                 <Route exact path="/user-info/edit" component={UserInfoEditPage} />
                 <Route exact path="/user-info/edit-password" component={UserPasswordEditPage} />
-                <Redirect to="/login" />
+                <Redirect to="/home" />
               </Switch>
             </Layout>
           </Layout>
@@ -202,14 +199,14 @@ class MainLayout extends Component<props, {}> {
               </Menu.Item>
 
               {
-                this.props.mainStore.userInfo.name == "Admin" ?
+                UserInfoStore.userInfo.name == "Admin" ?
                   <SubMenu key="AllUsers" style={{ float: 'right' }}>
                     <Menu.Item key="UserInfo" onClick={(e:any)=>{this.breadcrumb=["用户信息管理"]}}>
                       <Link to="/all-users">
                         用户信息管理
                     </Link>
                     </Menu.Item>
-                    <Menu.Item key="LogOut" onClick={(e:any)=>{localStorage.removeItem('Travel-Manager-User-Token');}}>
+                    <Menu.Item key="LogOut" onClick={() => {UserInfoStore.logout();}}>
                       <Link to="/login">
                         退出登录
                       </Link>
@@ -217,7 +214,7 @@ class MainLayout extends Component<props, {}> {
                   </SubMenu>
                   : <SubMenu
                     key="Apply"
-                    title={this.props.mainStore.userInfo.name as string}
+                    title={UserInfoStore.userInfo.name as string}
                     style={{ float: 'right' }}
                   >
                     <Menu.Item key="UserInfo" onClick={(e:any)=>{this.breadcrumb=[]}}>
@@ -225,7 +222,7 @@ class MainLayout extends Component<props, {}> {
                         个人信息
                     </Link>
                     </Menu.Item>
-                    <Menu.Item key="LogOut" onClick={(e:any)=>{localStorage.removeItem('Travel-Manager-User-Token');}}>
+                    <Menu.Item key="LogOut" onClick={() => {UserInfoStore.logout();}}>
                       <Link to="/login">
                         退出登录
                       </Link>
