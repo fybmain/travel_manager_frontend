@@ -1,15 +1,17 @@
 import React from 'react';
 import { Form, Input, Button, Icon, Row, Col, Card } from 'antd';
+import { RouteComponentProps, withRouter } from 'react-router-dom';
+import { observer, inject } from 'mobx-react';
 
 import history from '../history';
-import { RouteComponentProps, withRouter } from 'react-router-dom';
+import { MainStore } from '../Stores/MainStore';
 
-
-interface props extends RouteComponentProps{
-  // your props here
+interface UserInfoPageProps extends RouteComponentProps{
+  mainStore: MainStore;
 }
 
-class UserInfoPage extends React.Component<props, {}> {
+@inject("mainStore") @observer
+class UserInfoPage extends React.Component<UserInfoPageProps> {
   handleEdit = (e: React.MouseEvent) => {
     history.push('/user-info/edit');
   }
@@ -18,9 +20,9 @@ class UserInfoPage extends React.Component<props, {}> {
     history.push('/user-info/edit-password');
   }
   
-  constructor(props:any){
+  constructor(props:UserInfoPageProps){
     super(props);
-    console.log("construct iserinfopage")
+    this.props.mainStore.breadcrumb=["用户", "个人信息"];
   }
 
   render() {

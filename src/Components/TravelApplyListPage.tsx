@@ -1,8 +1,12 @@
 import React from 'react';
-import { Button, Table, Row, Col } from 'antd';
-import { ApplyStatus } from '../Models/AllModels';
+import { Button, Table, Row, Col, Radio } from 'antd';
+import { RadioChangeEvent } from 'antd/lib/radio';
+import { observable } from 'mobx';
+import { inject, observer } from 'mobx-react';
 
 import history from '../history';
+import { ApplyStatus } from '../Models/AllModels';
+import { MainStore } from '../Stores/MainStore';
 
 const { Column } = Table;
 
@@ -21,11 +25,67 @@ const data1 = [
     applyTIme:"2019-12-28 10:01:02",
     applyStatus:ApplyStatus[0],
   },
+  {
+    id: "4",
+    key: "4",
+    name: "周东",
+    applyTIme:"2019-05-10 10:55:23",
+    applyStatus:ApplyStatus[3],
+  },
+  {
+    id: "10",
+    key: "10",
+    name: "周东",
+    applyTIme:"2019-12-28 10:01:02",
+    applyStatus:ApplyStatus[0],
+  },
+  {
+    id: "4",
+    key: "4",
+    name: "周东",
+    applyTIme:"2019-05-10 10:55:23",
+    applyStatus:ApplyStatus[3],
+  },
+  {
+    id: "10",
+    key: "10",
+    name: "周东",
+    applyTIme:"2019-12-28 10:01:02",
+    applyStatus:ApplyStatus[0],
+  },
+  {
+    id: "4",
+    key: "4",
+    name: "周东",
+    applyTIme:"2019-05-10 10:55:23",
+    applyStatus:ApplyStatus[3],
+  },
+  {
+    id: "10",
+    key: "10",
+    name: "周东",
+    applyTIme:"2019-12-28 10:01:02",
+    applyStatus:ApplyStatus[0],
+  },
+  {
+    id: "4",
+    key: "4",
+    name: "周东",
+    applyTIme:"2019-05-10 10:55:23",
+    applyStatus:ApplyStatus[3],
+  },
+  {
+    id: "10",
+    key: "10",
+    name: "周东",
+    applyTIme:"2019-12-28 10:01:02",
+    applyStatus:ApplyStatus[0],
+  },
 ];
 
 const table2=()=>{
   return(
-    <Table dataSource={data1} className="table" size="small">
+    <Table dataSource={data1} className="table" size="middle">
       <Column title="申请ID" dataIndex="id" key="id" />
       <Column title="申请人" dataIndex="name" key="name" />
       <Column title="申请时间" dataIndex="applyTIme" key="applyTIme" />
@@ -34,17 +94,39 @@ const table2=()=>{
   );
 }
 
-export class TravelApplyListPage extends React.Component {
+interface TravelApplyListPageProps{
+  mainStore: MainStore;
+}
+
+@inject("mainStore") @observer
+export class TravelApplyListPage extends React.Component<TravelApplyListPageProps> {
+  @observable showFinished: boolean = false;
+
+  constructor(props:TravelApplyListPageProps){
+    super(props);
+    this.props.mainStore.breadcrumb=["申请", "出差申请"];
+  }
+
   handleCreate = (e: React.MouseEvent) => {
     history.push('/travel-apply/create');
+  }
+
+  handleChange = (e: RadioChangeEvent) => {
+    this.showFinished = !(this.showFinished);
   }
   
   render() {
     return (
       <div className="tablePage">
-        <br/><br/>
+        <div className="floatLeft">
+          <br />
+          <Radio.Group value={this.showFinished} onChange={this.handleChange}>
+            <Radio.Button value={true}>已完成</Radio.Button>
+            <Radio.Button value={false}>未完成</Radio.Button>
+          </Radio.Group>
+        </div>
         { table2() }
-        <Row>
+        <Row style={{padding:30}}>
           <Col span={11}></Col>
           <Col span={2}>
             <Button onClick={this.handleCreate} type="primary">提交申请</Button>

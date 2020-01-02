@@ -1,27 +1,30 @@
 import React, { Component } from 'react';
+import { withRouter, RouteComponentProps } from 'react-router';
 import { Switch, Select, Table, Divider, Radio } from 'antd';
 import { RadioChangeEvent } from 'antd/lib/radio';
-import {observable} from 'mobx';
-import { observer } from 'mobx-react';
+import { observable } from 'mobx';
+import { observer, inject } from 'mobx-react';
 
 import '../App.css';
-import { withRouter, RouteComponentProps } from 'react-router';
+import { MainStore } from '../Stores/MainStore';
 
 const { Column } = Table;
 const { Option } = Select;
 
-interface props extends RouteComponentProps{
-  // your props here
-}
-interface states {
-  // attributes needed in your component here
+
+interface AllUsersProps extends RouteComponentProps{
+  mainStore: MainStore;
 }
 
-@observer
-class AllUsers extends Component<props, states> {
+@inject("mainStore") @observer
+class AllUsers extends React.Component<AllUsersProps> {
 
   @observable showAllData: boolean = true;
 
+  constructor(props: AllUsersProps) {
+    super(props);
+    this.props.mainStore.breadcrumb=["管理后台", "用户信息"];
+  }
   componentDidMount() {
     console.log(this.props.location);
   }

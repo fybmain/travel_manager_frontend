@@ -1,12 +1,24 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Form, Input, Button, DatePicker } from 'antd';
+import { inject, observer } from 'mobx-react';
+
 import { InputMoneyAmount } from './InputMoneyAmount';
+import { MainStore } from '../Stores/MainStore';
 
 const { TextArea } = Input;
 const { RangePicker } = DatePicker;
 
-export class TravelApplyCreatePage extends Component {
-  
+interface TravelApplyCreatePageProps{
+  mainStore: MainStore;
+}
+
+@inject("mainStore") @observer
+export class TravelApplyCreatePage extends React.Component<TravelApplyCreatePageProps> {
+  constructor(props:TravelApplyCreatePageProps){
+    super(props);
+    this.props.mainStore.breadcrumb=["申请", "出差申请", "创建"];
+  }
+
   render() {
     const formItemLayout = {
       labelCol: {

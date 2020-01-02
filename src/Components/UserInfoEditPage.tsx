@@ -1,9 +1,21 @@
 import React from 'react';
 import { Form, Input, Button, Icon, Row, Col } from 'antd';
+import { inject, observer } from 'mobx-react';
 
 import history from '../history';
+import { MainStore } from '../Stores/MainStore';
 
-export class UserInfoEditPage extends React.Component {
+interface UserInfoEditPageProps{
+  mainStore: MainStore;
+}
+
+@inject("mainStore") @observer
+export class UserInfoEditPage extends React.Component<UserInfoEditPageProps> {
+  constructor(props: UserInfoEditPageProps) {
+    super(props);
+    this.props.mainStore.breadcrumb=["用户", "个人信息", "编辑"];
+  }
+
   handleCancel = (e: React.MouseEvent) => {
     history.push('/user-info');
   }

@@ -1,9 +1,21 @@
 import React from 'react';
 import { Form, Input, Button, Icon, Row, Col } from 'antd';
+import { inject, observer } from 'mobx-react';
 
 import history from '../history';
+import { MainStore } from '../Stores/MainStore';
 
-export class UserPasswordEditPage extends React.Component {
+interface UserPasswordEditPageProps{
+  mainStore: MainStore;
+}
+
+@inject("mainStore") @observer
+export class UserPasswordEditPage extends React.Component<UserPasswordEditPageProps> {
+  constructor(props: UserPasswordEditPageProps) {
+    super(props);
+    this.props.mainStore.breadcrumb=["用户", "个人信息", "修改密码"];
+  }
+
   handleCancel = (e: React.MouseEvent) => {
     history.push('/user-info');
   }

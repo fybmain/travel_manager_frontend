@@ -2,18 +2,27 @@ import React from 'react';
 import { Table, Radio } from 'antd';
 import { RadioChangeEvent } from 'antd/lib/radio';
 import { observable } from 'mobx';
-import { observer } from 'mobx-react';
+import { observer, inject } from 'mobx-react';
 
 import history from '../history';
 import { ApplyStatus } from '../Models/AllModels';
+import { MainStore } from '../Stores/MainStore';
 
 const { Column } = Table;
 
-@observer
-export class TravelApprovalPage extends React.Component {
+interface TravelApprovalPageProps{
+  mainStore: MainStore;
+}
+
+@inject("mainStore") @observer
+export class TravelApprovalPage extends React.Component<TravelApprovalPageProps> {
 
   @observable showPendingReview: boolean = true;
 
+  constructor(props:TravelApprovalPageProps){
+    super(props);
+    this.props.mainStore.breadcrumb=["审批", "出差审批"];
+  }
   render() {
     return (
       <div className="tablePage">
@@ -82,7 +91,7 @@ const table2 = (showPendingReview: boolean) => {
     data1.filter(x => x.applyStatus == ApplyStatus[0])
     : data1.filter(x => x.applyStatus != ApplyStatus[0])
   return (
-    <Table dataSource={data2} className="table"
+    <Table dataSource={data2} className="table" size="middle"
       onRow={record => {
         return {
           onDoubleClick: event => { handleCreate() },
