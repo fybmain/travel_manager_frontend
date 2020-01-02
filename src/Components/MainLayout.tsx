@@ -57,7 +57,6 @@ class MainLayout extends Component<props, {}> {
                 }
               </Breadcrumb>
               <Switch>
-                <Route path="/user-info" component={UserInfoPage} />
                 <Route exact path="/home" component={Home} />
 
                 <Route exact path="/travel-apply" component={TravelApplyListPage} />
@@ -75,9 +74,12 @@ class MainLayout extends Component<props, {}> {
                 <Route exact path="/department-report" component={DepartmentReport} />
                 <Route exact path="/company-report" component={CompanyReport} />
 
-                <Route exact path="/all-users" component={AllUsers} />
+                <Route exact path="/user-info" component={UserInfoPage} />
                 <Route exact path="/user-info/edit" component={UserInfoEditPage} />
                 <Route exact path="/user-info/edit-password" component={UserPasswordEditPage} />
+
+                <Route exact path="/all-users" component={AllUsers} />
+
                 <Redirect to="/home" />
               </Switch>
             </Layout>
