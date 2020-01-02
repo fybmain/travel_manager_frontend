@@ -1,11 +1,24 @@
 import React, { Component } from 'react';
+import { inject, observer } from 'mobx-react';
+
 import '../App.css';
 import { Row, Col, Card, Icon } from 'antd';
 import { ApplyFlowChart } from './ApplyFlowChart';
 import { ApproveFlowChart } from './ApproveFlowChart';
+import { MainStore } from '../Stores/MainStore';
 
-//import '../my.module.less';
-export class Home extends Component {
+interface HomeProps{
+  mainStore:MainStore;
+}
+
+@inject("mainStore") @observer
+export class Home extends Component<HomeProps> {
+
+  constructor(props:any){
+    super(props);
+    this.props.mainStore.breadcrumb=["首页"];
+  }
+
   render() {
     return (
       <div className="allBackground">
@@ -15,7 +28,7 @@ export class Home extends Component {
               差旅报销
             </div>
             <div className="home-head2">
-              差旅活动全过程管理，出差，报销，审批, 统计一体
+              差旅活动全过程管理，集出差，报销，审批, 统计一体
             </div>
             <br /><br />
             <button className="home-button">了解更多</button>

@@ -1,9 +1,21 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Form, Input, Upload, Icon, Button, Divider, Row, Col } from 'antd';
-import { InputMoneyAmount } from './InputMoneyAmount';
+import { inject, observer } from 'mobx-react';
 
-export class ReimbursementApplyCreatePage extends Component {
-  
+import { InputMoneyAmount } from './InputMoneyAmount';
+import { MainStore } from '../Stores/MainStore';
+
+interface ReimbursementApplyCreatePageProps{
+  mainStore: MainStore;
+}
+
+@inject("mainStore") @observer
+export class ReimbursementApplyCreatePage extends React.Component<ReimbursementApplyCreatePageProps> {
+  constructor(props: ReimbursementApplyCreatePageProps){
+    super(props);
+    this.props.mainStore.breadcrumb = ["申请", "报销申请", "创建"]
+  }
+
   render() {
     const formItemLayout = {
       labelCol: {

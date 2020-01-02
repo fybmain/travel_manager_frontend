@@ -1,6 +1,9 @@
 import { Layout, Menu, Breadcrumb, Icon } from 'antd';
+import { ClickParam } from 'antd/lib/menu';
 import React, { Component } from 'react';
 import { Route, Switch, Link, Redirect, Router, RouteComponentProps, withRouter } from 'react-router-dom';
+import { inject, observer } from 'mobx-react';
+import { observable } from 'mobx';
 
 import '../App.css';
 import history from '../history';
@@ -23,11 +26,9 @@ import UserInfoPage from './UserInfoPage';
 import { UserInfoEditPage } from './UserInfoEditPage';
 import { UserPasswordEditPage } from './UserPasswordEditPage';
 
-import { ClickParam } from 'antd/lib/menu';
+
 import AllUsers from './AllUsers';
 import { MainStore } from '../Stores/MainStore';
-import { inject, observer } from 'mobx-react';
-import { observable } from 'mobx';
 import UserInfoStore from '../Stores/UserInfoStore';
 
 const { SubMenu } = Menu;
@@ -39,7 +40,6 @@ interface props extends RouteComponentProps {
 
 @inject("mainStore") @observer
 class MainLayout extends Component<props, {}> {
-  @observable breadcrumb:string[]=[];
   state = {
     current: '',
     loginDialogVisible: false,
@@ -78,11 +78,11 @@ class MainLayout extends Component<props, {}> {
                 mode="inline"
                 defaultSelectedKeys={['Home']}
                 defaultOpenKeys={['Home']}
-                style={{ borderBottom: 0 ,position:"fixed", bottom:0, top:64, width:300}}
+                style={{ borderBottom: 0, position: "fixed", bottom: 0, top: 64, width: 300 }}
               >
-                <Menu.Item key="Home" style={{ float: 'left' }} onClick={(e:any)=>{this.breadcrumb=["首页"]}}>
+                <Menu.Item key="Home" style={{ float: 'left' }}>
                   <Link to="/home">
-                    <span style={{fontSize:"large"}}>
+                    <span style={{ fontSize: "large" }}>
                       <Icon type="home" />
                       首页
                       </span>
@@ -91,38 +91,38 @@ class MainLayout extends Component<props, {}> {
                 <SubMenu
                   key="Apply"
                   title={
-                    <span style={{fontSize:"large"}}>
+                    <span style={{ fontSize: "large" }}>
                       <Icon type="form" />
                       申请
                       </span>
                   }
                 >
-                  <Menu.Item key="TravelApply" style={{fontSize:"medium"}} onClick={(e:any)=>{this.breadcrumb=["申请","出差申请"]}}>
+                  <Menu.Item key="TravelApply" style={{ fontSize: "medium" }}>
                     <Link to="/travel-apply">
                       出差申请
                       </Link>
                   </Menu.Item>
-                  <Menu.Item key="ReimbursementApply" style={{fontSize:"medium"}} onClick={(e:any)=>{this.breadcrumb=["申请","报销申请"]}}>
+                  <Menu.Item key="ReimbursementApply" style={{ fontSize: "medium" }}>
                     <Link to="/reimbursement-apply">
                       报销申请
                       </Link>
                   </Menu.Item>
                 </SubMenu>
                 <SubMenu
-                  key="Examine"
+                  key="Approval"
                   title={
-                    <span style={{fontSize:"large"}}>
+                    <span style={{ fontSize: "large" }}>
                       <Icon type="check-square" />
                       审批
                       </span>
                   }
                 >
-                  <Menu.Item key="TravelExamine" style={{fontSize:"medium"}} onClick={(e:any)=>{this.breadcrumb=["审批","出差审批"]}}>
+                  <Menu.Item key="TravelApproval" style={{ fontSize: "medium" }}>
                     <Link to="/travel-approval">
                       出差审批
                       </Link>
                   </Menu.Item>
-                  <Menu.Item key="ReimbursementExamine" style={{fontSize:"medium"}} onClick={(e:any)=>{this.breadcrumb=["审批","报销审批"]}}>
+                  <Menu.Item key="ReimbursementApproval" style={{ fontSize: "medium" }}>
                     <Link to="/reimbursement-approval">
                       报销审批
                       </Link>
@@ -131,23 +131,23 @@ class MainLayout extends Component<props, {}> {
                 <SubMenu
                   key="Report"
                   title={
-                    <span style={{fontSize:"large"}}>
+                    <span style={{ fontSize: "large" }}>
                       <Icon type="bar-chart" />
                       统计
                       </span>
                   }
                 >
-                  <Menu.Item key="PersonalReport" style={{fontSize:"medium"}} onClick={(e:any)=>{this.breadcrumb=["统计","个人报表"]}}>
+                  <Menu.Item key="PersonalReport" style={{ fontSize: "medium" }}>
                     <Link to="/personal-report">
                       个人报表
                       </Link>
                   </Menu.Item>
-                  <Menu.Item key="DepartmentReport" style={{fontSize:"medium"}} onClick={(e:any)=>{this.breadcrumb=["统计","部门报表"]}}>
+                  <Menu.Item key="DepartmentReport" style={{ fontSize: "medium" }}>
                     <Link to="/department-report">
                       部门报表
                       </Link>
                   </Menu.Item>
-                  <Menu.Item key="CompanyReport" style={{fontSize:"medium"}} onClick={(e:any)=>{this.breadcrumb=["统计","公司报表"]}}>
+                  <Menu.Item key="CompanyReport" style={{ fontSize: "medium" }}>
                     <Link to="/company-report">
                       公司报表
                       </Link>
@@ -155,10 +155,10 @@ class MainLayout extends Component<props, {}> {
                 </SubMenu>
               </Menu>
             </Sider>
-            <Layout style={{ padding: '0 24px 24px',position:"fixed",top:64,left:300,right:0,bottom:0 }}>
+            <Layout style={{ padding: '0 24px 24px', position: "fixed", top: 64, left: 300, right: 0, bottom: 0 }}>
               <Breadcrumb style={{ margin: '16px 0' }}>
                 {
-                  this.breadcrumb.map((value,index)=><Breadcrumb.Item>{value}</Breadcrumb.Item>)
+                  this.props.mainStore.breadcrumb.map((value, index) => <Breadcrumb.Item>{value}</Breadcrumb.Item>)
                 }
               </Breadcrumb>
               <Switch>
@@ -192,43 +192,38 @@ class MainLayout extends Component<props, {}> {
             <Menu
               theme="dark"
               mode="horizontal"
-              style={{ height: '64px', lineHeight:'64px'}}
+              style={{ height: '64px', lineHeight: '64px' }}
             >
               <Menu.Item key="logo" style={{ float: 'left' }} disabled>
                 <p className='logo'>Travel Reimbursement System</p>
               </Menu.Item>
 
-              {
-                UserInfoStore.userInfo.name == "Admin" ?
-                  <SubMenu key="AllUsers" style={{ float: 'right' }}>
-                    <Menu.Item key="UserInfo" onClick={(e:any)=>{this.breadcrumb=["用户信息管理"]}}>
+              <SubMenu
+                key="Apply"
+                title={UserInfoStore.userInfo.name as string}
+                style={{ float: 'right' }}
+              >
+                {
+                  UserInfoStore.userInfo.name === "Admin" ?
+                    <Menu.Item key="AllUsers">
                       <Link to="/all-users">
                         用户信息管理
                     </Link>
                     </Menu.Item>
-                    <Menu.Item key="LogOut" onClick={() => {UserInfoStore.logout();}}>
-                      <Link to="/login">
-                        退出登录
-                      </Link>
-                    </Menu.Item>
-                  </SubMenu>
-                  : <SubMenu
-                    key="Apply"
-                    title={UserInfoStore.userInfo.name as string}
-                    style={{ float: 'right' }}
-                  >
-                    <Menu.Item key="UserInfo" onClick={(e:any)=>{this.breadcrumb=[]}}>
-                      <Link to="/user-info">
-                        个人信息
+                    : null
+                }
+                <Menu.Item key="UserInfo">
+                  <Link to="/user-info">
+                    个人信息
                     </Link>
-                    </Menu.Item>
-                    <Menu.Item key="LogOut" onClick={() => {UserInfoStore.logout();}}>
-                      <Link to="/login">
-                        退出登录
+                </Menu.Item>
+                <Menu.Item key="LogOut" onClick={() => { UserInfoStore.logout(); }}>
+                  <Link to="/login">
+                    退出登录
                       </Link>
-                    </Menu.Item>
-                  </SubMenu>
-              }
+                </Menu.Item>
+              </SubMenu>
+
             </Menu>
           </Header>
         </Layout>
@@ -236,4 +231,5 @@ class MainLayout extends Component<props, {}> {
     );
   }
 }
+
 export default withRouter(MainLayout as any);

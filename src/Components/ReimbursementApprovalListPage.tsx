@@ -2,17 +2,27 @@ import React from 'react';
 import { Table, Radio } from 'antd';
 import { RadioChangeEvent } from 'antd/lib/radio';
 import { observable } from 'mobx';
-import { observer } from 'mobx-react';
+import { observer, inject } from 'mobx-react';
 
 import history from '../history';
 import { ApplyStatus } from '../Models/AllModels';
+import { MainStore } from '../Stores/MainStore';
 
 const { Column } = Table;
 
-@observer
-export class ReimbursementApprovalListPage extends React.Component {
+interface ReimbursementApprovalListPageProps {
+  mainStore: MainStore;
+}
+
+@inject("mainStore") @observer
+export class ReimbursementApprovalListPage extends React.Component<ReimbursementApprovalListPageProps> {
 
   @observable showPendingReview: boolean = true;
+
+  constructor(props: ReimbursementApprovalListPageProps) {
+    super(props);
+    this.props.mainStore.breadcrumb=["审批","报销审批"];
+  }
 
   render() {
     return (
