@@ -22,7 +22,7 @@ export class RegisterDialog extends React.Component<RegisterDialogProps> {
   @observable visible=false;
   
   componentDidUpdate(preprops:RegisterDialogProps){
-    if(preprops.visible!=this.props.visible){
+    if(preprops.visible!==this.props.visible){
       this.visible=this.props.visible;
     }
   }
@@ -37,14 +37,15 @@ export class RegisterDialog extends React.Component<RegisterDialogProps> {
     if(this.password!==this.repeatPassword){
       alert("两次密码输入不一致");
     }
-    const result= await UserApi.register({
+    const registerRequest: RegisterRequest = {
       email: this.email,
       name: this.name,
       password: this.password,
       telephone: this.telephone,
       workId: this.workId
-    });
-    if(result.message=="ok"){
+    };
+    const result= await UserApi.register(registerRequest);
+    if(result.message==="ok"){
       alert("注册成功");
       this.visible=false;
     }else{

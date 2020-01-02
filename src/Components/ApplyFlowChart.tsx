@@ -1,5 +1,4 @@
 import * as React from 'react';
-import * as ReactDom from 'react-dom';
 import * as Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
 import { SVGPathArray } from 'highcharts';
@@ -13,7 +12,6 @@ const App = (props: HighchartsReact.Props) => <div>
 	/>
 </div>
 export class ApplyFlowChart extends React.Component {
-
 	render() {
 		return <App />;
 	}

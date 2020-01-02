@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, Input, Upload, Icon, Button, Divider, Row, Col } from 'antd';
+import { Form, Upload, Icon, Button, Divider, Row, Col } from 'antd';
 import { inject, observer } from 'mobx-react';
 
 import { InputMoneyAmount } from './InputMoneyAmount';
@@ -27,12 +27,14 @@ export class ReimbursementApplyCreatePage extends React.Component<ReimbursementA
         sm: { span: 11 },
       },
     };
+    /*
     const tailItemLayout = {
       wrapperCol: {
         xs: { span: 24, offset: 12 },
         sm: { span: 17, offset: 8 },
       },
     };
+    */
     const uploadProps = {
       name: 'file',
       action: 'https://example.com/upload',

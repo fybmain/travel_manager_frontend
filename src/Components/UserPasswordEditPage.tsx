@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, Input, Button, Icon, Row, Col } from 'antd';
+import { Form, Input, Button, Icon } from 'antd';
 import { inject, observer } from 'mobx-react';
 
 import history from '../history';

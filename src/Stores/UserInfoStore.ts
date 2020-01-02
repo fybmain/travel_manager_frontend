@@ -47,7 +47,7 @@ class UserInfoStore {
         this.setNotLogin();
         throw e;
       }
-      if (result.message == "ok") {
+      if (result.message === "ok") {
         const token = result.token as string;
         const userInfo = result.userInfo as UserInfo;
         localStorage.setItem('Travel-Manager-User-Token', token);
@@ -60,7 +60,7 @@ class UserInfoStore {
 
   async login(loginRequest: LoginRequest): Promise<string> {
     const result = await UserApi.login(loginRequest);
-    if (result.message == "ok") {
+    if (result.message === "ok") {
       const token = result.token as string;
       const userInfo = result.userInfo as UserInfo;
       localStorage.setItem('Travel-Manager-User-Token', token);

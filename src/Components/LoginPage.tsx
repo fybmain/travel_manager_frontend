@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, Input, Icon, Row, Col, Button, Checkbox } from 'antd';
+import { Form, Input, Icon, Row, Button, Checkbox } from 'antd';
 
 import '../App.css';
 import { RegisterDialog } from './RegisterDialog';
@@ -17,9 +17,11 @@ export class LoginPage extends React.Component<LoginPageProps> {
   workId = "";
   password = "";
 
+  /*
   constructor(props: LoginPageProps) {
     super(props);
   }
+  */
   handleRegister = (e: React.MouseEvent) => {
     this.registerDialogVisible = true;
   }
@@ -64,8 +66,17 @@ export class LoginPage extends React.Component<LoginPageProps> {
 
             <Row style={{ marginTop: 0 }}>
               <Checkbox style={{ float: "left" }}>记住密码</Checkbox>
-              <a style={{ float: "right" }} onClick={this.handleRegister}>&nbsp;&nbsp;&nbsp;注册</a>
-              <a style={{ float: "right" }}>忘记密码</a>
+              <button
+                className="button-like-link"
+                style={{ float: "right" }}
+                onClick={this.handleRegister}>
+                注册
+              </button>
+              <button
+                className="button-like-link"
+                style={{ float: "right" }}>
+                忘记密码
+              </button>
             </Row>
 
             <Form.Item>

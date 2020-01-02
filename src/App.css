@@ -64,6 +64,17 @@
   height: 300px;
 }
 
+.button-like-link {
+  background-color: transparent;
+  border-style: none; /* 无边框 */
+  outline: none; /* 获得焦点也无边框 */
+  color: #0366d6;
+}
+.button-like-link:hover {
+  text-decoration:underline;
+  color: #0366d6;
+}
+
 .card-margin{
   margin:30px;
 }
