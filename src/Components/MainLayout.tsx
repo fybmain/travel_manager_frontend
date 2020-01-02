@@ -28,6 +28,7 @@ import AllUsers from './AllUsers';
 import { MainStore } from '../Stores/MainStore';
 import UserInfoStore from '../Stores/UserInfoStore';
 import { MainMenu } from './MainMenu';
+import { UserStateMenu } from './UserStateMenu';
 
 const { SubMenu } = Menu;
 const { Header, Content, Sider } = Layout;
@@ -38,35 +39,18 @@ interface props extends RouteComponentProps {
 
 @inject("mainStore") @observer
 class MainLayout extends Component<props, {}> {
-  state = {
-    loginDialogVisible: false,
-    registerDialogVisible: false,
-  }
-
   constructor(props: any) {
     super(props);
-  }
-
-  onClickLogin = (e: ClickParam) => {
-    this.setState({
-      loginDialogVisible: true,
-    });
-  }
-
-  onClickRegister = (e: ClickParam) => {
-    this.setState({
-      registerDialogVisible: true,
-    });
   }
 
   render() {
     return (
       <div>
         <Layout>
-          <Layout>
-            <Sider width={300} style={{ background: '#fff' }}>
-              <MainMenu/>
-            </Sider>
+          <Sider width={300} style={{ background: '#fff' }}>
+            <MainMenu/>
+          </Sider>
+          <Content>
             <Layout style={{ padding: '0 24px 24px', position: "fixed", top: 64, left: 300, right: 0, bottom: 0 }}>
               <Breadcrumb style={{ margin: '16px 0' }}>
                 {
@@ -98,44 +82,9 @@ class MainLayout extends Component<props, {}> {
                 <Redirect to="/home" />
               </Switch>
             </Layout>
-          </Layout>
+          </Content>
           <Header className="header menuTop">
-            <Menu
-              theme="dark"
-              mode="horizontal"
-              style={{ height: '64px', lineHeight: '64px' }}
-            >
-              <Menu.Item key="logo" style={{ float: 'left' }} disabled>
-                <p className='logo'>Travel Reimbursement System</p>
-              </Menu.Item>
-
-              <SubMenu
-                key="Apply"
-                title={UserInfoStore.userInfo.name as string}
-                style={{ float: 'right' }}
-              >
-                {
-                  UserInfoStore.userInfo.name === "Admin" ?
-                    <Menu.Item key="AllUsers">
-                      <Link to="/all-users">
-                        用户信息管理
-                    </Link>
-                    </Menu.Item>
-                    : null
-                }
-                <Menu.Item key="UserInfo">
-                  <Link to="/user-info">
-                    个人信息
-                    </Link>
-                </Menu.Item>
-                <Menu.Item key="LogOut" onClick={() => { UserInfoStore.logout(); }}>
-                  <Link to="/login">
-                    退出登录
-                      </Link>
-                </Menu.Item>
-              </SubMenu>
-
-            </Menu>
+            <UserStateMenu/>
           </Header>
         </Layout>
       </div>
