@@ -1,3 +1,28 @@
+export const ApplyStatus=["部门经理未审批","总经理未审批","审批通过","审批未通过"];
+
+export interface BaseResponse{
+  code: number,
+  data: any,
+  message: string
+}
+
+export interface LoginRequest{
+    workId: string,
+    password: string
+  }
+
+export interface RegisterRequest{
+  email: string,
+  name: string,
+  password: string,
+  telephone: string,
+  workId: string
+}
+
+export interface TravelApplyInfo{
+    id:number;
+
+}
 
 export interface UserInfo {
     id?: string,
@@ -9,33 +34,3 @@ export interface UserInfo {
     departmentId?: number,
     role?: number,
 }
-
-export interface TravelApplyInfo{
-    id:number;
-
-}
-
-export const ApplyStatus=["部门经理未审批","总经理未审批","审批通过","审批未通过"];
-
-
-//wyt start
-export interface RegisterRequest{
-  email: string,
-  name: string,
-  password: string,
-  telephone: string,
-  workId: string
-}
-
-export interface LoginRequest{
-    workId: string,
-    password: string
-  }
-
-export interface BaseResponse{
-  code: number,
-  data: any,
-  message: string
-}
-
-//wyt end
