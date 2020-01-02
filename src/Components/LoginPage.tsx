@@ -20,6 +20,7 @@ interface LoginPageProps {
 @inject("mainStore") @observer
 export class LoginPage extends React.Component<LoginPageProps> {
   @observable registerDialogVisible = false;
+  @observable visible = false;
   workId = "";
   password = "";
 
@@ -52,62 +53,68 @@ export class LoginPage extends React.Component<LoginPageProps> {
   autoLogin = async () => {
     const result = await HttpHelper.autoLogin();
     if (result.message == "ok") {
-      alert("自动登录成功");
+      //alert("自动登录成功");
       console.log(result.userInfo)
       this.props.mainStore.userInfo = result.userInfo as UserInfo;
       localStorage.setItem('Travel-Manager-User-Token', result.token as string);
       history.push("/home");
     }
+    this.visible = true;
   }
 
   render() {
-    return (
-      <div className="login-background">
-        <div className="login-content">
-          <h1 style={{ textAlign: "center" }}>登录</h1>
-          <Form
-            layout="horizontal">
+    if (this.visible) {
+      return (
+        <div className="login-background">
+          <div className="login-content">
+            <h1 style={{ textAlign: "center" }}>登录</h1>
+            <Form
+              layout="horizontal">
 
-            <Form.Item>
-              <Input
-                placeholder="工号"
-                prefix={<Icon type="workId" />}
-                size="large"
-                onChange={(e) => { this.workId = e.target.value; }}>
-              </Input>
-            </Form.Item>
+              <Form.Item>
+                <Input
+                  placeholder="工号"
+                  prefix={<Icon type="workId" />}
+                  size="large"
+                  onChange={(e) => { this.workId = e.target.value; }}>
+                </Input>
+              </Form.Item>
 
-            <Form.Item>
-              <Input.Password
-                placeholder="密码"
-                prefix={<Icon type="password" />}
-                size="large"
-                onChange={(e) => { this.password = e.target.value; }}>
-              </Input.Password>
-            </Form.Item>
+              <Form.Item>
+                <Input.Password
+                  placeholder="密码"
+                  prefix={<Icon type="password" />}
+                  size="large"
+                  onChange={(e) => { this.password = e.target.value; }}>
+                </Input.Password>
+              </Form.Item>
 
 
-            <Row style={{ marginTop: 0 }}>
-              <Checkbox style={{ float: "left" }}>记住密码</Checkbox>
-              <a style={{ float: "right" }} onClick={this.handleRegister}>&nbsp;&nbsp;&nbsp;注册</a>
-              <a style={{ float: "right" }}>忘记密码</a>
-            </Row>
+              <Row style={{ marginTop: 0 }}>
+                <Checkbox style={{ float: "left" }}>记住密码</Checkbox>
+                <a style={{ float: "right" }} onClick={this.handleRegister}>&nbsp;&nbsp;&nbsp;注册</a>
+                <a style={{ float: "right" }}>忘记密码</a>
+              </Row>
 
-            <Form.Item>
-              <Button
-                onClick={this.handleLogin}
-                type="primary"
-                htmlType="submit"
-                style={{ width: "100%" }}>
-                立即登录
+              <Form.Item>
+                <Button
+                  onClick={this.handleLogin}
+                  type="primary"
+                  htmlType="submit"
+                  style={{ width: "100%" }}>
+                  立即登录
               </Button>
-            </Form.Item>
-          </Form>
-          <RegisterDialog
-            visible={this.registerDialogVisible}
-            onCancel={this.handleRegisterCancel} />
+              </Form.Item>
+            </Form>
+            <RegisterDialog
+              visible={this.registerDialogVisible}
+              onCancel={this.handleRegisterCancel} />
+          </div>
         </div>
-      </div>
-    )
+      );
+    } else {
+      return <div/>;
+    }
+
   }
 }
