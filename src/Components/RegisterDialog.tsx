@@ -19,13 +19,6 @@ export class RegisterDialog extends React.Component<RegisterDialogProps> {
   private repeatPassword="";
   private telephone="";
   private workId="";
-  @observable visible=false;
-
-  componentDidUpdate(preprops:RegisterDialogProps){
-    if(this.props.visible!==preprops.visible){
-      this.visible=this.props.visible;
-    }
-  }
 
   handleCancel = (e: React.MouseEvent) => {
     if(this.props.onCancel!==undefined){
@@ -59,7 +52,7 @@ export class RegisterDialog extends React.Component<RegisterDialogProps> {
   render() {
     return (
       <Modal
-        visible={this.visible}
+        visible={this.props.visible}
         onOk={this.handleOk}
         onCancel={this.handleCancel}
         okText="注册"

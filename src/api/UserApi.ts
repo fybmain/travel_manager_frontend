@@ -9,7 +9,7 @@ export class UserApi {
       return {message:"ok"};
     }catch(e){
       switch(e.response.status){
-        case 400: return {message:"work id exists"};
+        case 400: return {message:"workId 已存在"};
         default: return {message:"unknown exception"};
       }
     }
