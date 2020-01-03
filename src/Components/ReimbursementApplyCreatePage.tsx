@@ -4,6 +4,8 @@ import { inject, observer } from 'mobx-react';
 
 import { InputMoneyAmount } from './InputMoneyAmount';
 import { MainStore } from '../Stores/MainStore';
+import history from '../history';
+import { userInfo } from 'os';
 
 interface ReimbursementApplyCreatePageProps{
   mainStore: MainStore;
@@ -11,9 +13,13 @@ interface ReimbursementApplyCreatePageProps{
 
 @inject("mainStore") @observer
 export class ReimbursementApplyCreatePage extends React.Component<ReimbursementApplyCreatePageProps> {
+  private applyId:string;
   constructor(props: ReimbursementApplyCreatePageProps){
     super(props);
-    this.props.mainStore.breadcrumb = ["申请", "报销申请", "创建"]
+    this.props.mainStore.breadcrumb = ["申请", "报销申请", "创建"];
+    const searchParams = new URLSearchParams(history.location.search);
+    this.applyId = searchParams.get('applyId')as string;
+    console.log(this.applyId);
   }
 
   render() {
@@ -27,14 +33,6 @@ export class ReimbursementApplyCreatePage extends React.Component<ReimbursementA
         sm: { span: 11 },
       },
     };
-    /*
-    const tailItemLayout = {
-      wrapperCol: {
-        xs: { span: 24, offset: 12 },
-        sm: { span: 17, offset: 8 },
-      },
-    };
-    */
     const uploadProps = {
       name: 'file',
       action: 'https://example.com/upload',
@@ -50,11 +48,11 @@ export class ReimbursementApplyCreatePage extends React.Component<ReimbursementA
           <Row>
             <Col span={11}>
               <Form.Item label="申请人">
-                <p style={{textAlign: "left"}}>周东</p>
+                <p style={{textAlign: "left"}}>{userInfo.name}</p>
               </Form.Item>
 
               <Form.Item label="出差申请编号">
-                <p style={{textAlign: "left"}}>445</p>
+                <p style={{textAlign: "left"}}>{this.applyId}</p>
               </Form.Item>
 
               <Form.Item label="发票上传" wrapperCol={{sm: { span: 4 }}}>
