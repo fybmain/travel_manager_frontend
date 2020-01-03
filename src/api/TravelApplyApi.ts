@@ -1,5 +1,5 @@
 import axios from '../axios';
-import { TravelApplyItem, TravelApplyDetail } from '../Models/AllModels';
+import { TravelApplyItem, TravelApplyDetail, TravelApplyRequest } from '../Models/AllModels';
 import { AxiosResponse } from 'axios';
 
 export class TravelApplyApi {
@@ -27,7 +27,6 @@ export class TravelApplyApi {
         return { message: "network error" };
       }
     }
-    console.log(result);
     const items: any[] = result.data.data.items;
     return {
       message: "ok",
@@ -40,5 +39,36 @@ export class TravelApplyApi {
         status: value.status,
       })),
     };
+  }
+
+  static async createTravelApplication(request: TravelApplyRequest) {
+    const requestBody = {
+      city: request.city,
+      province: request.province,
+      startTime: request.startTime.toISOString(),
+      endTime: request.endTime.toISOString(),
+      budget: {
+        food: request.budget.food,
+        hotel: request.budget.hotel,
+        vehicle: request.budget.vehicle,
+        other: request.budget.other,
+      },
+      reason: request.reason,
+    };
+    let result;
+    try{
+      result = await axios.post("api/travel/application", requestBody);
+    }catch(err){
+      if(err.response){
+        return { message: "unknown error" };
+      }else{
+        return { message: "network error" };
+      }
+    }
+    if(result.data.code==0){
+      return { message: "ok" };
+    }else{
+      return { message: "unknown error" };
+    }
   }
 }

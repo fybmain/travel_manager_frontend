@@ -47,6 +47,20 @@ export interface TravelApplyItem {
   status: number,
 }
 
+export interface TravelApplyRequest {
+  city: string,
+  province: string,
+  startTime: Date,
+  endTime: Date,
+  budget: {
+    food: number,
+    hotel: number,
+    vehicle: number,
+    other: number,
+  },
+  reason: string,
+}
+
 export enum TravelApplyStatus {
   NeedDepartmentManagerApproval = 1,
   NeedGeneralManagerApproval = 2,
