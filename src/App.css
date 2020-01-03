@@ -164,6 +164,11 @@
   font-size: large;
 }
 
+.pagination{
+  margin: auto;
+  padding: 10px;
+}
+
 .table{
   padding:30px;
 }

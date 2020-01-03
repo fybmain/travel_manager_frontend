@@ -1,5 +1,5 @@
 import axios from '../axios';
-import { TravelApplyItem, TravelApplyDetail, TravelApplyRequest } from '../Models/AllModels';
+import { TravelApplyItem, TravelApplyRequest } from '../Models/AllModels';
 import { AxiosResponse } from 'axios';
 
 export class TravelApplyApi {
@@ -65,7 +65,7 @@ export class TravelApplyApi {
         return { message: "network error" };
       }
     }
-    if(result.data.code==0){
+    if(result.data.code===0){
       return { message: "ok" };
     }else{
       return { message: "unknown error" };

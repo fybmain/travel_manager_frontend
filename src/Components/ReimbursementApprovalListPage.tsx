@@ -18,6 +18,10 @@ interface ReimbursementApprovalListPageProps {
 export class ReimbursementApprovalListPage extends React.Component<ReimbursementApprovalListPageProps> {
 
   @observable showApproved: boolean = false;
+  
+  //@observable data: ApplyBaseInfo[] = [];
+  @observable defaultCurrent:number = 1;
+  @observable total:number = 1;
 
   constructor(props: ReimbursementApprovalListPageProps) {
     super(props);

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Table, Row, Col, Radio, Result, message, Spin } from 'antd';
+import { Button, Table, Row, Col, Radio, message, Spin } from 'antd';
 import { RadioChangeEvent } from 'antd/lib/radio';
 import { observable } from 'mobx';
 import { inject, observer } from 'mobx-react';
