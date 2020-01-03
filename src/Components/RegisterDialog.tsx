@@ -20,9 +20,9 @@ export class RegisterDialog extends React.Component<RegisterDialogProps> {
   private telephone="";
   private workId="";
   @observable visible=false;
-  
+
   componentDidUpdate(preprops:RegisterDialogProps){
-    if(preprops.visible!==this.props.visible){
+    if(this.props.visible!==preprops.visible){
       this.visible=this.props.visible;
     }
   }
@@ -47,7 +47,9 @@ export class RegisterDialog extends React.Component<RegisterDialogProps> {
     const result= await UserApi.register(registerRequest);
     if(result.message==="ok"){
       alert("注册成功");
-      this.visible=false;
+      if(this.props.onCancel!==undefined){
+        this.props.onCancel(e);
+      }
     }else{
       alert(result.message);
     }
