@@ -1,6 +1,5 @@
 import React from 'react';
 import { Form, Input, Button, DatePicker, message } from 'antd';
-import { RangePickerValue } from 'antd/lib/date-picker/interface';
 import { observable } from 'mobx';
 import { inject, observer } from 'mobx-react';
 import moment from 'moment';

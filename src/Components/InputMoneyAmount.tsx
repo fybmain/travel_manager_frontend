@@ -7,9 +7,11 @@ export interface InputMoneyAmountProps {
 }
 
 export class InputMoneyAmount extends React.Component<InputMoneyAmountProps> {
+  /*
   constructor(props: InputMoneyAmountProps) {
     super(props);
   }
+  */
 
   handleChange = (value: number|undefined) => {
     if(this.props.onChange){

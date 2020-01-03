@@ -1,7 +1,6 @@
 import React from 'react';
 import { Modal, Form, Input, Icon } from 'antd';
 import { observer } from 'mobx-react';
-import { observable } from 'mobx';
 
 import { UserApi } from '../api/UserApi';
 import { RegisterRequest } from '../Models/AllModels';

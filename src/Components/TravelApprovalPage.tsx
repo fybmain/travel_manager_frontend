@@ -5,7 +5,7 @@ import { observable } from 'mobx';
 import { observer, inject } from 'mobx-react';
 
 import history from '../history';
-import { ApplyStatus, TravelApplyItem, TravelApplyStatus } from '../Models/AllModels';
+import { TravelApplyItem, TravelApplyStatus } from '../Models/AllModels';
 import { MainStore } from '../Stores/MainStore';
 import { TravelApplyApi } from '../api/TravelApplyApi';
 
@@ -25,7 +25,7 @@ export class TravelApprovalPage extends React.Component<TravelApprovalPageProps>
   constructor(props:TravelApprovalPageProps){
     super(props);
     this.props.mainStore.breadcrumb=["审批", "出差审批"];
-    this.refreshData(this.showApproved);
+    this.refreshData();
   }
 
   handleOpenDetail = () => {
@@ -34,12 +34,12 @@ export class TravelApprovalPage extends React.Component<TravelApprovalPageProps>
   
   handleChange = (e: RadioChangeEvent) => {
     this.showApproved = !(this.showApproved);
-    this.refreshData(this.showApproved);
+    this.refreshData();
   }
 
-  refreshData(showApproved: boolean) {
+  refreshData() {
     this.loading = true;
-    this.doRefreshData(showApproved).then(() => {
+    this.doRefreshData().then(() => {
       this.loading = false;
     })
   }
@@ -61,7 +61,7 @@ export class TravelApprovalPage extends React.Component<TravelApprovalPageProps>
     };
   }
 
-  async doRefreshData(showApproved: boolean) {
+  async doRefreshData() {
     const requestState = (this.showApproved)?"finished":"unfinished";
     const result = await TravelApplyApi.getTravelApplicationListForApprover(10, 1, requestState);
     if(result.message==="ok"){

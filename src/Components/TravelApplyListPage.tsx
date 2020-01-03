@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Table, Row, Col, Radio, Result, message, Spin } from 'antd';
+import { Button, Table, Row, Col, Radio, message, Spin } from 'antd';
 import { RadioChangeEvent } from 'antd/lib/radio';
 import { observable } from 'mobx';
 import { inject, observer } from 'mobx-react';
@@ -25,7 +25,7 @@ export class TravelApplyListPage extends React.Component<TravelApplyListPageProp
   constructor(props:TravelApplyListPageProps){
     super(props);
     this.props.mainStore.breadcrumb=["申请", "出差申请"];
-    this.refreshData(this.showFinished);
+    this.refreshData();
   }
 
   handleCreate = (e: React.MouseEvent) => {
@@ -34,17 +34,17 @@ export class TravelApplyListPage extends React.Component<TravelApplyListPageProp
 
   handleChange = (e: RadioChangeEvent) => {
     this.showFinished = !(this.showFinished);
-    this.refreshData(this.showFinished);
+    this.refreshData();
   }
 
-  refreshData(showFinished: boolean) {
+  refreshData() {
     this.loading = true;
-    this.doRefreshData(showFinished).then(() => {
+    this.doRefreshData().then(() => {
       this.loading = false;
     })
   }
 
-  async doRefreshData(showFinished: boolean) {
+  async doRefreshData() {
     const requestState = (this.showFinished)?"finished":"unfinished";
     const result = await TravelApplyApi.getTravelApplicationListForUser(10, 1, requestState);
     if(result.message==="ok"){
