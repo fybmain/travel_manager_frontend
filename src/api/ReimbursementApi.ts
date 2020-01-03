@@ -1,11 +1,10 @@
 import axios from '../axios';
-import { ApplyBaseInfo, CreateReimbursementRequest, GetTravelApplyListRequest } from '../Models/AllModels';
+import { ApplyBaseInfo, CreateReimbursementRequest } from '../Models/AllModels';
 
 export class ReimbursementApi {
   static async createReimbursementApply(request:CreateReimbursementRequest): Promise<{message:string}>{
     try{
-      const result= await axios.post("api/payment/application",request);
-      console.log(result);
+      await axios.post("api/payment/application",request);
       return {message:"ok"};
     }catch(e){
       switch(e.response.status){
@@ -19,7 +18,6 @@ export class ReimbursementApi {
   static async getUnpaidTravelApplyList(request:{page:number,size:number}): Promise<{items?:ApplyBaseInfo[],total?:number,message:string}>{
     try{
       const result= await axios.get("api/travel/applications/unpaid",{params:request});
-      console.log(result);
       return {
         items:result.data.data.items,
         total:result.data.data.total,
@@ -27,7 +25,6 @@ export class ReimbursementApi {
       }
     }catch(e){
       switch(e.response.status){
-        //case 400: return {message:"state must be Finished, Unfinished or All"};
         default: return {message:"unknown exception"};
       }
     }
@@ -36,7 +33,6 @@ export class ReimbursementApi {
   static async getMyReimbursementApplyList(request:{page:number,size:number,state:string}): Promise<{items?:ApplyBaseInfo[],total?:number,message:string}>{
     try{
       const result= await axios.get("api/payment/applications/me",{params:request});
-      console.log(result);
       return {
         items:result.data.data.items,
         total:result.data.data.total,
@@ -45,23 +41,6 @@ export class ReimbursementApi {
     }catch(e){
       switch(e.response.status){
         case 400: return {message:"请求参数错误"};
-        default: return {message:"unknown exception"};
-      }
-    }
-  }
-
-  static async getReimbursementApplyList(request:GetTravelApplyListRequest): Promise<{items?:ApplyBaseInfo[],total?:number,message:string}>{
-    try{
-      const result= await axios.get("api/travel/applications",{params:request});
-      console.log(result);
-      return {
-        items:result.data.data.items,
-        total:result.data.data.total,
-        message:"ok"
-      }
-    }catch(e){
-      switch(e.response.status){
-        case 400: return {message:"state must be Finished, Unfinished or All"};
         default: return {message:"unknown exception"};
       }
     }
