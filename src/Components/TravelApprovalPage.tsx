@@ -1,12 +1,13 @@
 import React from 'react';
-import { Table, Radio } from 'antd';
+import { Table, Radio, message } from 'antd';
 import { RadioChangeEvent } from 'antd/lib/radio';
 import { observable } from 'mobx';
 import { observer, inject } from 'mobx-react';
 
 import history from '../history';
-import { ApplyStatus } from '../Models/AllModels';
+import { ApplyStatus, TravelApplyItem, TravelApplyStatus } from '../Models/AllModels';
 import { MainStore } from '../Stores/MainStore';
+import { TravelApplyApi } from '../api/TravelApplyApi';
 
 const { Column } = Table;
 
@@ -16,13 +17,61 @@ interface TravelApprovalPageProps{
 
 @inject("mainStore") @observer
 export class TravelApprovalPage extends React.Component<TravelApprovalPageProps> {
-
   @observable showApproved: boolean = false;
+  @observable loading: boolean = true;
+  @observable data: undefined|(TravelApplyItem[]) = undefined;
+  @observable total: number = 0;
 
   constructor(props:TravelApprovalPageProps){
     super(props);
     this.props.mainStore.breadcrumb=["审批", "出差审批"];
+    this.refreshData(this.showApproved);
   }
+
+  handleOpenDetail = () => {
+    history.push('/travel-apply/detail');
+  }
+  
+  handleChange = (e: RadioChangeEvent) => {
+    this.showApproved = !(this.showApproved);
+    this.refreshData(this.showApproved);
+  }
+
+  refreshData(showApproved: boolean) {
+    this.loading = true;
+    this.doRefreshData(showApproved).then(() => {
+      this.loading = false;
+    })
+  }
+
+  renderDate(text: Date): string {
+    return `${text.getFullYear()}年${text.getMonth()+1}月${text.getDay()}日`;
+  }
+
+  renderStatus(text: TravelApplyStatus) {
+    switch(text){
+      case TravelApplyStatus.NeedDepartmentManagerApproval:
+        return '待部门经理审批';
+      case TravelApplyStatus.NeedGeneralManagerApproval:
+        return '待总经理审批';
+      case TravelApplyStatus.ApplicationApproved:
+        return '审批通过';
+      case TravelApplyStatus.ApplicationNotApproved:
+        return '审批不通过';
+    };
+  }
+
+  async doRefreshData(showApproved: boolean) {
+    const requestState = (this.showApproved)?"finished":"unfinished";
+    const result = await TravelApplyApi.getTravelApplicationListForApprover(10, 1, requestState);
+    if(result.message==="ok"){
+      this.data = result.items;
+      this.total = result.total;
+    }else{
+      message.error(result.message);
+    }
+  }
+
   render() {
     return (
       <div className="tablePage">
@@ -33,76 +82,19 @@ export class TravelApprovalPage extends React.Component<TravelApprovalPageProps>
             <Radio.Button value={true}>已审批</Radio.Button>
           </Radio.Group>
         </div>
-        { table2(this.showApproved) }
+        <Table
+          loading={this.loading}
+          dataSource={this.data}
+          rowKey="applyId"
+          onRow={record => ({ onDoubleClick: this.handleOpenDetail })}
+          className="table"
+          size="middle">
+          <Column title="申请ID" dataIndex="applyId" key="applyId" />
+          <Column title="申请人" dataIndex="applicantName" key="applicantName" />
+          <Column title="申请时间" dataIndex="applyTime" key="applyTime" render={this.renderDate}/>
+          <Column title="申请状态" dataIndex="status" key="status" render={this.renderStatus}/>
+        </Table>
       </div>
     );
   }
-
-  handleChange = (e: RadioChangeEvent) => {
-    this.showApproved = !this.showApproved;
-  }
 }
-
-
-const data1 = [
-  {
-    id: "4",
-    key: "4",
-    name: "李可",
-    applyTIme: "2018-05-10 10:55:23",
-    applyStatus: ApplyStatus[2],
-  },
-  {
-    id: "9",
-    key: "9",
-    name: "陈可",
-    applyTIme: "2018-12-20 10:01:02",
-    applyStatus: ApplyStatus[2],
-  },
-  {
-    id: "13",
-    key: "13",
-    name: "周北",
-    applyTIme: "2018-12-30 08:01:02",
-    applyStatus: ApplyStatus[1],
-  },
-  {
-    id: "9",
-    key: "9",
-    name: "周西",
-    applyTIme: "2019-12-20 10:01:02",
-    applyStatus: ApplyStatus[0],
-  },
-  {
-    id: "13",
-    key: "13",
-    name: "周北",
-    applyTIme: "2019-12-30 08:01:02",
-    applyStatus: ApplyStatus[0],
-  },
-];
-
-const table2 = (showApproved: boolean) => {
-  const data2 = showApproved ?
-    data1.filter(x => x.applyStatus !== ApplyStatus[0])
-    : data1.filter(x => x.applyStatus === ApplyStatus[0])
-  return (
-    <Table dataSource={data2} className="table" size="middle"
-      onRow={record => {
-        return {
-          onDoubleClick: event => { handleCreate() },
-        };
-      }}
-    >
-      <Column title="申请ID" dataIndex="id" key="id" />
-      <Column title="申请人" dataIndex="name" key="name" />
-      <Column title="申请时间" dataIndex="applyTIme" key="applyTIme" />
-      <Column title="申请状态" dataIndex="applyStatus" key="applyStatus" />
-    </Table>
-  );
-}
-
-const handleCreate = () => {
-  history.push('/reimbursement-apply/create');
-}
-
