@@ -27,8 +27,8 @@ export class UserPasswordEditPage extends React.Component<UserPasswordEditPagePr
         sm: { span: 5 },
       },
       wrapperCol: {
-        xs: { span: 24 },
-        sm: { span: 16 },
+        xs: { span: 12 },
+        sm: { span: 8 },
       },
     };
     const tailItemLayout = {

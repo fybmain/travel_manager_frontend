@@ -5,7 +5,7 @@ import { observable } from 'mobx';
 import { observer, inject } from 'mobx-react';
 
 import history from '../history';
-import { ApplyStatus, ApplyBaseInfo, FinishStatus } from '../Models';
+import { ApplyStatus, ApplyBaseInfo, FinishStatus, renderDate } from '../Models';
 import { MainStore } from '../Stores/MainStore';
 import { ReimbursementApi } from '../api/ReimbursementApi';
 
@@ -93,7 +93,7 @@ export class ReimbursementApprovalListPage extends React.Component<Reimbursement
           }}>
           <Column title="申请人" dataIndex="applicantName" key="applicantName" />
           <Column title="申请ID" dataIndex="applyId" key="applyId" />
-          <Column title="申请时间" dataIndex="applyTime" key="applyTime" />
+          <Column title="申请时间" dataIndex="applyTime" key="applyTime" render={(text)=>renderDate(new Date(text))} />
           <Column title="部门" dataIndex="departmentName" key="departmentName" />
           <Column title="申请状态" dataIndex="status" key="status"
             render={(text:number, record, index) => { return <span>{(ApplyStatus[text])}</span> }}

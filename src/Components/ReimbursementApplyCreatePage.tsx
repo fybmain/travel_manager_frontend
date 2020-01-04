@@ -135,7 +135,8 @@ export class ReimbursementApplyCreatePage extends React.Component<ReimbursementA
       travelApplyId: Number(this.applyId)
     });
     if (result.message === "ok") {
-      alert("创建成功")
+      history.push('/reimbursement-apply');
+      alert("创建成功");
     }
     else {
       alert(result.message);

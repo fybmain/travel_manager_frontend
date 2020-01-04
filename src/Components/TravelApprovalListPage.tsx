@@ -5,7 +5,7 @@ import { observable } from 'mobx';
 import { observer, inject } from 'mobx-react';
 
 import history from '../history';
-import { TravelApplyItem, travelApplyStatusToString } from '../Models';
+import { TravelApplyItem, travelApplyStatusToString, renderDate } from '../Models';
 import { MainStore } from '../Stores/MainStore';
 import { TravelApplyApi } from '../api/TravelApplyApi';
 
@@ -44,10 +44,6 @@ export class TravelApprovalListPage extends React.Component<TravelApprovalListPa
     })
   }
 
-  renderDate(text: Date): string {
-    return `${text.getFullYear()}年${text.getMonth()+1}月${text.getDay()}日`;
-  }
-
   async doRefreshData() {
     const requestState = (this.showApproved)?"finished":"unfinished";
     const result = await TravelApplyApi.getTravelApplicationListForApprover(10, 1, requestState);
@@ -78,7 +74,7 @@ export class TravelApprovalListPage extends React.Component<TravelApprovalListPa
           size="middle">
           <Column title="申请编号" dataIndex="applyId" key="applyId" />
           <Column title="申请人" dataIndex="applicantName" key="applicantName" />
-          <Column title="申请时间" dataIndex="applyTime" key="applyTime" render={this.renderDate}/>
+          <Column title="申请时间" dataIndex="applyTime" key="applyTime" render={renderDate}/>
           <Column title="申请状态" dataIndex="status" key="status" render={travelApplyStatusToString}/>
         </Table>
       </div>
