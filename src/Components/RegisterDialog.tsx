@@ -3,7 +3,7 @@ import { Modal, Form, Input, Icon } from 'antd';
 import { observer } from 'mobx-react';
 
 import { UserApi } from '../api/UserApi';
-import { RegisterRequest } from '../Models/AllModels';
+import { RegisterRequest } from '../Models';
 
 export interface RegisterDialogProps {
     visible: boolean;

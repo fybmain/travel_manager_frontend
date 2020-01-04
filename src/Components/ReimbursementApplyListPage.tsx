@@ -5,7 +5,7 @@ import { observable } from 'mobx';
 import { observer, inject } from 'mobx-react';
 
 import history from '../history';
-import { ApplyStatus, ApplyBaseInfo, FinishStatus } from '../Models/AllModels';
+import { ApplyStatus, ApplyBaseInfo, FinishStatus } from '../Models';
 import { MainStore } from '../Stores/MainStore';
 import { ReimbursementApi } from '../api/ReimbursementApi';
 

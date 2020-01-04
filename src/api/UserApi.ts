@@ -1,5 +1,5 @@
 import axios from '../axios';
-import { RegisterRequest, LoginRequest, UserInfo } from '../Models/AllModels';
+import { RegisterRequest, LoginRequest, UserInfo } from '../Models';
 
 export class UserApi {
   static async register(request:RegisterRequest): Promise<{message:string}>{
