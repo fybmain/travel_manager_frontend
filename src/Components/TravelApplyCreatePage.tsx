@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, Input, Button, DatePicker, message } from 'antd';
+import { Form, Input, Button, DatePicker, message, Row, Col } from 'antd';
 import { observable } from 'mobx';
 import { inject, observer } from 'mobx-react';
 import moment from 'moment';
@@ -66,14 +66,14 @@ export class TravelApplyCreatePage extends React.Component<TravelApplyCreatePage
         sm: { span: 6 },
       },
       wrapperCol: {
-        xs: { span: 24 },
-        sm: { span: 16 },
+        xs: { span: 18 },
+        sm: { span: 12 },
       },
     };
     const tailItemLayout = {
       wrapperCol: {
-        xs: { span: 24, offset: 0},
-        sm: { span: 16, offset: 8},
+        xs: { span: 24, offset: 0 },
+        sm: { span: 16, offset: 8 },
       },
     };
     return (
@@ -94,12 +94,24 @@ export class TravelApplyCreatePage extends React.Component<TravelApplyCreatePage
           </Form.Item>
 
           <Form.Item label="出差地点">
-            <Input
-              value={this.province}
-              onChange={(e) => {this.province = e.target.value}}/>
-            <Input
-              value={this.city}
-              onChange={(e) => {this.city = e.target.value}}/>
+            <Row>
+              <Col span={6}>
+                <span>
+                <Input
+                  value={this.province}
+                  onChange={(e) => {this.province = e.target.value}}/>
+                </span>
+              </Col>
+              <Col span={1}>省</Col>
+              <Col span={6}>
+                <span>
+                  <Input
+                    value={this.city}
+                    onChange={(e) => {this.city = e.target.value}}/>
+                </span>
+              </Col>
+              <Col span={1}>市</Col>
+            </Row>
           </Form.Item>
 
           <Form.Item label="出差事由">
