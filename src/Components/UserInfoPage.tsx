@@ -6,6 +6,8 @@ import { observer, inject } from 'mobx-react';
 import history from '../history';
 import { MainStore } from '../Stores/MainStore';
 import UserInfoStore from '../Stores/UserInfoStore';
+import { observable } from 'mobx';
+import { UserChangePasswordPage } from './UserChangePassword';
 
 interface UserInfoPageProps extends RouteComponentProps{
   mainStore: MainStore;
@@ -13,6 +15,16 @@ interface UserInfoPageProps extends RouteComponentProps{
 
 @inject("mainStore") @observer
 class UserInfoPage extends React.Component<UserInfoPageProps> {
+  @observable showChangePassword=false;
+  
+  handleChangePassword = (e: React.MouseEvent) => {
+    this.showChangePassword = true;
+  }
+
+  handleChangePasswordCancel = (e: React.MouseEvent) => {
+    this.showChangePassword = false;
+  }
+
   handleEdit = (e: React.MouseEvent) => {
     history.push('/user-info/edit');
   }
@@ -86,7 +98,7 @@ class UserInfoPage extends React.Component<UserInfoPageProps> {
                 修改信息
               </Button>
               <Button
-                onClick={this.handleEditPassword}
+                onClick={this.handleChangePassword}
                 type="primary"
                 htmlType="button"
                 style={{ marginLeft: "20%" }}>
@@ -96,6 +108,9 @@ class UserInfoPage extends React.Component<UserInfoPageProps> {
           </Form.Item>
         </Form></Card>
         </div>
+        <UserChangePasswordPage
+            visible={this.showChangePassword}
+            onCancel={this.handleChangePasswordCancel} />
       </div>
     );
   }
