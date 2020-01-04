@@ -3,7 +3,6 @@ import { Menu, Icon } from 'antd';
 import { Link } from 'react-router-dom';
 
 import history from '../history';
-import { userInfo } from 'os';
 import UserInfoStore from '../Stores/UserInfoStore';
 
 const { SubMenu } = Menu;
