@@ -41,6 +41,9 @@ export class ReimbursementDetailPage extends Component<ReimbursementDetailPagePr
     this.props.mainStore.breadcrumb = ["审批", "报销审批", applyId];
     this.applyId = Number(applyId);
     this.getApplyInfo();
+    if(history.location.pathname.endsWith("approval")){
+      this.showButtons=true;
+    }
   }
 
   render() {

@@ -74,7 +74,11 @@ export class ReimbursementApprovalListPage extends React.Component<Reimbursement
   }
 
   handleDoubleClick = (applyId:number) => {
-    history.push(`/reimbursement-approval/detail?applyId=${applyId}`);
+    if(this.showFinished===0){
+      history.push(`/reimbursement-approval/approval?applyId=${applyId}`);
+    } else{
+      history.push(`/reimbursement/detail?applyId=${applyId}`);
+    }
   }
 
   reimbursementTable = (data: ApplyBaseInfo[], loadingStatus: boolean) => {

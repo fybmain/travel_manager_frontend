@@ -95,7 +95,6 @@ export class ReimbursementApi {
         message: "ok"
       }
     } catch (e) {
-      console.log(e.response);
       switch (e.response.status) {
         case 403: {
           switch (e.response.code) {
