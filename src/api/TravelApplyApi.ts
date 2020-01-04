@@ -159,4 +159,25 @@ export class TravelApplyApi {
       return { message: "unknown error" };
     }
   }
+
+  static async setTravelApplyApprovalStatus(applyId: number, approve: boolean) {
+    let result;
+    try{
+      result = await axios.put("api/travel/approval", {
+        applyId,
+        approved: approve,
+      });
+    }catch(err){
+      if(err.response){
+        return { message: "network error" };
+      }else{
+        return { message: "unknown error" };
+      }
+    }
+    if(result.data.code===0){
+      return { message: "ok" };
+    }else{
+      return { message: "unknown error" };
+    }
+  }
 }

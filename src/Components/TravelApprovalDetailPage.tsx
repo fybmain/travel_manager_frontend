@@ -75,6 +75,28 @@ export class TravelApprovalDetailPage extends React.Component<TravelApprovalDeta
     }
   }
 
+  handleApprove = () => {
+    TravelApplyApi.setTravelApplyApprovalStatus(this.applyId, true).then((result) => {
+      if(result.message==="ok"){
+        message.success("审批成功");
+        this.props.history.push("/travel-approval");
+      }else{
+        message.error(result.message);
+      }
+    })
+  }
+
+  handleReject = () => {
+    TravelApplyApi.setTravelApplyApprovalStatus(this.applyId, false).then((result) => {
+      if(result.message==="ok"){
+        message.success("驳回成功");
+        this.props.history.push("/travel-approval");
+      }else{
+        message.error(result.message);
+      }
+    })
+  }
+
   render() {
     const formItemLayout = {
       labelCol: {
@@ -149,13 +171,19 @@ export class TravelApprovalDetailPage extends React.Component<TravelApprovalDeta
                 <Row>
                   <Col span={7}/>
                   <Col span={4}>
-                    <Button type="primary" htmlType="submit">
+                    <Button
+                      onClick={this.handleApprove}
+                      type="primary"
+                      htmlType="submit">
                       通过
                     </Button>
                   </Col>
                   <Col span={2}/>
                   <Col span={4}>
-                    <Button type="danger" htmlType="button">
+                    <Button
+                      onClick={this.handleReject}
+                      type="danger"
+                      htmlType="button">
                       驳回
                     </Button>
                   </Col>
