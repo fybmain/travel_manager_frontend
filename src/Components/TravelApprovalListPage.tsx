@@ -5,7 +5,7 @@ import { observable } from 'mobx';
 import { observer, inject } from 'mobx-react';
 
 import history from '../history';
-import { TravelApplyItem, TravelApplyStatus } from '../Models/AllModels';
+import { TravelApplyItem, TravelApplyStatus } from '../Models';
 import { MainStore } from '../Stores/MainStore';
 import { TravelApplyApi } from '../api/TravelApplyApi';
 

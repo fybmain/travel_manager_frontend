@@ -1,5 +1,5 @@
 import { observable } from "mobx";
-import { UserInfo, LoginRequest } from "../Models/AllModels";
+import { UserInfo, LoginRequest } from "../Models";
 import { UserApi } from '../api/UserApi';
 
 class UserInfoStore {

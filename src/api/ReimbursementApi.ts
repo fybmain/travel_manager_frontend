@@ -1,5 +1,5 @@
 import axios from '../axios';
-import { ApplyBaseInfo, CreateReimbursementRequest, ReimbursementApplyDetail } from '../Models/AllModels';
+import { ApplyBaseInfo, CreateReimbursementRequest, ReimbursementApplyDetail } from '../Models';
 
 export class ReimbursementApi {
   static async createReimbursementApply(request: CreateReimbursementRequest): Promise<{ message: string }> {

@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
+import { Card, Icon } from 'antd';
 import { inject, observer } from 'mobx-react';
 
 import '../App.css';
-import { Card, Icon } from 'antd';
 import { ApplyFlowChart } from './ApplyFlowChart';
 import { ApproveFlowChart } from './ApproveFlowChart';
 import { MainStore } from '../Stores/MainStore';

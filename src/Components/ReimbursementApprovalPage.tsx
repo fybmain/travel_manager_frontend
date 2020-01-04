@@ -5,7 +5,7 @@ import pic from "../Pictures/invoice1.png";
 import { MainStore } from '../Stores/MainStore';
 import { inject, observer } from 'mobx-react';
 import { observable } from 'mobx';
-import { Payment, ReimbursementApplyDetail } from '../Models/AllModels';
+import { Payment, ReimbursementApplyDetail } from '../Models';
 import history from '../history';
 import { ReimbursementApi } from '../api/ReimbursementApi';
 

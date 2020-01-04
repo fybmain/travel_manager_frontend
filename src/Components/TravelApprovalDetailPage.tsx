@@ -4,7 +4,7 @@ import { Form, Button, Input, Row, Col, Spin, message } from 'antd';
 import { observable } from 'mobx';
 import { inject, observer } from 'mobx-react';
 
-import { TravelApplyDetail, TravelApplyStatus } from '../Models/AllModels';
+import { TravelApplyDetail, TravelApplyStatus } from '../Models';
 import { TravelApplyApi } from '../api/TravelApplyApi';
 
 const { TextArea } = Input;
