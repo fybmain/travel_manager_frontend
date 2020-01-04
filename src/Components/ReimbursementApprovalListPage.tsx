@@ -1,15 +1,17 @@
 import React from 'react';
-import { Table, Radio } from 'antd';
+import { Table, Radio, Pagination } from 'antd';
 import { RadioChangeEvent } from 'antd/lib/radio';
 import { observable } from 'mobx';
 import { observer, inject } from 'mobx-react';
 
 import history from '../history';
-import { ApplyStatus } from '../Models/AllModels';
+import { ApplyStatus, ApplyBaseInfo, FinishStatus } from '../Models/AllModels';
 import { MainStore } from '../Stores/MainStore';
+import { ReimbursementApi } from '../api/ReimbursementApi';
 
 const { Column } = Table;
-
+const radioValues = ["待审批", "已审批"];
+const pageSize = 8;
 interface ReimbursementApprovalListPageProps {
   mainStore: MainStore;
 }
@@ -17,97 +19,88 @@ interface ReimbursementApprovalListPageProps {
 @inject("mainStore") @observer
 export class ReimbursementApprovalListPage extends React.Component<ReimbursementApprovalListPageProps> {
 
-  @observable showApproved: boolean = false;
-  
-  //@observable data: ApplyBaseInfo[] = [];
-  @observable defaultCurrent:number = 1;
-  @observable total:number = 1;
+  @observable showFinished: number = 0;
+  @observable data: ApplyBaseInfo[] = [];
+  @observable current: number = 1;
+  @observable total: number = 1;
+  @observable loadingStatus = false;
+  @observable departmentId = -1;
 
   constructor(props: ReimbursementApprovalListPageProps) {
     super(props);
-    this.props.mainStore.breadcrumb=["审批","报销审批"];
+    this.props.mainStore.breadcrumb = ["审批", "报销审批"];
+    this.updateData();
   }
 
   render() {
     return (
       <div className="tablePage">
         <div className="floatLeft">
-          <br />
-          <Radio.Group value={this.showApproved} onChange={this.handleChange}>
-            <Radio.Button value={false}>待审批</Radio.Button>
-            <Radio.Button value={true}>已审批</Radio.Button>
+          <Radio.Group value={this.showFinished} onChange={this.handleChange}>
+            <Radio.Button value={0}>{radioValues[0]}</Radio.Button>
+            <Radio.Button value={1}>{radioValues[1]}</Radio.Button>
           </Radio.Group>
         </div>
-        { table2(this.showApproved) }
+        {this.reimbursementTable(this.data, this.loadingStatus)}
       </div>
     );
   }
 
   handleChange = (e: RadioChangeEvent) => {
-    this.showApproved = !this.showApproved;
+    this.showFinished = e.target.value;
+    this.current=1;
+    this.total=1;
+    this.updateData();
+  }
+
+
+  updateData = async () => {
+    this.data = [];
+    this.loadingStatus = true;
+    const result = await ReimbursementApi.getReimbursementApplyList({
+      page: this.current,
+      size: pageSize,
+      state: FinishStatus[this.showFinished],
+      departmentId: -1,
+    });
+    if (result.message === "ok") {
+      this.data = result.items as ApplyBaseInfo[];
+      this.total = result.total as number;
+    }
+    else {
+      alert(result.message);
+    }
+    this.loadingStatus = false;
+  }
+
+  handleDoubleClick = (applyId:number) => {
+    history.push(`/reimbursement-approval/detail?applyId=${applyId}`);
+  }
+
+  reimbursementTable = (data: ApplyBaseInfo[], loadingStatus: boolean) => {
+    return (
+      <div style={{ padding: '20px' }}>
+        <Table dataSource={data} className="table" size="middle" loading={loadingStatus}
+          rowKey={(record, index) => { return index.toString() }} pagination={false}
+          onRow={(record,rowKey) => {
+            return {
+              onDoubleClick: event => {this.handleDoubleClick(record.applyId)},
+            };
+          }}>
+          <Column title="申请人" dataIndex="applicantName" key="applicantName" />
+          <Column title="申请ID" dataIndex="applyId" key="applyId" />
+          <Column title="申请时间" dataIndex="applyTime" key="applyTime" />
+          <Column title="部门" dataIndex="departmentName" key="departmentName" />
+          <Column title="申请状态" dataIndex="status" key="status"
+            render={(text:number, record, index) => { return <span>{(ApplyStatus[text])}</span> }}
+          />
+        </Table>
+        <Pagination current={this.current} total={this.total} pageSize={pageSize}
+          hideOnSinglePage={true}
+          onChange={(page, size) => {
+            this.current = page; this.updateData();
+          }} />
+      </div>
+    );
   }
 }
-
-
-const data1 = [
-  {
-    id: "4",
-    key: "4",
-    name: "李可",
-    applyTIme: "2018-05-10 10:55:23",
-    applyStatus: ApplyStatus[2],
-  },
-  {
-    id: "9",
-    key: "9",
-    name: "陈可",
-    applyTIme: "2018-12-20 10:01:02",
-    applyStatus: ApplyStatus[2],
-  },
-  {
-    id: "13",
-    key: "13",
-    name: "周北",
-    applyTIme: "2018-12-30 08:01:02",
-    applyStatus: ApplyStatus[1],
-  },
-  {
-    id: "9",
-    key: "9",
-    name: "周西",
-    applyTIme: "2019-12-20 10:01:02",
-    applyStatus: ApplyStatus[0],
-  },
-  {
-    id: "13",
-    key: "13",
-    name: "周北",
-    applyTIme: "2019-12-30 08:01:02",
-    applyStatus: ApplyStatus[0],
-  },
-];
-
-const table2 = (showApproved: boolean) => {
-  const data2 = showApproved ?
-    data1.filter(x => x.applyStatus !== ApplyStatus[0])
-    : data1.filter(x => x.applyStatus === ApplyStatus[0])
-  return (
-    <Table dataSource={data2} className="table"
-      onRow={record => {
-        return {
-          onDoubleClick: event => {handleDetail()},
-        };
-      }}
-    >
-      <Column title="申请ID" dataIndex="id" key="id" />
-      <Column title="申请人" dataIndex="name" key="name" />
-      <Column title="申请时间" dataIndex="applyTIme" key="applyTIme" />
-      <Column title="申请状态" dataIndex="applyStatus" key="applyStatus" />
-    </Table>
-  );
-}
-
-const handleDetail = () => {
-  history.push('/reimbursement-approval/detail');
-}
-

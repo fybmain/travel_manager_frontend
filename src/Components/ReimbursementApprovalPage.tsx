@@ -2,9 +2,45 @@ import React, { Component } from 'react';
 import { Form, Button, Divider, Row, Col } from 'antd';
 
 import pic from "../Pictures/invoice1.png";
+import { MainStore } from '../Stores/MainStore';
+import { inject, observer } from 'mobx-react';
+import { observable } from 'mobx';
+import { Payment, ReimbursementApplyDetail } from '../Models/AllModels';
+import history from '../history';
+import { ReimbursementApi } from '../api/ReimbursementApi';
 
-export class ReimbursementApprovalPage extends Component {
-  
+interface ReimbursementApprovalPageProps {
+  mainStore: MainStore;
+}
+
+@inject("mainStore") @observer
+export class ReimbursementApprovalPage extends Component<ReimbursementApprovalPageProps> {
+  private applyId: number;
+  private traveApplyId: number = -1;
+  private name: string = "";
+  private budget: Payment = {
+    food: 0,
+    hotel: 0,
+    vehicle: 0,
+    other: 0,
+  }
+  private payment: Payment = {
+    food: 0,
+    hotel: 0,
+    vehicle: 0,
+    other: 0,
+  }
+  @observable pending = true;
+
+  constructor(props: ReimbursementApprovalPageProps) {
+    super(props);
+    const searchParams = new URLSearchParams(history.location.search);
+    const applyId = searchParams.get('applyId') as string;
+    this.props.mainStore.breadcrumb = ["审批", "报销审批", applyId];
+    this.applyId = Number(applyId);
+    this.getApplyInfo();
+  }
+
   render() {
     const formItemLayout = {
       labelCol: {
@@ -16,102 +52,117 @@ export class ReimbursementApprovalPage extends Component {
         sm: { span: 11 },
       },
     };
-    /*
-    const tailItemLayout = {
-      wrapperCol: {
-        xs: { span: 24, offset: 12 },
-        sm: { span: 17, offset: 8 },
-      },
-    };
-    */
+
     return (
-      <div className="tablePage">
-        <Form { ...formItemLayout } layout="horizontal" labelAlign="left">
-          <div style={{paddingTop: "50px"}}/>
+      <div>
+        {
+          this.pending ?
+            null
+            : <div className="tablePage">
+              <Form {...formItemLayout} layout="horizontal" labelAlign="left">
+                <div style={{ paddingTop: "50px" }} />
 
-          <Row>
-            <Col span={11}>
-              <Form.Item label="申请人">
-                <p style={{textAlign: "left"}}>周东</p>
-              </Form.Item>
-
-              <Form.Item label="出差申请编号">
-                <p style={{textAlign: "left"}}>445</p>
-              </Form.Item>
-
-              <Form.Item label="发票" wrapperCol={{sm: { span: 4 }}}>
-                <img src={pic} alt="发票" className="img-box"/>
-              </Form.Item>
-            </Col>
-
-            <Col span={2}>
-
-              <Divider type="vertical"/>
-
-            </Col>
-
-            <Col span={11} >
-              <Form.Item label="酒店报销金额">
                 <Row>
-                <Col span={6} style={{textAlign:"center"}}>
-                  1925
-                </Col>
-                <Col span={6} style={{textAlign:"center"}}>
-                  元
-                </Col>
-                </Row>
-              </Form.Item>
+                  <Col span={10}>
+                    <Form.Item label="申请人">
+                      <p style={{ textAlign: "left" }}>{this.name}</p>
+                    </Form.Item>
 
-              <Form.Item label="车旅报销金额">
-                <Row>
-                <Col span={6} style={{textAlign:"center"}}>
-                  1352
-                </Col>
-                <Col span={6} style={{textAlign:"center"}}>
-                  元
-                </Col>
-                </Row>
-              </Form.Item>
+                    <Form.Item label="出差申请编号">
+                      <p style={{ textAlign: "left" }}>{this.applyId}</p>
+                    </Form.Item>
 
-              <Form.Item label="饮食报销金额">
-                <Row>
-                <Col span={6} style={{textAlign:"center"}}>
-                  356
-                </Col>
-                <Col span={6} style={{textAlign:"center"}}>
-                  元
-                </Col>
-                </Row>
-              </Form.Item>
+                    <Form.Item label="发票" wrapperCol={{ sm: { span: 4 } }}>
+                      <img src={pic} alt="发票" className="img-box" />
+                    </Form.Item>
+                  </Col>
 
-              <Form.Item label="其他报销金额">
-                <Row>
-                <Col span={6} style={{textAlign:"center"}}>
-                  0
-                </Col>
-                <Col span={6} style={{textAlign:"center"}}>
-                  元
-                </Col>
+                  <Col span={2}>
+
+                    <Divider type="vertical" />
+
+                  </Col>
+
+                  <Col span={9} >
+                    <Form.Item label="酒店报销金额" style={{ textAlign: "center" }}>
+                      <PaymentAndBudget payment={this.payment.hotel} budget={this.budget.hotel} />
+                    </Form.Item>
+                    <Form.Item label="车旅报销金额">
+                      <PaymentAndBudget payment={this.payment.vehicle} budget={this.budget.vehicle} />
+                    </Form.Item>
+                    <Form.Item label="饮食报销金额">
+                      <PaymentAndBudget payment={this.payment.food} budget={this.budget.food} />
+                    </Form.Item>
+                    <Form.Item label="其他报销金额">
+                      <PaymentAndBudget payment={this.payment.other} budget={this.budget.other} />
+                    </Form.Item>
+                  </Col>
                 </Row>
-              </Form.Item>
-            </Col> 
-          </Row>
-          <Row>
-            <Col span={7}/>
-            <Col span={4}>
-              <Button type="primary" htmlType="submit">
-                通过
+                <Row>
+                  <Col span={7} />
+                  <Col span={4}>
+                    <Button type="primary" htmlType="submit" onClick={()=>{approveApply(this.applyId,true)}}>
+                      通过
               </Button>
-            </Col>
-            <Col span={2}/>
-            <Col span={4}>
-              <Button type="default" htmlType="button">
-                驳回
+                  </Col>
+                  <Col span={2} />
+                  <Col span={4}>
+                    <Button type="default" htmlType="button" onClick={()=>{approveApply(this.applyId,false)}}>
+                      驳回
               </Button>
-            </Col>
-          </Row>
-        </Form>
+                  </Col>
+                </Row>
+              </Form>
+            </div>
+        }
       </div>
     );
+  }
+
+  getApplyInfo = async () => {
+    const result = await ReimbursementApi.getReimbursementApplyInfo({
+      applyId: this.applyId,
+    });
+    if (result.message === "ok") {
+      const data = result.items as ReimbursementApplyDetail;
+      this.budget = data.budget;
+      this.payment = data.payment;
+      this.name = data.applicant;
+      this.traveApplyId = data.travelApplyId;
+      this.pending = false;
+    }
+    else {
+      alert(result.message);
+    }
+  }
+}
+
+const approveApply=async (applyId:number,approved:boolean) => {
+  const result = await ReimbursementApi.approveReimbursementApply({
+    applyId: applyId,
+    approved: approved
+  });
+  if (result.message === "ok") {
+    history.push("/reimbursement-approval");
+  }
+  else {
+    alert(result.message);
+  }
+}
+class PaymentAndBudget extends Component<{ payment: number, budget: number }>{
+  render() {
+    return (
+      <Row>
+        <Col span={4} style={{ textAlign: "center" }}>
+          {this.props.payment}
+        </Col>
+        <Col span={2} style={{ textAlign: "center" }}>
+          元
+      </Col>
+        <Col span={2} />
+        <Col style={{ textAlign: "left" }}>
+          预算{this.props.budget}元
+      </Col>
+      </Row>);
   }
 }
