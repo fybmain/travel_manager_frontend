@@ -11,25 +11,25 @@ import { TravelApplyApi } from '../api/TravelApplyApi';
 
 const { Column } = Table;
 
-interface TravelApprovalPageProps{
+interface TravelApprovalListPageProps{
   mainStore: MainStore;
 }
 
 @inject("mainStore") @observer
-export class TravelApprovalPage extends React.Component<TravelApprovalPageProps> {
+export class TravelApprovalListPage extends React.Component<TravelApprovalListPageProps> {
   @observable showApproved: boolean = false;
   @observable loading: boolean = true;
   @observable data: undefined|(TravelApplyItem[]) = undefined;
   @observable total: number = 0;
 
-  constructor(props:TravelApprovalPageProps){
+  constructor(props:TravelApprovalListPageProps){
     super(props);
     this.props.mainStore.breadcrumb=["审批", "出差审批"];
     this.refreshData();
   }
 
-  handleOpenDetail = () => {
-    history.push('/travel-apply/detail');
+  handleOpenDetail = (applyId: number) => {
+    history.push(`/travel-approval/${applyId}/detail`);
   }
   
   handleChange = (e: RadioChangeEvent) => {
@@ -86,7 +86,7 @@ export class TravelApprovalPage extends React.Component<TravelApprovalPageProps>
           loading={this.loading}
           dataSource={this.data}
           rowKey="applyId"
-          onRow={record => ({ onDoubleClick: this.handleOpenDetail })}
+          onRow={record => ({ onDoubleClick: () => this.handleOpenDetail(record.applyId) })}
           className="table"
           size="middle">
           <Column title="申请ID" dataIndex="applyId" key="applyId" />
