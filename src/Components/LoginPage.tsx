@@ -1,10 +1,10 @@
 import React from 'react';
 import { Form, Input, Icon, Row, Button, Checkbox } from 'antd';
+import { observer, inject } from 'mobx-react';
+import { observable } from 'mobx';
 
 import '../App.css';
 import { RegisterDialog } from './RegisterDialog';
-import { observer, inject } from 'mobx-react';
-import { observable } from 'mobx';
 import { MainStore } from '../Stores/MainStore';
 import UserInfoStore from '../Stores/UserInfoStore';
 
@@ -66,12 +66,14 @@ export class LoginPage extends React.Component<LoginPageProps> {
 
             <Row style={{ marginTop: 0 }}>
               <button
+                type="button"
                 className="button-like-link"
                 style={{ float: "right" }}
                 onClick={this.handleRegister}>
                 注册
               </button>
               <button
+                type="button"
                 className="button-like-link"
                 style={{ float: "left" }}>
                 忘记密码

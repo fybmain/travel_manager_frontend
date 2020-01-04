@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import { Form, Button, Divider, Row, Col } from 'antd';
-
-import pic from "../Pictures/invoice1.png";
-import { MainStore } from '../Stores/MainStore';
 import { inject, observer } from 'mobx-react';
 import { observable } from 'mobx';
-import { Payment, ReimbursementApplyDetail } from '../Models/AllModels';
+
 import history from '../history';
+import { Payment, ReimbursementApplyDetail } from '../Models';
 import { ReimbursementApi } from '../api/ReimbursementApi';
+import { MainStore } from '../Stores/MainStore';
+
+import pic from "../Pictures/invoice1.png";
 
 interface ReimbursementDetailPageProps {
   mainStore: MainStore;

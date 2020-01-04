@@ -8,7 +8,7 @@ import history from '../history';
 import UserInfoStore from '../Stores/UserInfoStore';
 import { observable } from 'mobx';
 import { ReimbursementApi } from '../api/ReimbursementApi';
-import { Payment } from '../Models/AllModels';
+import { Payment } from '../Models';
 
 interface ReimbursementApplyCreatePageProps {
   mainStore: MainStore;

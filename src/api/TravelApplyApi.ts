@@ -1,8 +1,7 @@
 import axios from '../axios';
-import { TravelApplyItem, TravelApplyRequest } from '../Models/AllModels';
+import { TravelApplyItem, TravelApplyRequest, TravelApplyDetail } from '../Models';
 import { AxiosResponse } from 'axios';
 import UserInfoStore from '../Stores/UserInfoStore';
-import { TravelApplyDetail } from '../Models/AllModels';
 
 export class TravelApplyApi {
   static async getTravelApplicationListForUser(
