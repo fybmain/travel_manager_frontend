@@ -65,7 +65,6 @@ export class LoginPage extends React.Component<LoginPageProps> {
 
 
             <Row style={{ marginTop: 0 }}>
-              <Checkbox style={{ float: "left" }}>记住密码</Checkbox>
               <button
                 type="button"
                 className="button-like-link"
@@ -76,7 +75,7 @@ export class LoginPage extends React.Component<LoginPageProps> {
               <button
                 type="button"
                 className="button-like-link"
-                style={{ float: "right" }}>
+                style={{ float: "left" }}>
                 忘记密码
               </button>
             </Row>
