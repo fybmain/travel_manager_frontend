@@ -52,5 +52,32 @@ export enum TravelApplyStatus {
   NeedDepartmentManagerApproval = 1,
   NeedGeneralManagerApproval = 2,
   ApplicationApproved = 3,
-  ApplicationNotApproved =4,
+  DepartmentManagerRejected = 4,
+  GeneralManagerRejected = 5,
+}
+
+export const isApplicationDone = (travelApplyStatus: TravelApplyStatus) => {
+  switch(travelApplyStatus){
+    case TravelApplyStatus.ApplicationApproved:
+    case TravelApplyStatus.DepartmentManagerRejected:
+    case TravelApplyStatus.GeneralManagerRejected:
+      return true;
+    default:
+      return false;
+  }
+}
+
+export const travelApplyStatusToString = (travelApplyStatus: TravelApplyStatus) => {
+  switch(travelApplyStatus){
+    case TravelApplyStatus.NeedDepartmentManagerApproval:
+      return '待部门经理审批';
+    case TravelApplyStatus.NeedGeneralManagerApproval:
+      return '待总经理审批';
+    case TravelApplyStatus.ApplicationApproved:
+      return '审批通过';
+    case TravelApplyStatus.DepartmentManagerRejected:
+      return '部门经理驳回';
+    case TravelApplyStatus.GeneralManagerRejected:
+      return '总经理驳回';
+  };
 }

@@ -7,6 +7,7 @@ import '../App.css';
 
 import { Home } from './Home';
 import { TravelApplyListPage } from './TravelApplyListPage';
+import { TravelApplyDetailPage } from './TravelApplyDetailPage';
 import { TravelApplyCreatePage } from './TravelApplyCreatePage';
 import { ReimbursementApplyListPage } from './ReimbursementApplyListPage';
 import { ReimbursementApplyCreatePage } from './ReimbursementApplyCreatePage';
@@ -22,7 +23,6 @@ import { CompanyReport } from './CompanyReport';
 import UserInfoPage from './UserInfoPage';
 import { UserInfoEditPage } from './UserInfoEditPage';
 import { UserPasswordEditPage } from './UserPasswordEditPage';
-
 
 import AllUsers from './AllUsers';
 import { MainStore } from '../Stores/MainStore';
@@ -62,6 +62,7 @@ class MainLayout extends Component<props, {}> {
 
                 <Route exact path="/travel-apply" component={TravelApplyListPage} />
                 <Route exact path="/travel-apply/create" component={TravelApplyCreatePage} />
+                <Route exact path="/travel-apply/:applyId/detail" component={TravelApplyDetailPage} />
 
                 <Route exact path="/reimbursement-apply" component={ReimbursementApplyListPage} />
                 <Route exact path="/reimbursement-apply/create" component={ReimbursementApplyCreatePage} />
