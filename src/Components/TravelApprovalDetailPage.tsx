@@ -40,7 +40,9 @@ export class TravelApprovalDetailPage extends React.Component<TravelApprovalDeta
       id: 0,
       applyTime: new Date(),
       applicantId: 0,
+      applicantName: "",
       departmentId: 0,
+      departmentName: "",
       startTime: new Date(),
       endTime: new Date(),
       province: "",
@@ -121,7 +123,7 @@ export class TravelApprovalDetailPage extends React.Component<TravelApprovalDeta
         <Spin spinning={this.loading}>
           <Form { ...formItemLayout } layout="horizontal">
             <Form.Item label="申请人">
-              {this.data.applicantId}
+              {this.data.applicantName}
             </Form.Item>
 
             <Form.Item label="申请时间">
@@ -129,7 +131,7 @@ export class TravelApprovalDetailPage extends React.Component<TravelApprovalDeta
             </Form.Item>
 
             <Form.Item label="部门">
-              {this.data.departmentId}
+              {this.data.departmentName}
             </Form.Item>
 
             <Form.Item label="出差时间">

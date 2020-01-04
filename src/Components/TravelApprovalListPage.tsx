@@ -89,7 +89,7 @@ export class TravelApprovalListPage extends React.Component<TravelApprovalListPa
           onRow={record => ({ onDoubleClick: () => this.handleOpenDetail(record.applyId) })}
           className="table"
           size="middle">
-          <Column title="申请ID" dataIndex="applyId" key="applyId" />
+          <Column title="申请编号" dataIndex="applyId" key="applyId" />
           <Column title="申请人" dataIndex="applicantName" key="applicantName" />
           <Column title="申请时间" dataIndex="applyTime" key="applyTime" render={this.renderDate}/>
           <Column title="申请状态" dataIndex="status" key="status" render={this.renderStatus}/>
