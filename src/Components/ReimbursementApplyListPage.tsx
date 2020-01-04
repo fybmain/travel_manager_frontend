@@ -48,6 +48,8 @@ export class ReimbursementApplyListPage extends React.Component<ReimbursementApp
 
   handleChange = (e: RadioChangeEvent) => {
     this.showFinished = e.target.value;
+    this.current=1;
+    this.total=1;
     this.updateData();
   }
 
@@ -67,24 +69,11 @@ export class ReimbursementApplyListPage extends React.Component<ReimbursementApp
       else {
         alert(result.message);
       }
-    } else if (this.showFinished === 1) {
+    } else {
       const result = await ReimbursementApi.getMyReimbursementApplyList({
         page: this.current,
         size: pageSize,
-        state: FinishStatus[0],
-      });
-      if (result.message === "ok") {
-        this.data = result.items as ApplyBaseInfo[];
-        this.total = result.total as number;
-      }
-      else {
-        alert(result.message);
-      }
-    } else if (this.showFinished === 2) {
-      const result = await ReimbursementApi.getMyReimbursementApplyList({
-        page: this.current,
-        size: pageSize,
-        state: FinishStatus[1],
+        state: FinishStatus[this.showFinished-1],
       });
       if (result.message === "ok") {
         this.data = result.items as ApplyBaseInfo[];
@@ -110,7 +99,7 @@ export class ReimbursementApplyListPage extends React.Component<ReimbursementApp
             title="Action"
             key="action"
             render={(text, record, index) => (
-              <Button onClick={()=>{this.handleCreate(data[index].applyId.toString());}} type="primary">提交报销申请</Button>
+              <Button onClick={()=>{this.handleCreate(data[index].applyId);}} type="primary">提交报销申请</Button>
             )}
           />
         </Table>
@@ -123,7 +112,7 @@ export class ReimbursementApplyListPage extends React.Component<ReimbursementApp
     );
   }
 
-  handleCreate = (applyId:string) => {
+  handleCreate = (applyId:number) => {
     history.push(`/reimbursement-apply/create?applyId=${applyId}`);
   }
 
@@ -140,7 +129,7 @@ export class ReimbursementApplyListPage extends React.Component<ReimbursementApp
             render={(text:number, record, index) => { return <span>{(ApplyStatus[text])}</span> }}
           />
         </Table>
-        <Pagination defaultCurrent={1} total={this.total} pageSize={pageSize} className="pagination"
+        <Pagination current={this.current} total={this.total} pageSize={pageSize}
           hideOnSinglePage={true}
           onChange={(page, size) => {
             this.current = page; this.updateData();

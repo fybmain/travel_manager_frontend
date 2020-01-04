@@ -16,7 +16,7 @@ interface ReimbursementApplyCreatePageProps {
 
 @inject("mainStore") @observer
 export class ReimbursementApplyCreatePage extends React.Component<ReimbursementApplyCreatePageProps> {
-  private applyId: string;
+  private applyId: number;
   @observable budget:Payment = {
     food: 0,
     hotel: 0,
@@ -27,7 +27,8 @@ export class ReimbursementApplyCreatePage extends React.Component<ReimbursementA
     super(props);
     this.props.mainStore.breadcrumb = ["申请", "报销申请", "创建"];
     const searchParams = new URLSearchParams(history.location.search);
-    this.applyId = searchParams.get('applyId') as string;
+    const applyId=searchParams.get('applyId') as string;
+    this.applyId = Number(applyId);
   }
 
   render() {
