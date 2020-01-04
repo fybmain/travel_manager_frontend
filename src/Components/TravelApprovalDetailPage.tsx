@@ -4,20 +4,10 @@ import { Form, Button, Input, Row, Col, Spin, message } from 'antd';
 import { observable } from 'mobx';
 import { inject, observer } from 'mobx-react';
 
-import { TravelApplyDetail, TravelApplyStatus } from '../Models';
+import { TravelApplyDetail, TravelApplyStatus, isApplicationDone } from '../Models';
 import { TravelApplyApi } from '../api/TravelApplyApi';
 
 const { TextArea } = Input;
-
-const isApplicationDone = (travelApplyStatus: TravelApplyStatus) => {
-  switch(travelApplyStatus){
-    case TravelApplyStatus.ApplicationApproved:
-    case TravelApplyStatus.ApplicationNotApproved:
-      return true;
-    default:
-      return false;
-  }
-}
 
 export interface TravelApprovalDetailPageProps extends RouteComponentProps<{ applyId: string }>{
 }
@@ -55,7 +45,7 @@ export class TravelApprovalDetailPage extends React.Component<TravelApprovalDeta
         other: 0,
       },
       reason: "",
-      status: TravelApplyStatus.ApplicationNotApproved,
+      status: TravelApplyStatus.DepartmentManagerRejected,
     };
   }
 

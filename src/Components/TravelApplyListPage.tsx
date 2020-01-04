@@ -5,7 +5,7 @@ import { observable } from 'mobx';
 import { inject, observer } from 'mobx-react';
 
 import history from '../history';
-import { TravelApplyItem, TravelApplyStatus } from '../Models';
+import { TravelApplyItem, travelApplyStatusToString } from '../Models';
 import { MainStore } from '../Stores/MainStore';
 import { TravelApplyApi } from '../api/TravelApplyApi';
 
@@ -59,19 +59,6 @@ export class TravelApplyListPage extends React.Component<TravelApplyListPageProp
     return `${text.getFullYear()}年${text.getMonth()+1}月${text.getDay()}日`;
   }
 
-  renderStatus(text: TravelApplyStatus) {
-    switch(text){
-      case TravelApplyStatus.NeedDepartmentManagerApproval:
-        return '待部门经理审批';
-      case TravelApplyStatus.NeedGeneralManagerApproval:
-        return '待总经理审批';
-      case TravelApplyStatus.ApplicationApproved:
-        return '审批通过';
-      case TravelApplyStatus.ApplicationNotApproved:
-        return '审批不通过';
-    };
-  }
-
   render() {
     return (
       <div className="tablePage">
@@ -90,7 +77,7 @@ export class TravelApplyListPage extends React.Component<TravelApplyListPageProp
               <Column title="申请编号" dataIndex="applyId" key="applyId" />
               <Column title="申请人" dataIndex="applicantName" key="applicantName" />
               <Column title="申请时间" dataIndex="applyTime" key="applyTime" render={this.renderDate}/>
-              <Column title="申请状态" dataIndex="status" key="status" render={this.renderStatus}/>
+              <Column title="申请状态" dataIndex="status" key="status" render={travelApplyStatusToString}/>
             </Table>
           )
         }
