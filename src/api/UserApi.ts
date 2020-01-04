@@ -8,9 +8,13 @@ export class UserApi {
       console.log(result);
       return {message:"ok"};
     }catch(e){
-      switch(e.response.status){
-        case 400: return {message:"workId 已存在"};
-        default: return {message:"unknown exception"};
+      if(e.response){
+        switch(e.response.status){
+          case 400: return {message:"workId 已存在"};
+          default: return {message:"unknown error"};
+        }
+      }else{
+        return { message: "network error" };
       }
     }
   }
@@ -25,9 +29,13 @@ export class UserApi {
         message:"ok"
       }
     }catch(e){
-      switch(e.response.status){
-        case 401: return {message:"username or password incorrect"};
-        default: return {message:"unknown exception"};
+      if(e.response){
+        switch(e.response.status){
+          case 401: return {message:"username or password incorrect"};
+          default: return {message:"unknown error"};
+        }
+      }else{
+        return { message: "network error" };
       }
     }
   }
@@ -42,9 +50,13 @@ export class UserApi {
         message:"ok"
       }
     }catch(e){
-      switch(e.response.status){
-        case 401: return {message:"not a valid token"};
-        default: return {message:"unknown exception"};
+      if(e.response){
+        switch(e.response.status){
+          case 401: return {message:"not a valid token"};
+          default: return {message:"unknown error"};
+        }
+      }else{
+        return { message: "network error" };
       }
     }
   }

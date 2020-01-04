@@ -10,7 +10,8 @@ import { TravelApplyListPage } from './TravelApplyListPage';
 import { TravelApplyCreatePage } from './TravelApplyCreatePage';
 import { ReimbursementApplyListPage } from './ReimbursementApplyListPage';
 import { ReimbursementApplyCreatePage } from './ReimbursementApplyCreatePage';
-import { TravelApprovalPage } from './TravelApprovalPage';
+import { TravelApprovalListPage } from './TravelApprovalListPage';
+import { TravelApprovalDetailPage } from './TravelApprovalDetailPage';
 import { ReimbursementApprovalListPage } from './ReimbursementApprovalListPage';
 import { ReimbursementApprovalPage } from './ReimbursementApprovalPage';
 
@@ -65,7 +66,8 @@ class MainLayout extends Component<props, {}> {
                 <Route exact path="/reimbursement-apply" component={ReimbursementApplyListPage} />
                 <Route exact path="/reimbursement-apply/create" component={ReimbursementApplyCreatePage} />
 
-                <Route exact path="/travel-approval" component={TravelApprovalPage} />
+                <Route exact path="/travel-approval" component={TravelApprovalListPage} />
+                <Route exact path="/travel-approval/:applyId/detail" component={TravelApprovalDetailPage} />
 
                 <Route exact path="/reimbursement-approval" component={ReimbursementApprovalListPage} />
                 <Route exact path="/reimbursement-approval/detail" component={ReimbursementApprovalPage} />
