@@ -48,8 +48,8 @@ export class ReimbursementApplyListPage extends React.Component<ReimbursementApp
 
   handleChange = (e: RadioChangeEvent) => {
     this.showFinished = e.target.value;
-    this.current=1;
-    this.total=1;
+    this.current = 1;
+    this.total = 1;
     this.updateData();
   }
 
@@ -73,7 +73,7 @@ export class ReimbursementApplyListPage extends React.Component<ReimbursementApp
       const result = await ReimbursementApi.getMyReimbursementApplyList({
         page: this.current,
         size: pageSize,
-        state: FinishStatus[this.showFinished-1],
+        state: FinishStatus[this.showFinished - 1],
       });
       if (result.message === "ok") {
         this.data = result.items as ApplyBaseInfo[];
@@ -84,6 +84,10 @@ export class ReimbursementApplyListPage extends React.Component<ReimbursementApp
       }
     }
     this.loadingStatus = false;
+  }
+
+  handleDoubleClick = (applyId: number) => {
+    history.push(`/reimbursement/detail?applyId=${applyId}`);
   }
 
   travelTable = (data: ApplyBaseInfo[], loadingStatus: boolean) => {
@@ -99,7 +103,7 @@ export class ReimbursementApplyListPage extends React.Component<ReimbursementApp
             title="Action"
             key="action"
             render={(text, record, index) => (
-              <Button onClick={()=>{this.handleCreate(data[index].applyId);}} type="primary">提交报销申请</Button>
+              <Button onClick={() => { this.handleCreate(data[index].applyId); }} type="primary">提交报销申请</Button>
             )}
           />
         </Table>
@@ -112,7 +116,7 @@ export class ReimbursementApplyListPage extends React.Component<ReimbursementApp
     );
   }
 
-  handleCreate = (applyId:number) => {
+  handleCreate = (applyId: number) => {
     history.push(`/reimbursement-apply/create?applyId=${applyId}`);
   }
 
@@ -120,13 +124,18 @@ export class ReimbursementApplyListPage extends React.Component<ReimbursementApp
     return (
       <div>
         <Table dataSource={data} className="table" size="middle" loading={loadingStatus}
-          rowKey={(record, index) => { return index.toString() }} pagination={false}>
+          rowKey={(record, index) => { return index.toString() }} pagination={false}
+          onRow={(record, rowKey) => {
+            return {
+              onDoubleClick: event => { this.handleDoubleClick(record.applyId) },
+            };
+          }}>
           <Column title="申请人" dataIndex="applicantName" key="applicantName" />
           <Column title="申请ID" dataIndex="applyId" key="applyId" />
           <Column title="申请时间" dataIndex="applyTime" key="applyTime" />
           <Column title="部门" dataIndex="departmentName" key="departmentName" />
           <Column title="申请状态" dataIndex="status" key="status"
-            render={(text:number, record, index) => { return <span>{(ApplyStatus[text])}</span> }}
+            render={(text: number, record, index) => { return <span>{(ApplyStatus[text])}</span> }}
           />
         </Table>
         <Pagination current={this.current} total={this.total} pageSize={pageSize}
