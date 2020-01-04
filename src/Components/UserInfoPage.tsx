@@ -5,6 +5,7 @@ import { observer, inject } from 'mobx-react';
 
 import history from '../history';
 import { MainStore } from '../Stores/MainStore';
+import UserInfoStore from '../Stores/UserInfoStore';
 
 interface UserInfoPageProps extends RouteComponentProps{
   mainStore: MainStore;
@@ -52,24 +53,24 @@ class UserInfoPage extends React.Component<UserInfoPageProps> {
                 <Col span={3} />
                 <Col span={10}>
                   <Form.Item label="姓名">
-                    <p style={{ textAlign: "left", marginLeft: "20%" }}>王晓明</p>
+                    <p style={{ textAlign: "left", marginLeft: "20%" }}>{UserInfoStore.userInfo.name}</p>
                   </Form.Item>
                   <Form.Item label="部门">
-                    <p style={{ textAlign: "left", marginLeft: "20%" }}>财务部</p>
+                    <p style={{ textAlign: "left", marginLeft: "20%" }}>{UserInfoStore.userInfo.departmentId}</p>
                   </Form.Item>
                   <Form.Item label="邮箱">
-                    <p style={{ textAlign: "left", marginLeft: "20%" }}>xiaoming_wang@qq.com</p>
+                    <p style={{ textAlign: "left", marginLeft: "20%" }}>{UserInfoStore.userInfo.email}</p>
                   </Form.Item>
                 </Col>
                 <Col span={11}>
                   <Form.Item label="工号">
-                    <p style={{ textAlign: "left", marginLeft: "20%" }}>2016242976</p>
+                    <p style={{ textAlign: "left", marginLeft: "20%" }}>{UserInfoStore.userInfo.workId}</p>
                   </Form.Item>
                   <Form.Item label="职位">
-                    <p style={{ textAlign: "left", marginLeft: "20%" }}>部门经理</p>
+                    <p style={{ textAlign: "left", marginLeft: "20%" }}>{UserInfoStore.userInfo.role}</p>
                   </Form.Item>
                   <Form.Item label="手机号">
-                    <p style={{ textAlign: "left", marginLeft: "20%" }}>114514191981</p>
+                    <p style={{ textAlign: "left", marginLeft: "20%" }}>{UserInfoStore.userInfo.telephone}</p>
                   </Form.Item>
                 </Col>
               </Row>

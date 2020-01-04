@@ -31,7 +31,7 @@ export class UserStateMenu extends React.Component<UserStateMenuProps> {
           style={{ float: 'right' }}
         >
           {
-            (UserInfoStore.userInfo.name === "Admin")?(
+            (UserInfoStore.userInfo.role === 3)?(
               <Menu.Item key="AllUsers">
                 <Link to="/all-users">
                   用户信息管理

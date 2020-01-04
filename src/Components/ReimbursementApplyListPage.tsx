@@ -10,7 +10,7 @@ import { MainStore } from '../Stores/MainStore';
 import { ReimbursementApi } from '../api/ReimbursementApi';
 
 const { Column } = Table;
-const radioValues = ["未报销", "审核中", "已报销"];
+const radioValues = ["未报销", "审核中", "已审批"];
 const pageSize = 8;
 interface ReimbursementApplyListPageProps {
   mainStore: MainStore;
