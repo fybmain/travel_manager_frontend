@@ -28,6 +28,10 @@ export class TravelApplyListPage extends React.Component<TravelApplyListPageProp
     this.refreshData();
   }
 
+  handleOpenDetail = (applyId: number) => {
+    history.push(`/travel-apply/${applyId}/detail`);
+  }
+
   handleCreate = (e: React.MouseEvent) => {
     history.push('/travel-apply/create');
   }
@@ -73,7 +77,12 @@ export class TravelApplyListPage extends React.Component<TravelApplyListPageProp
           this.loading?(
             <Spin />
           ):(
-            <Table dataSource={this.data} className="table" size="middle" rowKey="applyId">
+            <Table
+              dataSource={this.data}
+              onRow={record => ({ onDoubleClick: () => this.handleOpenDetail(record.applyId) })}
+              rowKey="applyId"
+              className="table"
+              size="middle">
               <Column title="申请编号" dataIndex="applyId" key="applyId" />
               <Column title="申请人" dataIndex="applicantName" key="applicantName" />
               <Column title="申请时间" dataIndex="applyTime" key="applyTime" render={this.renderDate}/>
