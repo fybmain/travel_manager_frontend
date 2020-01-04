@@ -3,6 +3,8 @@ import { Menu, Icon } from 'antd';
 import { Link } from 'react-router-dom';
 
 import history from '../history';
+import { userInfo } from 'os';
+import UserInfoStore from '../Stores/UserInfoStore';
 
 const { SubMenu } = Menu;
 
@@ -15,15 +17,17 @@ export class MainMenu extends React.Component {
     defaultOpenKey: '',
   }
 
+  private showApprove = true;
   constructor(props: MainMenuProps) {
     super(props);
 
     const pathname = history.location.pathname;
     this.state.defaultSelectedKey = pathname;
-    
-    if(pathname.endsWith("apply")) this.state.defaultOpenKey="apply";
-    if(pathname.endsWith("approval")) this.state.defaultOpenKey="approval";
-    if(pathname.endsWith("report")) this.state.defaultOpenKey="report";
+    if (UserInfoStore.userInfo.role === 0) this.showApprove = false;
+
+    if (pathname.endsWith("apply")) this.state.defaultOpenKey = "apply";
+    if (pathname.endsWith("approval")) this.state.defaultOpenKey = "approval";
+    if (pathname.endsWith("report")) this.state.defaultOpenKey = "report";
   }
 
   render() {
@@ -67,26 +71,31 @@ export class MainMenu extends React.Component {
               </Link>
           </Menu.Item>
         </SubMenu>
-        <SubMenu
-          key="approval"
-          title={
-            <span style={{ fontSize: "large" }}>
-              <Icon type="check-square" />
-              审批
+        {
+          this.showApprove ?
+            <SubMenu
+              key="approval"
+              title={
+                <span style={{ fontSize: "large" }}>
+                  <Icon type="check-square" />
+                  审批
               </span>
-          }
-        >
-          <Menu.Item key="/travel-approval" style={{ fontSize: "medium" }}>
-            <Link to="/travel-approval">
-              出差审批
+              }
+            >
+              <Menu.Item key="/travel-approval" style={{ fontSize: "medium" }}>
+                <Link to="/travel-approval">
+                  出差审批
               </Link>
-          </Menu.Item>
-          <Menu.Item key="/reimbursement-approval" style={{ fontSize: "medium" }}>
-            <Link to="/reimbursement-approval">
-              报销审批
+              </Menu.Item>
+              <Menu.Item key="/reimbursement-approval" style={{ fontSize: "medium" }}>
+                <Link to="/reimbursement-approval">
+                  报销审批
               </Link>
-          </Menu.Item>
-        </SubMenu>
+              </Menu.Item>
+            </SubMenu>
+            : null
+        }
+
         <SubMenu
           key="report"
           title={
