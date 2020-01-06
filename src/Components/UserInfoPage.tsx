@@ -1,13 +1,14 @@
 import React from 'react';
 import { Form, Button, Row, Col, Card } from 'antd';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
+import { observable } from 'mobx';
 import { observer, inject } from 'mobx-react';
 
 import history from '../history';
 import { MainStore } from '../Stores/MainStore';
 import UserInfoStore from '../Stores/UserInfoStore';
-import { observable } from 'mobx';
 import { UserChangePasswordPage } from './UserChangePassword';
+import DepartmentInfoStore from '../Stores/DepartmentInfoStore';
 
 interface UserInfoPageProps extends RouteComponentProps{
   mainStore: MainStore;
@@ -68,7 +69,9 @@ class UserInfoPage extends React.Component<UserInfoPageProps> {
                     <p style={{ textAlign: "left", marginLeft: "20%" }}>{UserInfoStore.userInfo.name}</p>
                   </Form.Item>
                   <Form.Item label="部门">
-                    <p style={{ textAlign: "left", marginLeft: "20%" }}>{UserInfoStore.userInfo.departmentId}</p>
+                    <p style={{ textAlign: "left", marginLeft: "20%" }}>{
+                      DepartmentInfoStore.getDepartmentName(UserInfoStore.userInfo.departmentId)
+                    }</p>
                   </Form.Item>
                   <Form.Item label="邮箱">
                     <p style={{ textAlign: "left", marginLeft: "20%" }}>{UserInfoStore.userInfo.email}</p>
