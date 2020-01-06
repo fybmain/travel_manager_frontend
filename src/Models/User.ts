@@ -11,13 +11,18 @@ export interface RegisterRequest {
   workId: string
 }
 
+export interface UpdateUserInfoRequest {
+  name: string,
+  email: string,
+  telephone: string,
+}
+
 export interface UserInfo {
-  id?: string,
-  password?: string,
-  workId?: string,
-  name?: string,
-  email?: string,
-  telephone?: string,
-  departmentId?: number,
-  role?: number,
+  id: string,
+  workId: string,
+  name: string,
+  email: string,
+  telephone: string,
+  departmentId: number,
+  role: number,
 }
