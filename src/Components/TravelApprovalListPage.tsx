@@ -19,12 +19,19 @@ interface TravelApprovalListPageProps{
 export class TravelApprovalListPage extends React.Component<TravelApprovalListPageProps> {
   @observable showApproved: boolean = false;
   @observable loading: boolean = true;
-  @observable data: undefined|(TravelApplyItem[]) = undefined;
   @observable total: number = 0;
+  @observable pageSize: number = 10;
+  @observable pageNumber: number = 1;
+  @observable data: undefined|(TravelApplyItem[]) = undefined;
 
   constructor(props:TravelApprovalListPageProps){
     super(props);
     this.props.mainStore.breadcrumb=["审批", "出差审批"];
+    this.refreshData();
+  }
+
+  handleSwitchPage = (pageNumber: number) => {
+    this.pageNumber = pageNumber;
     this.refreshData();
   }
 
@@ -68,10 +75,18 @@ export class TravelApprovalListPage extends React.Component<TravelApprovalListPa
         <Table
           loading={this.loading}
           dataSource={this.data}
-          rowKey="applyId"
           onRow={record => ({ onDoubleClick: () => this.handleOpenDetail(record.applyId) })}
+          rowKey="applyId"
           className="table"
-          size="middle">
+          size="middle"
+          pagination={{
+            total: this.total,
+            pageSize: this.pageSize,
+            current: this.pageNumber,
+            onChange: this.handleSwitchPage,
+            hideOnSinglePage: true,
+            className: "pagination",
+          }}>
           <Column title="申请编号" dataIndex="applyId" key="applyId" />
           <Column title="申请人" dataIndex="applicantName" key="applicantName" />
           <Column title="申请时间" dataIndex="applyTime" key="applyTime" render={renderDate}/>

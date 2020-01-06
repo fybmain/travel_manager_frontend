@@ -1,9 +1,12 @@
 import React from 'react';
-import { Form, Input, Button, Icon } from 'antd';
+import { Form, Input, Button, Icon, message } from 'antd';
+import { observable } from 'mobx';
 import { inject, observer } from 'mobx-react';
 
 import history from '../history';
 import { MainStore } from '../Stores/MainStore';
+import UserInfoStore from '../Stores/UserInfoStore';
+import { UserApi } from '../api/UserApi';
 
 interface UserInfoEditPageProps{
   mainStore: MainStore;
@@ -11,9 +14,31 @@ interface UserInfoEditPageProps{
 
 @inject("mainStore") @observer
 export class UserInfoEditPage extends React.Component<UserInfoEditPageProps> {
+  @observable name: string;
+  @observable email: string;
+  @observable telephone: string;
+
   constructor(props: UserInfoEditPageProps) {
     super(props);
     this.props.mainStore.breadcrumb=["用户", "个人信息", "编辑"];
+    this.name = UserInfoStore.userInfo.name;
+    this.email = UserInfoStore.userInfo.email;
+    this.telephone = UserInfoStore.userInfo.telephone;
+  }
+
+  handleSubmit = (e: React.MouseEvent) => {
+    UserApi.updateUserInfo({
+      name: this.name,
+      email: this.email,
+      telephone: this.telephone,
+    }).then((result) => {
+      if(result.message==="ok"){
+        message.success("修改成功");
+        history.push('/user-info');
+      }else{
+        message.error(result.message);
+      }
+    });
   }
 
   handleCancel = (e: React.MouseEvent) => {
@@ -44,18 +69,21 @@ export class UserInfoEditPage extends React.Component<UserInfoEditPageProps> {
         <Form {...formItemLayout} layout="horizontal">
           <Form.Item label="姓名">
             <Input
-              value="王晓明"
+              value={this.name}
+              onChange={(e) => {this.name = e.target.value}}
               placeholder="姓名"
               prefix={<Icon type="user" />}
               size="large" />
           </Form.Item>
 
           <Form.Item label="工号">
-            <p style={{ textAlign: "left" }}>2016242976</p>
+            <p style={{ textAlign: "left" }}>{UserInfoStore.userInfo.workId}</p>
           </Form.Item>
 
           <Form.Item label="邮箱">
             <Input
+              value={this.email}
+              onChange={(e) => {this.email = e.target.value}}
               prefix={<Icon type="mail" />}
               size="large">
             </Input>
@@ -63,6 +91,8 @@ export class UserInfoEditPage extends React.Component<UserInfoEditPageProps> {
 
           <Form.Item label="手机号">
             <Input
+              value={this.telephone}
+              onChange={(e) => {this.telephone = e.target.value}}
               prefix={<Icon type="phone" />}
               size="large">
             </Input>
@@ -70,7 +100,10 @@ export class UserInfoEditPage extends React.Component<UserInfoEditPageProps> {
 
           <Form.Item {...tailItemLayout}>
             <div style={{textAlign: "center"}}>
-              <Button type="primary" htmlType="submit">
+              <Button
+                onClick={this.handleSubmit}
+                type="primary"
+                htmlType="submit">
                 提交
               </Button>
               <Button

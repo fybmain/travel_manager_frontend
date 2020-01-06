@@ -100,7 +100,6 @@ export class TravelApplyApi {
       }
     }
     if(result.data.code===0) {
-      console.log(result);
       return {
         message: "ok",
         data: {

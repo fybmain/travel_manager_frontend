@@ -1,5 +1,5 @@
 import axios from '../axios';
-import { RegisterRequest, LoginRequest, UserInfo } from '../Models';
+import { RegisterRequest, LoginRequest, UserInfo, UpdateUserInfoRequest } from '../Models';
 
 export class UserApi {
   static async register(request:RegisterRequest): Promise<{message:string}>{
@@ -58,6 +58,26 @@ export class UserApi {
       }else{
         return { message: "network error" };
       }
+    }
+  }
+
+  static async updateUserInfo(request: UpdateUserInfoRequest): Promise<{message:string}>{
+    let result;
+    try{
+      result = await axios.put("api/auth/user", request);
+    }catch(e){
+      if(e.response){
+        switch(e.response.status){
+          default: return { message:"unknown error" };
+        }
+      }else{
+        return { message: "network error" };
+      }
+    }
+    if(result.data.code===0){
+      return { message:"ok" };
+    }else{
+      return { message: "network error" };
     }
   }
 }
