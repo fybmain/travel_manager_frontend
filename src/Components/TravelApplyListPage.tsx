@@ -1,5 +1,6 @@
 import React from 'react';
-import { Button, Table, Row, Col, Radio, message, Spin } from 'antd';
+import { RouteComponentProps } from 'react-router';
+import { Button, Table, Row, Col, Radio, message } from 'antd';
 import { RadioChangeEvent } from 'antd/lib/radio';
 import { observable } from 'mobx';
 import { inject, observer } from 'mobx-react';
@@ -11,7 +12,7 @@ import { TravelApplyApi } from '../api/TravelApplyApi';
 
 const { Column } = Table;
 
-interface TravelApplyListPageProps{
+interface TravelApplyListPageProps extends RouteComponentProps {
   mainStore: MainStore;
 }
 
@@ -19,12 +20,19 @@ interface TravelApplyListPageProps{
 export class TravelApplyListPage extends React.Component<TravelApplyListPageProps> {
   @observable showFinished: boolean = false;
   @observable loading: boolean = true;
-  @observable data: undefined|(TravelApplyItem[]) = undefined;
   @observable total: number = 0;
+  @observable pageSize: number = 10;
+  @observable pageNumber: number = 1;
+  @observable data: undefined|(TravelApplyItem[]) = undefined;
 
-  constructor(props:TravelApplyListPageProps){
+  constructor(props: TravelApplyListPageProps){
     super(props);
     this.props.mainStore.breadcrumb=["申请", "出差申请"];
+    this.refreshData();
+  }
+
+  handleSwitchPage = (pageNumber: number) => {
+    this.pageNumber = pageNumber;
     this.refreshData();
   }
 
@@ -50,7 +58,7 @@ export class TravelApplyListPage extends React.Component<TravelApplyListPageProp
 
   async doRefreshData() {
     const requestState = (this.showFinished)?"finished":"unfinished";
-    const result = await TravelApplyApi.getTravelApplicationListForUser(10, 1, requestState);
+    const result = await TravelApplyApi.getTravelApplicationListForUser(this.pageSize, this.pageNumber, requestState);
     if(result.message==="ok"){
       this.data = result.items;
       this.total = result.total;
@@ -70,21 +78,26 @@ export class TravelApplyListPage extends React.Component<TravelApplyListPageProp
           </Radio.Group>
         </div>
         {
-          this.loading?(
-            <Spin />
-          ):(
-            <Table
-              dataSource={this.data}
-              onRow={record => ({ onDoubleClick: () => this.handleOpenDetail(record.applyId) })}
-              rowKey="applyId"
-              className="table"
-              size="middle">
-              <Column title="申请编号" dataIndex="applyId" key="applyId" />
-              <Column title="申请人" dataIndex="applicantName" key="applicantName" />
-              <Column title="申请时间" dataIndex="applyTime" key="applyTime" render={renderDate} />
-              <Column title="申请状态" dataIndex="status" key="status" render={travelApplyStatusToString}/>
-            </Table>
-          )
+          <Table
+            loading={this.loading}
+            dataSource={this.data}
+            onRow={record => ({ onDoubleClick: () => this.handleOpenDetail(record.applyId) })}
+            rowKey="applyId"
+            className="table"
+            size="middle"
+            pagination={{
+              total: this.total,
+              pageSize: this.pageSize,
+              current: this.pageNumber,
+              onChange: this.handleSwitchPage,
+              hideOnSinglePage: true,
+              className: "pagination",
+            }}>
+            <Column title="申请编号" dataIndex="applyId" key="applyId" />
+            <Column title="申请人" dataIndex="applicantName" key="applicantName" />
+            <Column title="申请时间" dataIndex="applyTime" key="applyTime" render={renderDate} />
+            <Column title="申请状态" dataIndex="status" key="status" render={travelApplyStatusToString}/>
+          </Table>
         }
 
         <Row style={{paddingBottom: 20}}>
