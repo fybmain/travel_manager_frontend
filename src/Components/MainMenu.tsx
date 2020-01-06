@@ -41,6 +41,7 @@ export class MainMenu extends React.Component {
           position: "fixed",
           bottom: 0,
           top: 64,
+          width:240
         }}>
         <Menu.Item key="/home" style={{ float: 'left' }}>
           <Link to="/home">
