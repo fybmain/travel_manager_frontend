@@ -21,7 +21,7 @@ export class TravelApplyListPage extends React.Component<TravelApplyListPageProp
   @observable showFinished: boolean = false;
   @observable loading: boolean = true;
   @observable total: number = 0;
-  @observable pageSize: number = 10;
+  @observable pageSize: number = 8;
   @observable pageNumber: number = 1;
   @observable data: undefined|(TravelApplyItem[]) = undefined;
 

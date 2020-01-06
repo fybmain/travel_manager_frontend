@@ -26,7 +26,6 @@ class AllUsers extends React.Component<AllUsersProps> {
     this.props.mainStore.breadcrumb=["管理后台", "用户信息"];
   }
   componentDidMount() {
-    console.log(this.props.location);
   }
 
   render() {
