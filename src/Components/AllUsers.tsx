@@ -31,7 +31,7 @@ class AllUsers extends React.Component<AllUsersProps> {
   constructor(props: AllUsersProps) {
     super(props);
     this.props.mainStore.breadcrumb=["管理后台", "用户信息"];
-    DepartmentInfoStore.refreshData();
+    DepartmentInfoStore.refreshData().then(() => {this.forceUpdate();});
     this.refreshData();
   }
 
@@ -41,14 +41,46 @@ class AllUsers extends React.Component<AllUsersProps> {
   }
 
   handleUpdateDepartment = (value: number, record: AdminListUserItem) => {
-    record.departmentId = value;
-    record.departmentName = DepartmentInfoStore.getDepartmentName(value);
-    this.forceUpdate();
+    UserAdminApi.updateUserDepartment(record.id, value).then(
+      (result) => {
+        if(result.message==="ok"){
+          message.success("修改成功");
+          record.departmentId = value;
+          record.departmentName = DepartmentInfoStore.getDepartmentName(value);
+          this.forceUpdate();
+        }else{
+          message.error(result.message);
+        }
+      }
+    )
   }
 
   handleUpdateRole = (value: UserRole, record: AdminListUserItem) => {
-    record.role = value;
-    this.forceUpdate();
+    UserAdminApi.updateUserRole(record.id, value).then(
+      (result) => {
+        if(result.message==="ok"){
+          message.success("修改成功");
+          record.role = value;
+          this.forceUpdate();
+        }else{
+          message.error(result.message);
+        }
+      }
+    )
+  }
+
+  handleSetApprovalStatus = (record: AdminListUserItem, approve: boolean) => {
+    UserAdminApi.setUserApprovalStatus(record.id, approve).then(
+      (result) => {
+        if(result.message==="ok"){
+          message.success("审核成功");
+          this.data.splice(this.data.indexOf(record), 1);
+          this.forceUpdate();
+        }else{
+          message.error(result.message);
+        }
+      }
+    )
   }
 
   handleChange = (e: RadioChangeEvent) => {
@@ -145,11 +177,21 @@ class AllUsers extends React.Component<AllUsersProps> {
               <Column
                 title="Action"
                 key="action"
-                render={() => (
+                render={(text, record: AdminListUserItem) => (
                   <span>
-                  <button className="button-like-link">Pass</button>
+                  <button
+                    onClick={() => {this.handleSetApprovalStatus(record, true)}}
+                    type="button"
+                    className="button-like-link">
+                    Pass
+                  </button>
                   <Divider type="vertical" />
-                  <button className="button-like-link">Delete</button>
+                  <button
+                    onClick={() => {this.handleSetApprovalStatus(record, false)}}
+                    type="button"
+                    className="button-like-link">
+                    Delete
+                  </button>
                   </span>
                 )}/>
             )
