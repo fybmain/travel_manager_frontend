@@ -1,16 +1,19 @@
 import React from 'react';
-import { Table, Radio, message } from 'antd';
+import { Table, Radio, message, Select } from 'antd';
 import { RadioChangeEvent } from 'antd/lib/radio';
 import { observable } from 'mobx';
 import { observer, inject } from 'mobx-react';
 
 import history from '../history';
-import { TravelApplyItem, travelApplyStatusToString, renderDate } from '../Models';
+import { TravelApplyItem, travelApplyStatusToString, renderDate, DepartmentInfo } from '../Models';
 import { MainStore } from '../Stores/MainStore';
 import { TravelApplyApi } from '../api/TravelApplyApi';
+import DepartmentInfoStore from '../Stores/DepartmentInfoStore';
+import UserInfoStore from '../Stores/UserInfoStore';
 
 const { Column } = Table;
 
+const { Option } = Select;
 interface TravelApprovalListPageProps{
   mainStore: MainStore;
 }
@@ -23,13 +26,28 @@ export class TravelApprovalListPage extends React.Component<TravelApprovalListPa
   @observable pageSize: number = 8;
   @observable pageNumber: number = 1;
   @observable data: undefined|(TravelApplyItem[]) = undefined;
+  @observable departmentId = -1;
+  @observable allDepartment:DepartmentInfo[] = [];
 
   constructor(props:TravelApprovalListPageProps){
     super(props);
     this.props.mainStore.breadcrumb=["审批", "出差审批"];
     this.refreshData();
+    this.getAllDepartment();
   }
 
+  handleSelectChange = (value:number) => {
+    this.departmentId=value;
+    this.pageNumber = 1;
+    this.total = 1;
+    this.refreshData();
+  }
+
+  getAllDepartment= async ()=>{
+    await DepartmentInfoStore.refreshData();
+    this.allDepartment=DepartmentInfoStore.departmentList;
+  }
+  
   handleSwitchPage = (pageNumber: number) => {
     this.pageNumber = pageNumber;
     this.refreshData();
@@ -53,7 +71,7 @@ export class TravelApprovalListPage extends React.Component<TravelApprovalListPa
 
   async doRefreshData() {
     const requestState = (this.showApproved)?"finished":"unfinished";
-    const result = await TravelApplyApi.getTravelApplicationListForApprover(10, 1, requestState);
+    const result = await TravelApplyApi.getTravelApplicationListForApprover(this.pageSize, this.pageNumber, this.departmentId, requestState);
     if(result.message==="ok"){
       this.data = result.items;
       this.total = result.total;
@@ -71,12 +89,25 @@ export class TravelApprovalListPage extends React.Component<TravelApprovalListPa
             <Radio.Button value={false}>待审批</Radio.Button>
             <Radio.Button value={true}>已审批</Radio.Button>
           </Radio.Group>
+          {
+            UserInfoStore.userInfo.role === 2 ?
+              <span>
+                <label>&nbsp;&nbsp;&nbsp;部门：</label>
+                <Select value={this.departmentId} style={{ width: 120 }} onChange={this.handleSelectChange} key="select">
+                  <Option value={-1}>All</Option>
+                  {this.allDepartment.map((value: DepartmentInfo, index) =>
+                    <Option value={value.id} key={value.id}>{value.name}</Option>
+                  )}
+                </Select>
+              </span>
+              : null
+          }
         </div>
         <Table
           loading={this.loading}
           dataSource={this.data}
           onRow={record => ({ onDoubleClick: () => this.handleOpenDetail(record.applyId) })}
-          rowKey="applyId"
+          rowKey={(record, index) => { return index.toString() }} 
           className="table"
           size="middle"
           pagination={{

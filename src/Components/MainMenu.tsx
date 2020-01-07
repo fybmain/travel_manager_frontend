@@ -41,7 +41,7 @@ export class MainMenu extends React.Component {
           position: "fixed",
           bottom: 0,
           top: 64,
-          width:240
+          width: 240
         }}>
         <Menu.Item key="/home" style={{ float: 'left' }}>
           <Link to="/home">
@@ -51,78 +51,101 @@ export class MainMenu extends React.Component {
               </span>
           </Link>
         </Menu.Item>
-        <SubMenu
-          key="apply"
-          title={
-            <span style={{ fontSize: "large" }}>
-              <Icon type="form" />
-              申请
-              </span>
-          }
-        >
-          <Menu.Item key="/travel-apply" style={{ fontSize: "medium" }}
-          >
-            <Link to="/travel-apply">
-              出差申请
-              </Link>
-          </Menu.Item>
-          <Menu.Item key="/reimbursement-apply" style={{ fontSize: "medium" }}>
-            <Link to="/reimbursement-apply">
-              报销申请
-              </Link>
-          </Menu.Item>
-        </SubMenu>
         {
-          this.showApprove ?
-            <SubMenu
-              key="approval"
-              title={
-                <span style={{ fontSize: "large" }}>
-                  <Icon type="check-square" />
-                  审批
-              </span>
-              }
-            >
-              <Menu.Item key="/travel-approval" style={{ fontSize: "medium" }}>
-                <Link to="/travel-approval">
-                  出差审批
-              </Link>
-              </Menu.Item>
-              <Menu.Item key="/reimbursement-approval" style={{ fontSize: "medium" }}>
-                <Link to="/reimbursement-approval">
-                  报销审批
-              </Link>
-              </Menu.Item>
-            </SubMenu>
-            : null
+          UserInfoStore.userInfo.role === 3 ?
+            null :
+            Apply()
         }
-
-        <SubMenu
-          key="report"
-          title={
-            <span style={{ fontSize: "large" }}>
-              <Icon type="bar-chart" />
-              统计
-              </span>
-          }
-        >
-          <Menu.Item key="/personal-report" style={{ fontSize: "medium" }}>
-            <Link to="/personal-report">
-              个人报表
-              </Link>
-          </Menu.Item>
-          <Menu.Item key="/department-report" style={{ fontSize: "medium" }}>
-            <Link to="/department-report">
-              部门报表
-              </Link>
-          </Menu.Item>
-          <Menu.Item key="/company-report" style={{ fontSize: "medium" }}>
-            <Link to="/company-report">
-              公司报表
-              </Link>
-          </Menu.Item>
-        </SubMenu>
+        {
+          UserInfoStore.userInfo.role === 3 ?
+            null :
+            Approval(this.showApprove)
+        }
+        {
+          UserInfoStore.userInfo.role === 3 ?
+            null :
+            Report()
+        }
       </Menu>
     );
   }
+}
+
+const Apply = () => {
+  return (
+    <SubMenu
+      key="apply"
+      title={
+        <span style={{ fontSize: "large" }}>
+          <Icon type="form" />
+          申请
+        </span>
+      }
+    >
+      <Menu.Item key="/travel-apply" style={{ fontSize: "medium" }}
+      >
+        <Link to="/travel-apply">
+          出差申请
+        </Link>
+      </Menu.Item>
+      <Menu.Item key="/reimbursement-apply" style={{ fontSize: "medium" }}>
+        <Link to="/reimbursement-apply">
+          报销申请
+        </Link>
+      </Menu.Item>
+    </SubMenu>)
+}
+
+const Approval = (showApprove: boolean) => {
+  if (showApprove) {
+    return (
+      <SubMenu
+        key="approval"
+        title={
+          <span style={{ fontSize: "large" }}>
+            <Icon type="check-square" />
+            审批
+      </span>
+        }
+      >
+        <Menu.Item key="/travel-approval" style={{ fontSize: "medium" }}>
+          <Link to="/travel-approval">
+            出差审批
+      </Link>
+        </Menu.Item>
+        <Menu.Item key="/reimbursement-approval" style={{ fontSize: "medium" }}>
+          <Link to="/reimbursement-approval">
+            报销审批
+      </Link>
+        </Menu.Item>
+      </SubMenu>)
+  }
+}
+
+const Report = () => {
+  return (<SubMenu
+    key="report"
+    title={
+      <span style={{ fontSize: "large" }}>
+        <Icon type="bar-chart" />
+        统计
+        </span>
+    }
+  >
+    <Menu.Item key="/personal-report" style={{ fontSize: "medium" }}>
+      <Link to="/personal-report">
+        个人报表
+        </Link>
+    </Menu.Item>
+    <Menu.Item key="/department-report" style={{ fontSize: "medium" }}>
+      <Link to="/department-report">
+        部门报表
+        </Link>
+    </Menu.Item>
+    <Menu.Item key="/company-report" style={{ fontSize: "medium" }}>
+      <Link to="/company-report">
+        公司报表
+        </Link>
+    </Menu.Item>
+  </SubMenu>)
 }
