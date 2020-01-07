@@ -21,7 +21,7 @@ export class Home extends Component<HomeProps> {
 
   render() {
     return (
-      <div className="allBackground">
+      <div className="homeBackground">
         <div className="background">
           <div className="introduction">
             <div className="home-head1">

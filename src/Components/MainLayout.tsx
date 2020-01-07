@@ -28,7 +28,7 @@ import AllUsers from './AllUsers';
 import { MainStore } from '../Stores/MainStore';
 import { MainMenu } from './MainMenu';
 import { UserStateMenu } from './UserStateMenu';
-
+import logo from '../Pictures/logo.png'
 const { Header, Content, Sider } = Layout;
 
 interface props extends RouteComponentProps {
@@ -89,6 +89,7 @@ class MainLayout extends Component<props, {}> {
             </Layout>
           </Content>
           <Header className="header menuTop">
+            {myLogo()}
             <UserStateMenu/>
           </Header>
         </Layout>
@@ -99,9 +100,13 @@ class MainLayout extends Component<props, {}> {
 
 export default withRouter(MainLayout as any);
 
-// const myLogo=()=>{
-//   return
-//   <div style={{position: "fixed", left: 2, top: 2, width:64, height:64}}>
+const myLogo=()=>{
+  return(
+  <div style={{position: "fixed", left: 17, top: 0, width:240, height:64}}>
+    <img src={logo} alt="" className="sider-image"/>
+                <h1 className="sider-h1">TR SYSTEM</h1>
+  </div>
+  );
+}
 
-//   </div>
-// }
+

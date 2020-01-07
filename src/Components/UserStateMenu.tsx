@@ -19,11 +19,11 @@ export class UserStateMenu extends React.Component<UserStateMenuProps> {
       <Menu
         theme="dark"
         mode="horizontal"
-        style={{ height: '64px', lineHeight: '64px' }}>
+        style={{ height: '68px', lineHeight: '64px' }}>
 
-        <Menu.Item key="logo" style={{ float: 'left' }} disabled>
+        {/* <Menu.Item key="logo" style={{ float: 'left' }} disabled>
           <p className='logo'>Travel Reimbursement System</p>
-        </Menu.Item>
+        </Menu.Item> */}
 
         {/* <SubMenu
           key="Apply"
