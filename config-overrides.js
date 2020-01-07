@@ -12,6 +12,7 @@ module.exports = override(
       '@layout-header-background': '#001529',
       'menu-dark-submenu-bg': '#001529',
       '@menu-item-height': '50px',
+      '@layout-header-height': '68px',
     },
   }),
 );
