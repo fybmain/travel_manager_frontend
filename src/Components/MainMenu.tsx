@@ -35,12 +35,13 @@ export class MainMenu extends React.Component {
         mode="inline"
         defaultSelectedKeys={[this.state.defaultSelectedKey]}
         defaultOpenKeys={[this.state.defaultOpenKey]}
+        theme="dark"
         style={{
           borderBottom: 0,
           position: "fixed",
           bottom: 0,
           top: 64,
-          width: 300,
+          width:240
         }}>
         <Menu.Item key="/home" style={{ float: 'left' }}>
           <Link to="/home">
@@ -59,7 +60,8 @@ export class MainMenu extends React.Component {
               </span>
           }
         >
-          <Menu.Item key="/travel-apply" style={{ fontSize: "medium" }}>
+          <Menu.Item key="/travel-apply" style={{ fontSize: "medium" }}
+          >
             <Link to="/travel-apply">
               出差申请
               </Link>

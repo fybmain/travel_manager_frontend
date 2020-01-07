@@ -1,5 +1,5 @@
 import React from 'react';
-import { Menu } from 'antd';
+import { Menu, Avatar, Icon } from 'antd';
 import { Link } from 'react-router-dom';
 
 import UserInfoStore from '../Stores/UserInfoStore';
@@ -25,14 +25,20 @@ export class UserStateMenu extends React.Component<UserStateMenuProps> {
           <p className='logo'>Travel Reimbursement System</p>
         </Menu.Item>
 
-        <SubMenu
+        {/* <SubMenu
           key="Apply"
           title={UserInfoStore.userInfo.name as string}
-          style={{ float: 'right' }}
-        >
+          style={{ float: 'right', fontSize: "large" }}
+        > */}
+        <SubMenu
+          title={<div style={{ display: 'flex', alignItems: 'center', textAlign:'center' }}>
+             <Avatar icon={<Icon type="user"/>}/>
+            &nbsp;<span>{UserInfoStore.userInfo.name}</span></div>}
+            style={{float:"right"}}
+          >
           {
             (UserInfoStore.userInfo.role === 3)?(
-              <Menu.Item key="AllUsers">
+              <Menu.Item key="AllUsers" >
                 <Link to="/all-users">
                   用户信息管理
               </Link>

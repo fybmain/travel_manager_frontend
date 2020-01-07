@@ -1,4 +1,4 @@
-import { Layout, Breadcrumb } from 'antd';
+import { Layout, Breadcrumb, Button } from 'antd';
 import React, { Component } from 'react';
 import { Route, Switch, Redirect, RouteComponentProps, withRouter } from 'react-router-dom';
 import { inject, observer } from 'mobx-react';
@@ -47,12 +47,12 @@ class MainLayout extends Component<props, {}> {
     return (
       <div>
         <Layout>
-          <Sider width={300} style={{ background: '#fff' }}>
+          <Sider style={{ background: '#f0f2f5', width:'240'}}>
             <MainMenu/>
           </Sider>
-          <Content>
-            <Layout style={{ padding: '0 24px 24px', position: "fixed", top: 64, left: 300, right: 0, bottom: 0, overflowY: "auto" }}>
-              <Breadcrumb style={{ margin: '16px 0' }}>
+          <Content style={{background:"#f0f2f5"}}>
+            <Layout style={{ padding: '0 20px 24px 0', position: "fixed", top: 64, left: 240, right: 0, bottom: 0, overflowY: "auto",background:"#f0f2f5" }}>
+              <Breadcrumb style={{ margin: '24px 0 0 24px' }}>
                 {
                   this.props.mainStore.breadcrumb.map((value, index) => <Breadcrumb.Item key={index}>{value}</Breadcrumb.Item>)
                 }
@@ -98,3 +98,10 @@ class MainLayout extends Component<props, {}> {
 }
 
 export default withRouter(MainLayout as any);
+
+// const myLogo=()=>{
+//   return
+//   <div style={{position: "fixed", left: 2, top: 2, width:64, height:64}}>
+
+//   </div>
+// }
