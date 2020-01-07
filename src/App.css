@@ -181,7 +181,7 @@
 
 .ant-layout-header {
   height: 68px;
-  padding: 0 0 !important;
+  padding: 0 15px !important;
   padding-right: 50px !important;
   line-height: 68px;
   background: #001529;
