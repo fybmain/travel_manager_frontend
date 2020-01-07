@@ -31,6 +31,12 @@ export class TravelApplyListPage extends React.Component<TravelApplyListPageProp
     this.refreshData();
   }
 
+  handleChange = (e: RadioChangeEvent) => {
+    this.showFinished = !(this.showFinished);
+    this.pageNumber = 1;
+    this.refreshData();
+  }
+
   handleSwitchPage = (pageNumber: number) => {
     this.pageNumber = pageNumber;
     this.refreshData();
@@ -42,11 +48,6 @@ export class TravelApplyListPage extends React.Component<TravelApplyListPageProp
 
   handleCreate = (e: React.MouseEvent) => {
     history.push('/travel-apply/create');
-  }
-
-  handleChange = (e: RadioChangeEvent) => {
-    this.showFinished = !(this.showFinished);
-    this.refreshData();
   }
 
   refreshData() {

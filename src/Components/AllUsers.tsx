@@ -34,6 +34,13 @@ class AllUsers extends React.Component<AllUsersProps> {
     DepartmentInfoStore.refreshData().then(() => {this.forceUpdate();});
     this.refreshData();
   }
+  
+  handleChange = (e: RadioChangeEvent) => {
+    this.showApproved = !this.showApproved;
+    this.pageNumber = 1;
+    this.refreshData();
+  }
+
 
   handleSwitchPage = (pageNumber: number) => {
     this.pageNumber = pageNumber;
@@ -81,11 +88,6 @@ class AllUsers extends React.Component<AllUsersProps> {
         }
       }
     )
-  }
-
-  handleChange = (e: RadioChangeEvent) => {
-    this.showApproved = !this.showApproved;
-    this.refreshData();
   }
 
   refreshData() {
