@@ -26,3 +26,22 @@ export interface UserInfo {
   departmentId: number,
   role: number,
 }
+
+export enum UserRole{
+  Employee = 0,
+  DepartmentManager = 1,
+  GeneralManager = 2,
+  Admin = 3,
+}
+
+export interface AdminListUserItem {
+  id: number,
+  workId: string,
+  name: string,
+  email: string,
+  telephone: string,
+  departmentId: number,
+  departmentName: string,
+  status: boolean,
+  role: UserRole,
+}
