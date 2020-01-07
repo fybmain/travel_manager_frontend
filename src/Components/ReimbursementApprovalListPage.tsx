@@ -1,17 +1,21 @@
 import React from 'react';
-import { Table, Radio, Pagination } from 'antd';
+import { Table, Radio, Pagination, Select } from 'antd';
 import { RadioChangeEvent } from 'antd/lib/radio';
 import { observable } from 'mobx';
 import { observer, inject } from 'mobx-react';
 
 import history from '../history';
-import { ApplyStatus, ApplyBaseInfo, FinishStatus, renderDate } from '../Models';
+import { ApplyStatus, ApplyBaseInfo, FinishStatus, renderDate, DepartmentInfo } from '../Models';
 import { MainStore } from '../Stores/MainStore';
 import { ReimbursementApi } from '../api/ReimbursementApi';
+import DepartmentInfoStore from '../Stores/DepartmentInfoStore';
+import { userInfo } from 'os';
+import UserInfoStore from '../Stores/UserInfoStore';
 
 const { Column } = Table;
 const radioValues = ["待审批", "已审批"];
 const pageSize = 8;
+const { Option } = Select;
 interface ReimbursementApprovalListPageProps {
   mainStore: MainStore;
 }
@@ -25,10 +29,12 @@ export class ReimbursementApprovalListPage extends React.Component<Reimbursement
   @observable total: number = 1;
   @observable loadingStatus = false;
   @observable departmentId = -1;
+  @observable allDepartment: DepartmentInfo[] = [];
 
   constructor(props: ReimbursementApprovalListPageProps) {
     super(props);
     this.props.mainStore.breadcrumb = ["审批", "报销审批"];
+    this.getAllDepartment();
     this.updateData();
   }
 
@@ -40,6 +46,20 @@ export class ReimbursementApprovalListPage extends React.Component<Reimbursement
             <Radio.Button value={0}>{radioValues[0]}</Radio.Button>
             <Radio.Button value={1}>{radioValues[1]}</Radio.Button>
           </Radio.Group>
+          {
+            UserInfoStore.userInfo.role === 2 ?
+              <span>
+                <label>&nbsp;&nbsp;&nbsp;部门：</label>
+                <Select value={this.departmentId} style={{ width: 120 }} onChange={this.handleSelectChange} key="select">
+                  <Option value={-1}>All</Option>
+                  {this.allDepartment.map((value: DepartmentInfo, index) =>
+                    <Option value={value.id} key={value.id}>{value.name}</Option>
+                  )}
+                </Select>
+              </span>
+              : null
+          }
+
         </div>
         {this.reimbursementTable(this.data, this.loadingStatus)}
       </div>
@@ -48,11 +68,22 @@ export class ReimbursementApprovalListPage extends React.Component<Reimbursement
 
   handleChange = (e: RadioChangeEvent) => {
     this.showFinished = e.target.value;
-    this.current=1;
-    this.total=1;
+    this.current = 1;
+    this.total = 1;
     this.updateData();
   }
 
+  handleSelectChange = (value: number) => {
+    this.departmentId = value;
+    this.current = 1;
+    this.total = 1;
+    this.updateData();
+  }
+
+  getAllDepartment = async () => {
+    await DepartmentInfoStore.refreshData();
+    this.allDepartment = DepartmentInfoStore.departmentList;
+  }
 
   updateData = async () => {
     this.data = [];
@@ -61,7 +92,7 @@ export class ReimbursementApprovalListPage extends React.Component<Reimbursement
       page: this.current,
       size: pageSize,
       state: FinishStatus[this.showFinished],
-      departmentId: -1,
+      departmentId: this.departmentId,
     });
     if (result.message === "ok") {
       this.data = result.items as ApplyBaseInfo[];
@@ -73,10 +104,10 @@ export class ReimbursementApprovalListPage extends React.Component<Reimbursement
     this.loadingStatus = false;
   }
 
-  handleDoubleClick = (applyId:number) => {
-    if(this.showFinished===0){
+  handleDoubleClick = (applyId: number) => {
+    if (this.showFinished === 0) {
       history.push(`/reimbursement-approval/approval?applyId=${applyId}`);
-    } else{
+    } else {
       history.push(`/reimbursement/detail?applyId=${applyId}`);
     }
   }
@@ -86,17 +117,17 @@ export class ReimbursementApprovalListPage extends React.Component<Reimbursement
       <div style={{ padding: '20px' }}>
         <Table dataSource={data} className="table" size="middle" loading={loadingStatus}
           rowKey={(record, index) => { return index.toString() }} pagination={false}
-          onRow={(record,rowKey) => {
+          onRow={(record, rowKey) => {
             return {
-              onDoubleClick: event => {this.handleDoubleClick(record.applyId)},
+              onDoubleClick: event => { this.handleDoubleClick(record.applyId) },
             };
           }}>
           <Column title="申请人" dataIndex="applicantName" key="applicantName" />
           <Column title="申请ID" dataIndex="applyId" key="applyId" />
-          <Column title="申请时间" dataIndex="applyTime" key="applyTime" render={(text)=>renderDate(new Date(text))} />
+          <Column title="申请时间" dataIndex="applyTime" key="applyTime" render={(text) => renderDate(new Date(text))} />
           <Column title="部门" dataIndex="departmentName" key="departmentName" />
           <Column title="申请状态" dataIndex="status" key="status"
-            render={(text:number, record, index) => { return <span>{(ApplyStatus[text])}</span> }}
+            render={(text: number, record, index) => { return <span>{(ApplyStatus[text])}</span> }}
           />
         </Table>
         <Pagination current={this.current} total={this.total} pageSize={pageSize}
