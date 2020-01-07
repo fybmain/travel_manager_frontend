@@ -44,8 +44,13 @@ const headerStyles=mergeStyleSets({
   root:{
     display:"flex",
     alignItems:"center",
-    padding:"0 0 0 0"
-  }
+  },
+  header:{
+    position: "fixed",
+    left:0,
+    right:0,
+    top:0,
+  },
 })
 @inject("mainStore") @observer
 class MainLayout extends Component<props, {}> {
@@ -100,10 +105,10 @@ class MainLayout extends Component<props, {}> {
               </Switch>
             </Layout>
           </Content>
-          <Header className="header menuTop">
+          <Header className={headerStyles.header}>
               <Stack horizontal horizontalAlign="space-between" className={headerStyles.root}>
-              {myLogo()}
-              <UserStateMenu/>
+                <MyLogo/>
+                <UserStateMenu/>
               </Stack>
           </Header>
         </Layout>
@@ -134,8 +139,7 @@ const logoStyles = mergeStyleSets({
     fontFamily: "Avenir,Helvetica Neue,Arial,Helvetica,sans-serif",
   }
 })
-const myLogo=()=>{
-  return(
+const MyLogo=()=>
   <div className={logoStyles.root}>
     <Stack  horizontal horizontalAlign="space-between">
       <div className={logoStyles.imgWapper}>
@@ -144,7 +148,5 @@ const myLogo=()=>{
       <h1 className={logoStyles.text}>TR SYSTEM</h1>
     </Stack>
   </div>
-  );
-}
 
 

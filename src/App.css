@@ -154,13 +154,6 @@
   transform: translateY(-70%);
 }
 
-.menuTop{
-  position: fixed;
-  left:0;
-  right:0;
-  top:0;
-}
-
 .myFont{
   font-size: large;
 }
@@ -170,14 +163,7 @@
   padding: 20px;
 }
 
-.sider-h1 {
-  margin: 0 0 0 12px;
-  color: #fff;
-  font-weight: 600;
-  font-size: 20px;
-  font-family: Avenir,Helvetica Neue,Arial,Helvetica,sans-serif;
-  vertical-align: middle;
-}
+
 
 .ant-layout-header {
   height: 68px;
