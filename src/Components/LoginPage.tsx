@@ -92,7 +92,7 @@ export class LoginPage extends React.Component<LoginPageProps> {
           </Form>
           <RegisterDialog
             visible={this.registerDialogVisible}
-            onCancel={this.handleRegisterCancel} />
+            onClose={this.handleRegisterCancel} />
         </div>
       </div>
     );

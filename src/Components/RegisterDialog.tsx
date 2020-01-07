@@ -1,51 +1,58 @@
 import React from 'react';
-import { Modal, Form, Input, Icon } from 'antd';
+import { Modal, Form, Input, Icon, message } from 'antd';
 import { observer } from 'mobx-react';
 
 import { UserApi } from '../api/UserApi';
-import { RegisterRequest } from '../Models';
+import { observable } from 'mobx';
 
 export interface RegisterDialogProps {
     visible: boolean;
-    onCancel?: (e: React.MouseEvent) => void;
+    onClose?: (e: React.MouseEvent) => void;
 };
 
 @observer
 export class RegisterDialog extends React.Component<RegisterDialogProps> {
-  private email="";
-  private name="";
-  private password="";
-  private repeatPassword="";
-  private telephone="";
-  private workId="";
+  @observable private email="";
+  @observable private name="";
+  @observable private password="";
+  @observable private repeatPassword="";
+  @observable private telephone="";
+  @observable private workId="";
 
-  handleCancel = (e: React.MouseEvent) => {
-    if(this.props.onCancel!==undefined){
-      this.props.onCancel(e);
+  handleClose = (e: React.MouseEvent) => {
+    this.clearData();
+    if(this.props.onClose){
+      this.props.onClose(e);
     }
   }
 
   handleOk = async(e: React.MouseEvent) => {
-    if(this.password!==this.repeatPassword){
-      alert("两次密码输入不一致");
-    }
-    const registerRequest: RegisterRequest = {
-      email: this.email,
-      name: this.name,
-      password: this.password,
-      telephone: this.telephone,
-      workId: this.workId
-    };
-    const result= await UserApi.register(registerRequest);
-    if(result.message==="ok"){
-      alert("注册成功");
-      if(this.props.onCancel!==undefined){
-        this.props.onCancel(e);
+    if(this.password===this.repeatPassword){
+      const result= await UserApi.register({
+        email: this.email,
+        name: this.name,
+        password: this.password,
+        telephone: this.telephone,
+        workId: this.workId
+      });
+      if(result.message==="ok"){
+        message.success("注册成功");
+        this.handleClose(e);
+      }else{
+        message.error(result.message);
       }
     }else{
-      alert(result.message);
+      message.warning("两次密码输入不一致");
     }
-    
+  }
+
+  clearData() {
+    this.email = "";
+    this.name = "";
+    this.password = "";
+    this.repeatPassword = "";
+    this.telephone = "";
+    this.workId = "";
   }
 
   render() {
@@ -53,7 +60,7 @@ export class RegisterDialog extends React.Component<RegisterDialogProps> {
       <Modal
         visible={this.props.visible}
         onOk={this.handleOk}
-        onCancel={this.handleCancel}
+        onCancel={this.handleClose}
         okText="注册"
         cancelText="取消">
         <h1 style={{ textAlign: "center" }}>注册</h1>
@@ -66,6 +73,7 @@ export class RegisterDialog extends React.Component<RegisterDialogProps> {
               placeholder="工号"
               prefix={<Icon type="user"/>}
               size="large"
+              value={this.workId}
               onChange={(e)=>{this.workId=e.target.value;}}>
             </Input>
           </Form.Item>
@@ -75,6 +83,7 @@ export class RegisterDialog extends React.Component<RegisterDialogProps> {
               placeholder="密码"
               prefix={<Icon type="key"/>}
               size="large"
+              value={this.password}
               onChange={(e)=>{this.password=e.target.value;}}>
             </Input.Password>
           </Form.Item>
@@ -84,6 +93,7 @@ export class RegisterDialog extends React.Component<RegisterDialogProps> {
               placeholder="确认密码"
               prefix={<Icon type="key"/>}
               size="large"
+              value={this.repeatPassword}
               onChange={(e)=>{this.repeatPassword=e.target.value;}}>
             </Input.Password>
           </Form.Item>
@@ -93,6 +103,7 @@ export class RegisterDialog extends React.Component<RegisterDialogProps> {
               placeholder="姓名"
               prefix={<Icon type="robot"/>}
               size="large"
+              value={this.name}
               onChange={(e)=>{this.name=e.target.value;}}>
             </Input>
           </Form.Item>
@@ -102,6 +113,7 @@ export class RegisterDialog extends React.Component<RegisterDialogProps> {
               placeholder="手机号"
               prefix={<Icon type="phone"/>}
               size="large"
+              value={this.telephone}
               onChange={(e)=>{this.telephone=e.target.value;}}>
             </Input>
           </Form.Item>
@@ -111,6 +123,7 @@ export class RegisterDialog extends React.Component<RegisterDialogProps> {
               placeholder="邮箱"
               prefix={<Icon type="mail"/>}
               size="large"
+              value={this.email}
               onChange={(e)=>{this.email=e.target.value;}}>
             </Input>
           </Form.Item>
