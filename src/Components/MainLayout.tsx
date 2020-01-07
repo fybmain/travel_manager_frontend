@@ -29,6 +29,9 @@ import { MainStore } from '../Stores/MainStore';
 import { MainMenu } from './MainMenu';
 import { UserStateMenu } from './UserStateMenu';
 import logo from '../Pictures/logo.png'
+
+import { Stack, mergeStyleSets } from 'office-ui-fabric-react'
+
 import { userInfo } from 'os';
 import UserInfoStore from '../Stores/UserInfoStore';
 const { Header, Content, Sider } = Layout;
@@ -37,6 +40,13 @@ interface props extends RouteComponentProps {
   mainStore: MainStore;
 }
 
+const headerStyles=mergeStyleSets({
+  root:{
+    display:"flex",
+    alignItems:"center",
+    padding:"0 0 0 0"
+  }
+})
 @inject("mainStore") @observer
 class MainLayout extends Component<props, {}> {
   /*
@@ -91,8 +101,10 @@ class MainLayout extends Component<props, {}> {
             </Layout>
           </Content>
           <Header className="header menuTop">
-            {myLogo()}
-            <UserStateMenu/>
+              <Stack horizontal horizontalAlign="space-between" className={headerStyles.root}>
+              {myLogo()}
+              <UserStateMenu/>
+              </Stack>
           </Header>
         </Layout>
       </div>
@@ -102,11 +114,35 @@ class MainLayout extends Component<props, {}> {
 
 export default withRouter(MainLayout as any);
 
+const logoStyles = mergeStyleSets({
+  root:{
+    width: "160px",
+  },
+  imgWapper:{
+    height: "auto",
+    display: "flex",
+    alignItems:"center",
+  },
+  img:{
+    height: "32px",
+  },
+  text:{
+    margin: "0 0 0 12px",
+    color: "#fff",
+    fontWeight: 600,
+    fontSize: "20px",
+    fontFamily: "Avenir,Helvetica Neue,Arial,Helvetica,sans-serif",
+  }
+})
 const myLogo=()=>{
   return(
-  <div style={{position: "fixed", left: 17, top: 0, width:240, height:64}}>
-    <img src={logo} alt="" className="sider-image"/>
-                <h1 className="sider-h1">TR SYSTEM</h1>
+  <div className={logoStyles.root}>
+    <Stack  horizontal horizontalAlign="space-between">
+      <div className={logoStyles.imgWapper}>
+      <img src={logo} alt="" className={logoStyles.img}/>
+      </div>
+      <h1 className={logoStyles.text}>TR SYSTEM</h1>
+    </Stack>
   </div>
   );
 }

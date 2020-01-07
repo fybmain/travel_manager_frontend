@@ -12,9 +12,8 @@ const { SubMenu } = Menu;
 export interface UserStateMenuProps {
 }
 const menuStyles = mergeStyleSets({
-   root:{
-     height: '68px',
-     lineHeight: '64px',
+   root2:{
+     height:"100%"
    },
    subMenuPeople:{
       display: 'flex', 
@@ -33,10 +32,11 @@ export class UserStateMenu extends React.Component<UserStateMenuProps> {
 
   render() {
     return (
+      <div className={menuStyles.root2}>
       <Menu
         theme="dark"
         mode="horizontal"
-        className={menuStyles.root}>
+        >
         <SubMenu
           className={menuStyles.subMenu}
           title={
@@ -73,6 +73,7 @@ export class UserStateMenu extends React.Component<UserStateMenuProps> {
           </Menu.Item>
         </SubMenu>
       </Menu>
+      </div>
     );
   }
 }
