@@ -35,6 +35,12 @@ export class TravelApprovalListPage extends React.Component<TravelApprovalListPa
     this.refreshData();
     this.getAllDepartment();
   }
+    
+  handleChange = (e: RadioChangeEvent) => {
+    this.showApproved = !(this.showApproved);
+    this.pageNumber = 1;
+    this.refreshData();
+  }
 
   handleSelectChange = (value:number) => {
     this.departmentId=value;
@@ -55,11 +61,6 @@ export class TravelApprovalListPage extends React.Component<TravelApprovalListPa
 
   handleOpenDetail = (applyId: number) => {
     history.push(`/travel-approval/${applyId}/detail`);
-  }
-  
-  handleChange = (e: RadioChangeEvent) => {
-    this.showApproved = !(this.showApproved);
-    this.refreshData();
   }
 
   refreshData() {
