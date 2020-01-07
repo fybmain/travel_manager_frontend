@@ -29,6 +29,12 @@ export class TravelApprovalListPage extends React.Component<TravelApprovalListPa
     this.props.mainStore.breadcrumb=["审批", "出差审批"];
     this.refreshData();
   }
+    
+  handleChange = (e: RadioChangeEvent) => {
+    this.showApproved = !(this.showApproved);
+    this.pageNumber = 1;
+    this.refreshData();
+  }
 
   handleSwitchPage = (pageNumber: number) => {
     this.pageNumber = pageNumber;
@@ -37,11 +43,6 @@ export class TravelApprovalListPage extends React.Component<TravelApprovalListPa
 
   handleOpenDetail = (applyId: number) => {
     history.push(`/travel-approval/${applyId}/detail`);
-  }
-  
-  handleChange = (e: RadioChangeEvent) => {
-    this.showApproved = !(this.showApproved);
-    this.refreshData();
   }
 
   refreshData() {
