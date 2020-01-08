@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { inject, observer } from 'mobx-react';
 
-import { MainStore } from '../Stores/MainStore';
+import { MainStore } from '../../Stores/MainStore';
 
 interface DepartmentReportProps{
   mainStore: MainStore;
