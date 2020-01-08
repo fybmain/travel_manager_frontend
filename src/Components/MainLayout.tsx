@@ -16,9 +16,9 @@ import { TravelApprovalDetailPage } from './TravelApprovalDetailPage';
 import { ReimbursementApprovalListPage } from './ReimbursementApprovalListPage';
 import { ReimbursementDetailPage } from './ReimbursementDetailPage';
 
-import { PersonalReport } from './PersonalReport';
-import { DepartmentReport } from './DepartmentReport';
-import { CompanyReport } from './CompanyReport';
+import { PersonalReport } from './Reports/PersonalReport';
+import { DepartmentReport } from './Reports/DepartmentReport';
+import { CompanyReport } from './Reports/CompanyReport';
 
 import UserInfoPage from './UserInfoPage';
 import { UserInfoEditPage } from './UserInfoEditPage';
