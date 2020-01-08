@@ -41,26 +41,13 @@ export class UserStateMenu extends React.Component<UserStateMenuProps> {
           className={menuStyles.subMenu}
           title={
           <div className={menuStyles.subMenuPeople}>
-             <Persona 
+            <Persona 
               imageUrl={TestImages.personaFemale} 
               size={PersonaSize.size40}
-              hidePersonaDetails={false}
-             />
-            <span>
-              {UserInfoStore.userInfo.name}
-            </span>
+              hidePersonaDetails={false}/>
+            <span>{UserInfoStore.userInfo.name}</span>
           </div>
-          }
-          >
-          {
-            (UserInfoStore.userInfo.role === 3)?(
-              <Menu.Item key="AllUsers" >
-                <Link to="/all-users">
-                  用户信息管理
-              </Link>
-              </Menu.Item>
-            ):null
-          }
+          }>
           <Menu.Item key="UserInfo">
             <Link to="/user-info">
               个人信息
