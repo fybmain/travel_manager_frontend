@@ -90,6 +90,7 @@ export class UserApi {
     }catch(e){
       if(e.response){
         switch(e.response.status){
+          case 403: return { message: "reset password token outdated" };
           default: return { message: "unknown error" };
         }
       }else{
