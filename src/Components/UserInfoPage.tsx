@@ -7,7 +7,7 @@ import { observer, inject } from 'mobx-react';
 import history from '../history';
 import { MainStore } from '../Stores/MainStore';
 import UserInfoStore from '../Stores/UserInfoStore';
-import { UserChangePasswordPage } from './UserChangePassword';
+import { UserChangePasswordPage } from './UserChangePasswordDialog';
 import DepartmentInfoStore from '../Stores/DepartmentInfoStore';
 
 interface UserInfoPageProps extends RouteComponentProps{
@@ -112,8 +112,8 @@ class UserInfoPage extends React.Component<UserInfoPageProps> {
         </Form></Card>
         </div>
         <UserChangePasswordPage
-            visible={this.showChangePassword}
-            onCancel={this.handleChangePasswordCancel} />
+          visible={this.showChangePassword}
+          onClose={this.handleChangePasswordCancel}/>
       </div>
     );
   }

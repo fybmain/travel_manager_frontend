@@ -108,7 +108,7 @@ export class UserApi {
     }catch(e){
       if(e.response){
         switch(e.response.status){
-          default: return { message:"unknown error" };
+          default: return { message: "unknown error" };
         }
       }else{
         return { message: "network error" };
@@ -117,7 +117,31 @@ export class UserApi {
     if(result.data.code===0){
       return { message:"ok" };
     }else{
-      return { message: "network error" };
+      return { message: "unknown error" };
+    }
+  }
+
+  static async setUserPassword(oldPassword: string, newPassword: string) {
+    let result;
+    try{
+      result = await axios.post("api/auth/setpassword", {
+        oldPassword,
+        newPassword,
+      });
+    }catch(e){
+      if(e.response){
+        switch(e.response.status){
+          case 400: return { message: "password incorrect" };
+          default: return { message:"unknown error" };
+        }
+      }else{
+        return { message: "network error" };
+      }
+    }
+    if(result.data.code===0){
+      return { message: "ok" };
+    }else{
+      return { message: "unknown error" };
     }
   }
 }
