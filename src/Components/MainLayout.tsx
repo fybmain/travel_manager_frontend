@@ -98,7 +98,7 @@ class MainLayout extends React.Component<props, {}> {
                 <Route exact path="/user-info/edit-password" component={UserPasswordEditPage} />
 
                 <Route exact path="/all-users" component={AllUsers} />
-
+                
                 <Redirect to="/home" />
               </Switch>
             </Layout>
