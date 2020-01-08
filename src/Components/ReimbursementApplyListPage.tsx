@@ -1,5 +1,5 @@
 import React from 'react';
-import { Table, Button, Radio, Pagination } from 'antd';
+import { Table, Button, Radio, Pagination, message } from 'antd';
 import { RadioChangeEvent } from 'antd/lib/radio';
 import { observable } from 'mobx';
 import { observer, inject } from 'mobx-react';
@@ -67,7 +67,7 @@ export class ReimbursementApplyListPage extends React.Component<ReimbursementApp
         this.total = result.total as number;
       }
       else {
-        alert(result.message);
+        message.error(result.message);
       }
     } else {
       const result = await ReimbursementApi.getMyReimbursementApplyList({
@@ -80,7 +80,7 @@ export class ReimbursementApplyListPage extends React.Component<ReimbursementApp
         this.total = result.total as number;
       }
       else {
-        alert(result.message);
+        message.error(result.message);
       }
     }
     this.loadingStatus = false;

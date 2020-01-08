@@ -7,6 +7,7 @@ export class ReimbursementApi {
       await axios.post("api/payment/application", request);
       return { message: "ok" };
     } catch (e) {
+      if(!e.response) return { message: "network error" };
       switch (e.response.status) {
         case 403: return { message: "无权限" };
         case 404: return { message: `未找到ID${request.travelApplyId}对应出差申请` };
@@ -24,6 +25,7 @@ export class ReimbursementApi {
         message: "ok"
       }
     } catch (e) {
+      if(!e.response) return { message: "network error" };
       switch (e.response.status) {
         default: return { message: "unknown exception" };
       }
@@ -39,6 +41,7 @@ export class ReimbursementApi {
         message: "ok"
       }
     } catch (e) {
+      if(!e.response) return { message: "network error" };
       switch (e.response.status) {
         case 400: return { message: "请求参数错误" };
         default: return { message: "unknown exception" };
@@ -55,6 +58,7 @@ export class ReimbursementApi {
         message: "ok"
       }
     } catch (e) {
+      if(!e.response) return { message: "network error" };
       switch (e.response.status) {
         case 400: return { message: "请求参数错误" };
         case 403: return { message: "无权限" };
@@ -73,6 +77,7 @@ export class ReimbursementApi {
         message: "ok"
       }
     } catch (e) {
+      if(!e.response) return { message: "network error" };
       switch (e.response.status) {
         case 403: return { message: "无权限" };
         case 404: {
@@ -95,6 +100,7 @@ export class ReimbursementApi {
         message: "ok"
       }
     } catch (e) {
+      if(!e.response) return { message: "network error" };
       switch (e.response.status) {
         case 403: {
           switch (e.response.code) {
