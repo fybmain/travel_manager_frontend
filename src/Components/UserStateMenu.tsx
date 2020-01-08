@@ -1,13 +1,29 @@
 import React from 'react';
 import { Menu, Avatar, Icon } from 'antd';
 import { Link } from 'react-router-dom';
+import { IPersonaSharedProps, Persona, PersonaInitialsColor, PersonaSize } from 'office-ui-fabric-react/lib/Persona';
+import { TestImages } from '@uifabric/example-data';
 
 import UserInfoStore from '../Stores/UserInfoStore';
+import { mergeStyleSets } from 'office-ui-fabric-react/lib/Styling';
 
 const { SubMenu } = Menu;
 
 export interface UserStateMenuProps {
 }
+const menuStyles = mergeStyleSets({
+   root2:{
+     height:"100%"
+   },
+   subMenuPeople:{
+      display: 'flex', 
+      alignItems: 'center', 
+      textAlign:'center',
+   },
+   subMenu:{
+      float:"right"
+   },
+})
 
 export class UserStateMenu extends React.Component<UserStateMenuProps> {
   handleLogout = () => {
@@ -16,25 +32,25 @@ export class UserStateMenu extends React.Component<UserStateMenuProps> {
 
   render() {
     return (
+      <div className={menuStyles.root2}>
       <Menu
         theme="dark"
         mode="horizontal"
-        style={{ height: '68px', lineHeight: '64px' }}>
-
-        {/* <Menu.Item key="logo" style={{ float: 'left' }} disabled>
-          <p className='logo'>Travel Reimbursement System</p>
-        </Menu.Item> */}
-
-        {/* <SubMenu
-          key="Apply"
-          title={UserInfoStore.userInfo.name as string}
-          style={{ float: 'right', fontSize: "large" }}
-        > */}
+        >
         <SubMenu
-          title={<div style={{ display: 'flex', alignItems: 'center', textAlign:'center' }}>
-             <Avatar icon={<Icon type="user"/>}/>
-            &nbsp;<span>{UserInfoStore.userInfo.name}</span></div>}
-            style={{float:"right"}}
+          className={menuStyles.subMenu}
+          title={
+          <div className={menuStyles.subMenuPeople}>
+             <Persona 
+              imageUrl={TestImages.personaFemale} 
+              size={PersonaSize.size40}
+              hidePersonaDetails={false}
+             />
+            <span>
+              {UserInfoStore.userInfo.name}
+            </span>
+          </div>
+          }
           >
           {
             (UserInfoStore.userInfo.role === 3)?(
@@ -57,6 +73,7 @@ export class UserStateMenu extends React.Component<UserStateMenuProps> {
           </Menu.Item>
         </SubMenu>
       </Menu>
+      </div>
     );
   }
 }
