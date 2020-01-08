@@ -83,7 +83,7 @@ export class TravelApplyListPage extends React.Component<TravelApplyListPageProp
             loading={this.loading}
             dataSource={this.data}
             onRow={record => ({ onDoubleClick: () => this.handleOpenDetail(record.applyId) })}
-            rowKey="applyId"
+            rowKey={(record, index) => { return index.toString() }} 
             className="table"
             size="middle"
             pagination={{

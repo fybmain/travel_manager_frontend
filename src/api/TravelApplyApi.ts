@@ -45,6 +45,7 @@ export class TravelApplyApi {
   static async getTravelApplicationListForApprover(
     pageSize: number,
     page: number,
+    departmentId: number,
     state: "all"|"finished"|"unfinished"
   ): Promise<
     {message: "ok", total: number, items: TravelApplyItem[]}
@@ -57,7 +58,7 @@ export class TravelApplyApi {
           page,
           size: pageSize,
           state,
-          departmentId: UserInfoStore.userInfo.departmentId,
+          departmentId,
         }
       });
     }catch(err){

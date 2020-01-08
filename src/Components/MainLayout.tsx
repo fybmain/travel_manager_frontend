@@ -29,6 +29,8 @@ import { MainStore } from '../Stores/MainStore';
 import { MainMenu } from './MainMenu';
 import { UserStateMenu } from './UserStateMenu';
 import logo from '../Pictures/logo.png'
+import { userInfo } from 'os';
+import UserInfoStore from '../Stores/UserInfoStore';
 const { Header, Content, Sider } = Layout;
 
 interface props extends RouteComponentProps {
