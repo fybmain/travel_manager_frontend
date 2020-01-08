@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { message } from 'antd';
 
 const instance = axios.create({
   baseURL: '/',
@@ -25,5 +26,19 @@ instance.interceptors.request.use(
     return config;
   }
 );
+
+instance.interceptors.response.use(
+  undefined,
+  (err) => {
+    if((err.response)&&(err.response.status===401)){
+      message.error("太长时间未使用，请重新登录");
+      const UserInfoStore = require('./Stores/UserInfoStore').default;
+      if(UserInfoStore.isLogin){
+        UserInfoStore.logout();
+      }
+    }
+    return Promise.reject(err);
+  }
+)
 
 export default instance;
