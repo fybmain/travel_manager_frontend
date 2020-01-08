@@ -17,6 +17,13 @@ export interface UpdateUserInfoRequest {
   telephone: string,
 }
 
+export enum UserRole{
+  Employee = 0,
+  DepartmentManager = 1,
+  GeneralManager = 2,
+  Admin = 3,
+}
+
 export interface UserInfo {
   id: string,
   workId: string,
@@ -24,14 +31,7 @@ export interface UserInfo {
   email: string,
   telephone: string,
   departmentId: number,
-  role: number,
-}
-
-export enum UserRole{
-  Employee = 0,
-  DepartmentManager = 1,
-  GeneralManager = 2,
-  Admin = 3,
+  role: UserRole,
 }
 
 export interface AdminListUserItem {

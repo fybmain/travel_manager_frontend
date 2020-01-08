@@ -2,16 +2,15 @@ import axios from '../axios';
 import { RegisterRequest, LoginRequest, UserInfo, UpdateUserInfoRequest } from '../Models';
 
 export class UserApi {
-  static async register(request:RegisterRequest): Promise<{message:string}>{
+  static async register(request: RegisterRequest): Promise<{ message:string }>{
     try{
-      const result= await axios.post("api/auth/register",request);
-      console.log(result);
-      return {message:"ok"};
+      await axios.post("api/auth/register", request);
+      return { message:"ok" };
     }catch(e){
       if(e.response){
         switch(e.response.status){
-          case 400: return {message:"workId 已存在"};
-          default: return {message:"unknown error"};
+          case 400: return { message: "workId 已存在" };
+          default: return { message: "unknown error" };
         }
       }else{
         return { message: "network error" };
@@ -19,20 +18,19 @@ export class UserApi {
     }
   }
 
-  static async login(request:LoginRequest): Promise<{userInfo?:UserInfo,token?:string,message:string}> {
+  static async login(request: LoginRequest): Promise<{ userInfo?:UserInfo, token?:string, message:string }> {
     try{
-      const result= await axios.post("api/auth/token",request);
-      console.log(result);
+      const result = await axios.post("api/auth/token", request);
       return {
-        userInfo:result.data.data.userInfo,
-        token:result.data.data.token,
-        message:"ok"
+        userInfo: result.data.data.userInfo,
+        token: result.data.data.token,
+        message: "ok",
       }
     }catch(e){
       if(e.response){
         switch(e.response.status){
-          case 401: return {message:"username or password incorrect"};
-          default: return {message:"unknown error"};
+          case 403: return { message:"username or password incorrect" };
+          default: return { message:"unknown error" };
         }
       }else{
         return { message: "network error" };
@@ -40,20 +38,19 @@ export class UserApi {
     }
   }
 
-  static async autoLogin(): Promise<{userInfo?:UserInfo,token?:string,message:string}>{
+  static async autoLogin(): Promise<{ userInfo?:UserInfo, token?:string, message:string }>{
     try{
-      const result= await axios.get("api/auth/token");
-      console.log(result);
+      const result = await axios.get("api/auth/token");
       return {
-        userInfo:result.data.data.userInfo,
-        token:result.data.data.token,
-        message:"ok"
+        userInfo: result.data.data.userInfo,
+        token: result.data.data.token,
+        message: "ok",
       }
     }catch(e){
       if(e.response){
         switch(e.response.status){
-          case 401: return {message:"not a valid token"};
-          default: return {message:"unknown error"};
+          case 401: return { message:"not a valid token" };
+          default: return { message:"unknown error" };
         }
       }else{
         return { message: "network error" };
@@ -90,6 +87,7 @@ export class UserApi {
     }catch(e){
       if(e.response){
         switch(e.response.status){
+          case 403: return { message: "reset password token outdated" };
           default: return { message: "unknown error" };
         }
       }else{
@@ -103,7 +101,7 @@ export class UserApi {
     }
   }
 
-  static async updateUserInfo(request: UpdateUserInfoRequest): Promise<{message:string}>{
+  static async updateUserInfo(request: UpdateUserInfoRequest) {
     let result;
     try{
       result = await axios.put("api/auth/user", request);
