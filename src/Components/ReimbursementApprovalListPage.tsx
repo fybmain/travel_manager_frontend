@@ -1,5 +1,5 @@
 import React from 'react';
-import { Table, Radio, Pagination, Select } from 'antd';
+import { Table, Radio, Pagination, Select, message } from 'antd';
 import { RadioChangeEvent } from 'antd/lib/radio';
 import { observable } from 'mobx';
 import { observer, inject } from 'mobx-react';
@@ -99,7 +99,7 @@ export class ReimbursementApprovalListPage extends React.Component<Reimbursement
       this.total = result.total as number;
     }
     else {
-      alert(result.message);
+      message.error(result.message);
     }
     this.loadingStatus = false;
   }

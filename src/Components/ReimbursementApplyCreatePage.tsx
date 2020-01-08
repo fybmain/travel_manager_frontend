@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, Upload, Icon, Button, Divider, Row, Col } from 'antd';
+import { Form, Upload, Icon, Button, Divider, Row, Col, message } from 'antd';
 import { inject, observer } from 'mobx-react';
 
 import { InputMoneyAmount } from './InputMoneyAmount';
@@ -136,10 +136,10 @@ export class ReimbursementApplyCreatePage extends React.Component<ReimbursementA
     });
     if (result.message === "ok") {
       history.push('/reimbursement-apply');
-      alert("创建成功");
+      message.success("创建成功");
     }
     else {
-      alert(result.message);
+      message.error(result.message);
     }
   }
 
