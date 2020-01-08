@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, Input, Icon, Row, Button } from 'antd';
+import { Form, Input, Icon, Row, Button, message } from 'antd';
 import { observer, inject } from 'mobx-react';
 import { observable } from 'mobx';
 
@@ -7,6 +7,7 @@ import '../App.css';
 import { RegisterDialog } from './RegisterDialog';
 import { MainStore } from '../Stores/MainStore';
 import UserInfoStore from '../Stores/UserInfoStore';
+import { ForgetPasswordDialog } from './ForgetPasswordDialog';
 
 interface LoginPageProps {
   mainStore: MainStore;
@@ -14,6 +15,7 @@ interface LoginPageProps {
 @inject("mainStore") @observer
 export class LoginPage extends React.Component<LoginPageProps> {
   @observable registerDialogVisible = false;
+  @observable forgetPasswordDialogVisible = false;
   workId = "";
   password = "";
 
@@ -22,18 +24,11 @@ export class LoginPage extends React.Component<LoginPageProps> {
     super(props);
   }
   */
-  handleRegister = (e: React.MouseEvent) => {
-    this.registerDialogVisible = true;
-  }
-
-  handleRegisterCancel = (e: React.MouseEvent) => {
-    this.registerDialogVisible = false;
-  }
 
   handleLogin = async (e: React.MouseEvent) => {
     const result = await UserInfoStore.login({ workId: this.workId, password: this.password });
     if (result !== "ok") {
-      alert(result);
+      message.error(result);
     }
   }
 
@@ -69,13 +64,14 @@ export class LoginPage extends React.Component<LoginPageProps> {
                 type="button"
                 className="button-like-link"
                 style={{ float: "right" }}
-                onClick={this.handleRegister}>
+                onClick={() => {this.registerDialogVisible = true;}}>
                 注册
               </button>
               <button
                 type="button"
                 className="button-like-link"
-                style={{ float: "left" }}>
+                style={{ float: "left" }}
+                onClick={() => {this.forgetPasswordDialogVisible = true;}}>
                 忘记密码
               </button>
             </Row>
@@ -92,7 +88,10 @@ export class LoginPage extends React.Component<LoginPageProps> {
           </Form>
           <RegisterDialog
             visible={this.registerDialogVisible}
-            onClose={this.handleRegisterCancel} />
+            onClose={() => {this.registerDialogVisible = false;}} />
+          <ForgetPasswordDialog
+            visible={this.forgetPasswordDialogVisible}
+            onClose={() => {this.forgetPasswordDialogVisible = false;}} />
         </div>
       </div>
     );
