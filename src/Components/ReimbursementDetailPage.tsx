@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Form, Button, Divider, Row, Col } from 'antd';
+import { Form, Button, Divider, Row, Col, message } from 'antd';
 import { inject, observer } from 'mobx-react';
 import { observable } from 'mobx';
 
@@ -143,7 +143,7 @@ export class ReimbursementDetailPage extends Component<ReimbursementDetailPagePr
       this.pending = false;
     }
     else {
-      alert(result.message);
+      message.error(result.message);
     }
   }
 }
@@ -157,7 +157,7 @@ const approveApply = async (applyId: number, approved: boolean) => {
     history.push("/reimbursement-approval");
   }
   else {
-    alert(result.message);
+    message.error(result.message);
   }
 }
 class PaymentAndBudget extends Component<{ payment: number, budget: number }>{
