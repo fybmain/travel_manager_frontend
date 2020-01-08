@@ -1,12 +1,13 @@
 import React from 'react';
 import './App.css';
-import { MainStore } from './Stores/MainStore';
-import MainLayout from './Components/MainLayout';
-import { Route, Switch, Redirect, Router } from 'react-router-dom';
+import { Route, Switch, Router } from 'react-router-dom';
 import { Provider, observer } from 'mobx-react';
 
 import history from './history';
+import { MainStore } from './Stores/MainStore';
+import MainLayout from './Components/MainLayout';
 import { LoginPage } from './Components/LoginPage';
+import { ResetPasswordPage } from './Components/ResetPasswordPage';
 import UserInfoStore from './Stores/UserInfoStore';
 
 @observer
@@ -24,20 +25,18 @@ class App extends React.Component {
     if(UserInfoStore.whenAutoLogin) {
       return <div />
     }else{
-      if(UserInfoStore.isLogin){
-        return (
-          <Switch>
-            <Route path="/" component={MainLayout} />
-            <Redirect to="/home" />
-          </Switch>
-        );
-      }else{
-        return (
-          <Switch>
-            <Route component={LoginPage}/>
-          </Switch>
-        );
-      }
+      return (
+        <Switch>
+          <Route exact path="/reset-password" component={ResetPasswordPage} />
+          {
+            (UserInfoStore.isLogin)?(
+              <Route component={MainLayout} />
+            ):(
+              <Route component={LoginPage}/>
+            )
+          }
+        </Switch>
+      );
     }
   }
 
