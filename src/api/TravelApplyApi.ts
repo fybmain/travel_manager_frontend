@@ -1,7 +1,6 @@
 import axios from '../axios';
 import { TravelApplyItem, TravelApplyRequest, TravelApplyDetail } from '../Models';
 import { AxiosResponse } from 'axios';
-import UserInfoStore from '../Stores/UserInfoStore';
 
 export class TravelApplyApi {
   static async getTravelApplicationListForUser(

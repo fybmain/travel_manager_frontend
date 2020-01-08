@@ -1,7 +1,7 @@
 import React from 'react';
-import { Menu, Avatar, Icon } from 'antd';
+import { Menu } from 'antd';
 import { Link } from 'react-router-dom';
-import { IPersonaSharedProps, Persona, PersonaInitialsColor, PersonaSize } from 'office-ui-fabric-react/lib/Persona';
+import {  Persona, PersonaSize } from 'office-ui-fabric-react/lib/Persona';
 import { TestImages } from '@uifabric/example-data';
 
 import UserInfoStore from '../Stores/UserInfoStore';

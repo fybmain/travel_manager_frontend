@@ -1,5 +1,6 @@
-import { Layout, Breadcrumb, Button } from 'antd';
-import React, { Component } from 'react';
+import React from 'react';
+import { Layout, Breadcrumb } from 'antd';
+import { Stack, mergeStyleSets } from 'office-ui-fabric-react'
 import { Route, Switch, Redirect, RouteComponentProps, withRouter } from 'react-router-dom';
 import { inject, observer } from 'mobx-react';
 
@@ -30,10 +31,7 @@ import { MainMenu } from './MainMenu';
 import { UserStateMenu } from './UserStateMenu';
 import logo from '../Pictures/logo.png'
 
-import { Stack, mergeStyleSets } from 'office-ui-fabric-react'
 
-import { userInfo } from 'os';
-import UserInfoStore from '../Stores/UserInfoStore';
 const { Header, Content, Sider } = Layout;
 
 interface props extends RouteComponentProps {
@@ -53,7 +51,7 @@ const headerStyles=mergeStyleSets({
   },
 })
 @inject("mainStore") @observer
-class MainLayout extends Component<props, {}> {
+class MainLayout extends React.Component<props, {}> {
   /*
   constructor(props: any) {
     super(props);

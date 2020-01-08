@@ -61,6 +61,48 @@ export class UserApi {
     }
   }
 
+  static async forgetPassword(workId: string, email: string) {
+    let result;
+    try{
+      result = await axios.post("api/auth/forgetpassword", { email, workId });
+    }catch(e){
+      if(e.response){
+        switch(e.response.status){
+          case 400: return { message: "information incorrect" };
+          case 404: return { message: "work id does not exist" };
+          default: return { message: "unknown error" };
+        }
+      }else{
+        return { message: "network error" };
+      }
+    }
+    if(result.data.code===0){
+      return { message: "ok" };
+    }else{
+      return { message: "unknown error" };
+    }
+  }
+
+  static async resetPassword(token: string, newPassword: string) {
+    let result;
+    try{
+      result = await axios.post("api/auth/resetpassword", { newPassword, token });
+    }catch(e){
+      if(e.response){
+        switch(e.response.status){
+          default: return { message: "unknown error" };
+        }
+      }else{
+        return { message: "network error" };
+      }
+    }
+    if(result.data.code===0){
+      return { message: "ok" };
+    }else{
+      return { message: "unknown error" };
+    }
+  }
+
   static async updateUserInfo(request: UpdateUserInfoRequest): Promise<{message:string}>{
     let result;
     try{

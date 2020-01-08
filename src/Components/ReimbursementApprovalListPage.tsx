@@ -6,10 +6,9 @@ import { observer, inject } from 'mobx-react';
 
 import history from '../history';
 import { ApplyStatus, ApplyBaseInfo, FinishStatus, renderDate, DepartmentInfo } from '../Models';
-import { MainStore } from '../Stores/MainStore';
 import { ReimbursementApi } from '../api/ReimbursementApi';
+import { MainStore } from '../Stores/MainStore';
 import DepartmentInfoStore from '../Stores/DepartmentInfoStore';
-import { userInfo } from 'os';
 import UserInfoStore from '../Stores/UserInfoStore';
 
 const { Column } = Table;
