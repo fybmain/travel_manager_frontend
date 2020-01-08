@@ -31,7 +31,7 @@ export class UserApi {
     }catch(e){
       if(e.response){
         switch(e.response.status){
-          case 401: return {message:"username or password incorrect"};
+          case 403: return {message:"username or password incorrect"};
           default: return {message:"unknown error"};
         }
       }else{
