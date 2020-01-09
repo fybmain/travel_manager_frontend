@@ -98,7 +98,7 @@ const renderData = (payment: Payment) => {
   if (sum == 0) data = [{ name: '未报销', y: 0.001 }];
   const options: Highcharts.Options = {
     chart: {
-      style: { height: 500, minWidth: 500 }
+      style: { height: 450, minWidth: 500 }
     },
     title: {
       text: '报销费用<br>占比',

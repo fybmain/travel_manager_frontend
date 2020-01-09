@@ -9,7 +9,8 @@ import { Message } from '../Models';
 import { MessageApi } from '../api/MessageApi';
 import { MainStore } from '../Stores/MainStore';
 import { PersonChart } from './Reports/PersionChart';
-
+import "antd/dist/antd.less";
+import "../App.less";
 interface HomeProps {
   mainStore: MainStore;
 }
@@ -39,7 +40,7 @@ export class Home extends Component<HomeProps> {
 
   renderMessage = (item: Message) => (
     <List.Item>
-      <List.Item.Meta description={item.content} />
+      <List.Item.Meta description={item.content}/>
     </List.Item>
   )
 
@@ -52,10 +53,10 @@ export class Home extends Component<HomeProps> {
               差旅报销
             </div>
             <div className="home-head2">
-              差旅活动全过程管理，集出差，报销，审批, 统计一体
+              <p>差旅活动全过程管理，集出差，报销，审批, 统计一体</p>
             </div>
             <br /><br />
-            <button className="home-button" onClick={() => { history.push('/travel-apply/create'); }}>去申请</button>
+            {/* <button className="home-button" onClick={() => { history.push('/travel-apply/create'); }}>去申请</button> */}
           </div>
         </div>
         <Row>
@@ -77,7 +78,7 @@ export class Home extends Component<HomeProps> {
                 </span>
               }>
               <Spin spinning={this.messageList===undefined}>
-                <List
+                <List className="changeStyle"
                   dataSource={this.messageList}
                   renderItem={this.renderMessage}
                   bordered={false}/>
