@@ -1,9 +1,9 @@
-import React from "react";
-import { Modal, Form, Icon, Input, Result, message, Button } from "antd";
-import { observable } from "mobx";
-import { observer } from "mobx-react";
+import React from 'react';
+import { Modal, Form, Icon, Input, Result, message, Button } from 'antd';
+import { observable } from 'mobx';
+import { observer } from 'mobx-react';
 
-import { UserApi } from "../api/UserApi";
+import { UserApi } from '../api/UserApi';
 
 export interface ForgetPasswordDialogProps {
   visible: boolean;

@@ -23,7 +23,6 @@ import { CompanyReport } from './Reports/CompanyReport';
 
 import UserInfoPage from './UserInfoPage';
 import { UserInfoEditPage } from './UserInfoEditPage';
-import { UserPasswordEditPage } from './UserPasswordEditPage';
 
 import AllUsers from './AllUsers';
 import { MainStore } from '../Stores/MainStore';
@@ -94,7 +93,6 @@ class MainLayout extends React.Component<MainLayoutProps, {}> {
 
                 <Route exact path="/user-info" component={UserInfoPage} />
                 <Route exact path="/user-info/edit" component={UserInfoEditPage} />
-                <Route exact path="/user-info/edit-password" component={UserPasswordEditPage} />
 
                 <Route exact path="/all-users" component={AllUsers} />
 
