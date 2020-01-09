@@ -29,7 +29,6 @@ export class PersonChart extends React.Component<PersonChartProps> {
 
   constructor(props: PersonChartProps) {
     super(props);
-    this.props.mainStore.breadcrumb = ["统计", "个人报表"];
     this.time = moment().format('YYYY-MM');
     this.defaultTime = moment();
     this.getPayment(this.time);
