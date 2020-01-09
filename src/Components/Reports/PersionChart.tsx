@@ -38,7 +38,7 @@ export class PersonChart extends React.Component<PersonChartProps> {
 
   render() {
     return (
-        <Card title="月度报销费用" style={{height:600}}>
+        <Card title="月度报销费用"  className="card">
           <MonthPicker defaultPickerValue={this.defaultTime}
           defaultValue={this.defaultTime}
           onChange={(value: any, dateString: string) => {

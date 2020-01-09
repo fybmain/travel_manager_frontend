@@ -41,7 +41,7 @@ export class DepartmentPercentileChart extends React.Component<DepartmentPercent
 
   render() {
     return (
-      <Card title="各部门报销金额对比图" style={{ height: 600 }}>
+      <Card title="各部门报销金额对比图"  className="card">
         <span>
           <label>&nbsp;&nbsp;&nbsp;时间：</label>
           <MonthPicker defaultPickerValue={this.defaultTime}
