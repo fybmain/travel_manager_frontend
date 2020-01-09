@@ -108,6 +108,9 @@ export class DepartmentPercentileChart extends React.Component<DepartmentPercent
                   enabled: true,
                   distance: 30,
                   format:'<b>{point.name}<br/>{point.percentage:.1f}%</b>',
+                  style: {
+                    fontSize:'15px',
+                  },
                  
               },
               showInLegend: true
