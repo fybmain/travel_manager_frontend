@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { inject, observer } from 'mobx-react';
 
 import { MainStore } from '../../Stores/MainStore';
+import { CostChangeChart } from './CostChangeChart';
 
 interface DepartmentReportProps{
   mainStore: MainStore;
@@ -16,7 +17,9 @@ export class DepartmentReport extends Component<DepartmentReportProps> {
   }
   render() {
     return (
-      <h1>This is DepartmentReport page</h1>
+      <div className="card-margin">
+        <CostChangeChart mainStore={this.props.mainStore}/>
+      </div>
     );
   }
 }

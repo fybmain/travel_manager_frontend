@@ -53,16 +53,16 @@ export class MainMenu extends React.Component {
 }
 
 const MenuSwitch = () => {
-  switch(UserInfoStore.userInfo.role){
+  switch (UserInfoStore.userInfo.role) {
     case UserRole.Admin:
-      return [ Home(), Admin() ];
+      return [Home(), Admin()];
     case UserRole.GeneralManager:
     case UserRole.DepartmentManager:
-      return [ Home(), Apply(), Approval(), Report() ];
+      return [Home(), Apply(), Approval(), Report()];
     case UserRole.Employee:
-      return [ Home(), Apply(), Report() ];
+      return [Home(), Apply(), Report()];
     default:
-      return [ ];
+      return [];
   }
 }
 
@@ -140,22 +140,28 @@ const Report = () => {
           统计
           </span>
       }
-    >
-      <Menu.Item key="/personal-report" style={{ fontSize: "medium" }}>
+    ><Menu.Item key="/personal-report" style={{ fontSize: "medium" }}>
         <Link to="/personal-report">
           个人报表
-          </Link>
+      </Link>
       </Menu.Item>
-      <Menu.Item key="/department-report" style={{ fontSize: "medium" }}>
-        <Link to="/department-report">
-          部门报表
-          </Link>
-      </Menu.Item>
-      <Menu.Item key="/company-report" style={{ fontSize: "medium" }}>
-        <Link to="/company-report">
-          公司报表
-          </Link>
-      </Menu.Item>
+      {
+        UserInfoStore.userInfo.role === 1 ?
+          <Menu.Item key="/department-report" style={{ fontSize: "medium" }}>
+            <Link to="/department-report">
+              部门报表
+      </Link>
+          </Menu.Item>
+          : null
+      }{
+        UserInfoStore.userInfo.role === 2 ?
+          <Menu.Item key="/company-report" style={{ fontSize: "medium" }}>
+            <Link to="/company-report">
+              公司报表
+      </Link>
+          </Menu.Item>
+          : null
+      }
     </SubMenu>
   );
 }
