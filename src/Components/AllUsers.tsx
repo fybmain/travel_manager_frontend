@@ -121,6 +121,7 @@ class AllUsers extends React.Component<AllUsersProps> {
           loading={this.loading}
           dataSource={this.data}
           rowKey="id"
+          size="middle"
           className="table"
           pagination={{
             total: this.total,
@@ -145,7 +146,7 @@ class AllUsers extends React.Component<AllUsersProps> {
                 <Select
                   value={text}
                   onChange={(value: UserRole) => {this.handleUpdateDepartment(value, record)}}
-                  style={{ width: 120 }}>
+                  style={{ minWidth: 120 }}>
                   {
                     DepartmentInfoStore.departmentList.map(
                       ({id, name}) => (
