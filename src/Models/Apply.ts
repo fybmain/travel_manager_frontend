@@ -9,3 +9,7 @@ export interface ApplyBaseInfo {
   departmentName: string,
   status: number
 }
+
+export const reimbursementApplyStatusToString = (reimbursementApplyStatus: number) => {
+  return ApplyStatus[reimbursementApplyStatus];
+}

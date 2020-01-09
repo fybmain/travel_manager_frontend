@@ -9,7 +9,8 @@ export interface ReimbursementApplyDetail {
   budget: Payment,
   payment: Payment,
   travelApplyId:number,
-  pictureURLs:string
+  pictureURLs:string,
+  status: number,
 }
 
 export interface Payment {

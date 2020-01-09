@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Table, Radio, message, Select } from 'antd';
 import { RadioChangeEvent } from 'antd/lib/radio';
 import { observable } from 'mobx';
@@ -123,6 +124,9 @@ export class TravelApprovalListPage extends React.Component<TravelApprovalListPa
           <Column title="申请人" dataIndex="applicantName" key="applicantName" />
           <Column title="申请时间" dataIndex="applyTime" key="applyTime" render={renderDate}/>
           <Column title="申请状态" dataIndex="status" key="status" render={travelApplyStatusToString}/>
+          <Column title="详情" render={(text, record: TravelApplyItem) => {
+            return <Link to={`/travel-approval/${record.applyId}/detail`}>查看详情</Link>;
+          }}/>
         </Table>
       </div>
     );

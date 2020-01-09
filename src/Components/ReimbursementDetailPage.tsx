@@ -4,7 +4,7 @@ import { inject, observer } from 'mobx-react';
 import { observable } from 'mobx';
 
 import history from '../history';
-import { Payment, ReimbursementApplyDetail } from '../Models';
+import { Payment, ReimbursementApplyDetail, reimbursementApplyStatusToString } from '../Models';
 import { ReimbursementApi } from '../api/ReimbursementApi';
 import { MainStore } from '../Stores/MainStore';
 
@@ -31,6 +31,7 @@ export class ReimbursementDetailPage extends Component<ReimbursementDetailPagePr
     vehicle: 0,
     other: 0,
   }
+  private applyStatus: number = 0;
   private showButtons = false;
   @observable pending = true;
 
@@ -103,6 +104,9 @@ export class ReimbursementDetailPage extends Component<ReimbursementDetailPagePr
                     <Form.Item label="其他报销金额">
                       <PaymentAndBudget payment={this.payment.other} budget={this.budget.other} />
                     </Form.Item>
+                    <Form.Item label="申请状态">
+                      {reimbursementApplyStatusToString(this.applyStatus)}
+                    </Form.Item>
                   </Col>
                 </Row>
                 {
@@ -140,6 +144,7 @@ export class ReimbursementDetailPage extends Component<ReimbursementDetailPagePr
       this.payment = data.payment;
       this.name = data.applicant;
       this.traveApplyId = data.travelApplyId;
+      this.applyStatus = data.status;
       this.pending = false;
     }
     else {
@@ -151,7 +156,7 @@ export class ReimbursementDetailPage extends Component<ReimbursementDetailPagePr
 const approveApply = async (applyId: number, approved: boolean) => {
   const result = await ReimbursementApi.approveReimbursementApply({
     applyId: applyId,
-    approved: approved
+    approved: approved,
   });
   if (result.message === "ok") {
     history.push("/reimbursement-approval");
