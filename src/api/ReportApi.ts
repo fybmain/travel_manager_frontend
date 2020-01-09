@@ -5,7 +5,7 @@ import { payBudgetDiffInfo } from '../Models/Report';
 export class ReportApi {
   static async getPersonalPayment(request: { time: string }): Promise<{ message: string, items?: Payment }> {
     try {
-      const result = await axios.get("api/statistics/payment_percent_diagram", { params: request });
+      const result = await axios.get("api/statistics/payment_percent_diagram/me", { params: request });
       return {
         message: "ok",
         items: {
