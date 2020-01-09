@@ -90,11 +90,20 @@ export class ReimbursementApplyListPage extends React.Component<ReimbursementApp
     history.push(`/reimbursement/detail?applyId=${applyId}`);
   }
 
+  handleTravelDoubleClick = (applyId: number) => {
+    history.push(`/travel-apply/${applyId}/detail`);
+  }
+
   travelTable = (data: ApplyBaseInfo[], loadingStatus: boolean) => {
     return (
       <div>
         <Table dataSource={data} className="table" size="middle" loading={loadingStatus}
-          rowKey={(record, index) => { return index.toString() }} pagination={false}>
+          rowKey={(record, index) => { return index.toString() }} pagination={false}
+          onRow={(record, rowKey) => {
+            return {
+              onDoubleClick: event => { this.handleTravelDoubleClick(record.applyId) },
+            };
+          }}>
           <Column title="申请人" dataIndex="applicantName" key="applicantName" />
           <Column title="申请ID" dataIndex="applyId" key="applyId" />
           <Column title="申请时间" dataIndex="applyTime" key="applyTime" render={(text)=>renderDate(new Date(text))} />
