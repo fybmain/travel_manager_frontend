@@ -137,15 +137,22 @@ const Report = () => {
         个人报表
         </Link>
     </Menu.Item>
-    <Menu.Item key="/department-report" style={{ fontSize: "medium" }}>
-      <Link to="/department-report">
-        部门报表
+    {
+      UserInfoStore.userInfo.role === 1 ?
+        <Menu.Item key="/department-report" style={{ fontSize: "medium" }}>
+          <Link to="/department-report">
+            部门报表
         </Link>
-    </Menu.Item>
-    <Menu.Item key="/company-report" style={{ fontSize: "medium" }}>
-      <Link to="/company-report">
-        公司报表
+        </Menu.Item>
+        : null
+    }{
+      UserInfoStore.userInfo.role === 2 ?
+        <Menu.Item key="/company-report" style={{ fontSize: "medium" }}>
+          <Link to="/company-report">
+            公司报表
         </Link>
-    </Menu.Item>
+        </Menu.Item>
+        : null
+    }
   </SubMenu>)
 }

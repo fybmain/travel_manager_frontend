@@ -34,7 +34,7 @@ import logo from '../Pictures/logo.png'
 
 const { Header, Content, Sider } = Layout;
 
-interface props extends RouteComponentProps {
+interface MainLayoutProps extends RouteComponentProps {
   mainStore: MainStore;
 }
 
@@ -51,12 +51,11 @@ const headerStyles=mergeStyleSets({
   },
 })
 @inject("mainStore") @observer
-class MainLayout extends React.Component<props, {}> {
-  /*
-  constructor(props: any) {
+class MainLayout extends React.Component<MainLayoutProps, {}> {
+
+  constructor(props: MainLayoutProps) {
     super(props);
   }
-  */
 
   render() {
     return (

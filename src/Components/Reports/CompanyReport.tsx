@@ -2,8 +2,10 @@ import React from 'react';
 import { inject, observer } from 'mobx-react';
 
 import { MainStore } from '../../Stores/MainStore';
+import { DepartmentPercentileChart } from './DepartmentPercentileChart';
+import { CostChangeChart } from './CostChangeChart';
 
-interface CompanyReportProps{
+interface CompanyReportProps {
   mainStore: MainStore;
 }
 
@@ -11,12 +13,16 @@ interface CompanyReportProps{
 export class CompanyReport extends React.Component<CompanyReportProps> {
   constructor(props: CompanyReportProps) {
     super(props);
-    this.props.mainStore.breadcrumb=["统计", "公司报表"];
+    this.props.mainStore.breadcrumb = ["统计", "公司报表"];
   }
 
   render() {
     return (
-      <h1>This is CompanyReport page</h1>
+      <div className="card-margin">
+        <CostChangeChart mainStore={this.props.mainStore} />
+        <br/><br/><br/>
+        <DepartmentPercentileChart />
+      </div>
     );
   }
 }
