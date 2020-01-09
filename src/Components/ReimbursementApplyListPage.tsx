@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Table, Button, Radio, Pagination, message } from 'antd';
 import { RadioChangeEvent } from 'antd/lib/radio';
 import { observable } from 'mobx';
@@ -97,30 +98,43 @@ export class ReimbursementApplyListPage extends React.Component<ReimbursementApp
   travelTable = (data: ApplyBaseInfo[], loadingStatus: boolean) => {
     return (
       <div>
-        <Table dataSource={data} className="table" size="middle" loading={loadingStatus}
-          rowKey={(record, index) => { return index.toString() }} pagination={false}
+        <Table
+          loading={loadingStatus}
+          dataSource={data}
+          className="table"
+          size="middle"
+          rowKey={(record, index) => { return index.toString() }}
           onRow={(record, rowKey) => {
             return {
               onDoubleClick: event => { this.handleTravelDoubleClick(record.applyId) },
             };
+          }}
+          pagination={{
+            defaultCurrent: 1,
+            total: this.total,
+            pageSize: pageSize,
+            className: "pagination",
+            hideOnSinglePage: true,
+            onChange: (page, size) => {
+              this.current = page;
+              this.updateData();
+            },
           }}>
           <Column title="申请人" dataIndex="applicantName" key="applicantName" />
           <Column title="申请ID" dataIndex="applyId" key="applyId" />
-          <Column title="申请时间" dataIndex="applyTime" key="applyTime" render={(text)=>renderDate(new Date(text))} />
+          <Column title="申请时间" dataIndex="applyTime" key="applyTime" render={(text) => renderDate(new Date(text))} />
           <Column title="部门" dataIndex="departmentName" key="departmentName" />
+          <Column title="详情" render={(text, record: ApplyBaseInfo) => {
+            return <Link to={`/travel-apply/${record.applyId}/detail`}>查看详情</Link>;
+          }} />
           <Column
-            title="Action"
+            title="报销"
             key="action"
             render={(text, record, index) => (
-              <Button onClick={() => { this.handleCreate(data[index].applyId); }} type="primary">提交报销申请</Button>
+              <Button onClick={() => { this.handleCreate(data[index].applyId); }} type="primary">报销</Button>
             )}
           />
         </Table>
-        <Pagination defaultCurrent={1} total={this.total} pageSize={pageSize} className="pagination"
-          hideOnSinglePage={true}
-          onChange={(page, size) => {
-            this.current = page; this.updateData();
-          }} />
       </div>
     );
   }
@@ -132,26 +146,38 @@ export class ReimbursementApplyListPage extends React.Component<ReimbursementApp
   reimbursementTable = (data: ApplyBaseInfo[], loadingStatus: boolean) => {
     return (
       <div>
-        <Table dataSource={data} className="table" size="middle" loading={loadingStatus}
-          rowKey={(record, index) => { return index.toString() }} pagination={false}
+        <Table
+          loading={loadingStatus}
+          dataSource={data}
+          className="table"
+          size="middle"
+          rowKey={(record, index) => { return index.toString() }}
           onRow={(record, rowKey) => {
             return {
               onDoubleClick: event => { this.handleDoubleClick(record.applyId) },
             };
+          }}
+          pagination={{
+            current: this.current,
+            total: this.total,
+            pageSize: pageSize,
+            hideOnSinglePage: true,
+            onChange: (page, size) => {
+              this.current = page;
+              this.updateData();
+            },
           }}>
           <Column title="申请人" dataIndex="applicantName" key="applicantName" />
           <Column title="申请ID" dataIndex="applyId" key="applyId" />
-          <Column title="申请时间" dataIndex="applyTime" key="applyTime" render={(text)=>renderDate(new Date(text))} />
+          <Column title="申请时间" dataIndex="applyTime" key="applyTime" render={(text) => renderDate(new Date(text))} />
           <Column title="部门" dataIndex="departmentName" key="departmentName" />
           <Column title="申请状态" dataIndex="status" key="status"
             render={(text: number, record, index) => { return <span>{(ApplyStatus[text])}</span> }}
           />
-        </Table>
-        <Pagination current={this.current} total={this.total} pageSize={pageSize}
-          hideOnSinglePage={true}
-          onChange={(page, size) => {
-            this.current = page; this.updateData();
+          <Column title="详情" render={(text, record: ApplyBaseInfo) => {
+            return <Link to={`/reimbursement/detail?applyId=${record.applyId}`}>查看详情</Link>;
           }} />
+        </Table>
       </div>
     );
   }
