@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Card, Icon } from 'antd';
+import { Card, Icon, Col, Row } from 'antd';
 import { inject, observer } from 'mobx-react';
 
 import history from '../history';
@@ -31,12 +31,17 @@ export class Home extends Component<HomeProps> {
               差旅活动全过程管理，集出差，报销，审批, 统计一体
             </div>
             <br /><br />
-            <button className="home-button" onClick={()=>{history.push('/travel-apply/create');}}>去申请</button>
+            <button className="home-button" onClick={() => { history.push('/travel-apply/create'); }}>去申请</button>
           </div>
         </div>
-        {box1()}
-        <br /><br />
-          <PersonChart mainStore={this.props.mainStore} />
+        <Row>
+          <Col span={8} style={{ width: "30%", overflow: "hidden", padding: 20, MozBoxShadow: "0 8px 16px 0 rgba(0, 0, 0, 0.1)" }}>
+            {box1()}
+          </Col>
+          <Col span={16} style={{ margin: "auto", overflow: "hidden", padding: 20, MozBoxShadow: "0 8px 16px 0 rgba(0, 0, 0, 0.1)" }}>
+            <PersonChart mainStore={this.props.mainStore} />
+          </Col>
+        </Row>
       </div>
     );
   }
@@ -44,15 +49,15 @@ export class Home extends Component<HomeProps> {
 
 const box1 = () => {
   return (
-      <Card  className="card"
+    <Card className="card"
       title={
         <span>
           <Icon type="form" />
           &nbsp;&nbsp;最新消息
         </span>
       }
-        bordered={false}
-      >
-      </Card>
+      bordered={false}
+    >
+    </Card>
   );
 }
