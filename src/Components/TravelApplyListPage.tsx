@@ -77,6 +77,15 @@ export class TravelApplyListPage extends React.Component<TravelApplyListPageProp
             <Radio.Button value={false}>未完成</Radio.Button>
             <Radio.Button value={true}>已完成</Radio.Button>
           </Radio.Group>
+          <Button
+            onClick={this.handleCreate}
+            icon="file-add"
+            shape="round"
+            type="primary"
+            htmlType="button"
+            style={{ marginLeft: "2%" }}>
+            提交新的申请
+          </Button>
         </div>
         {
           <Table
@@ -101,12 +110,7 @@ export class TravelApplyListPage extends React.Component<TravelApplyListPageProp
           </Table>
         }
 
-        <Row style={{paddingBottom: 20}}>
-          <Col span={11}></Col>
-          <Col span={2}>
-            <Button onClick={this.handleCreate} type="primary">提交申请</Button>
-          </Col>
-        </Row>
+        <Row style={{paddingBottom: 20}}/>
       </div>
     );
   }

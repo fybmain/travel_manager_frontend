@@ -1,6 +1,6 @@
 import React from 'react';
 import { RouteComponentProps } from 'react-router';
-import { Form, Input, Spin, message } from 'antd';
+import { Form, Input, Spin, message, Row, Col, Divider } from 'antd';
 import { observable } from 'mobx';
 import { inject, observer } from 'mobx-react';
 
@@ -92,48 +92,59 @@ export class TravelApplyDetailPage extends React.Component<TravelApplyDetailPage
 
         <Spin spinning={this.loading}>
           <Form { ...formItemLayout } layout="horizontal">
-            <Form.Item label="申请人">
-              {this.data.applicantName}
-            </Form.Item>
+            <Row>
+              <Col span={10}>
+                <Form.Item label="申请人">
+                  {this.data.applicantName}
+                </Form.Item>
 
-            <Form.Item label="申请时间">
-              {this.data.applyTime.toLocaleDateString()}
-            </Form.Item>
+                <Form.Item label="申请时间">
+                  {this.data.applyTime.toLocaleDateString()}
+                </Form.Item>
 
-            <Form.Item label="部门">
-              {this.data.departmentName}
-            </Form.Item>
+                <Form.Item label="部门">
+                  {this.data.departmentName}
+                </Form.Item>
 
-            <Form.Item label="出差时间">
-              从 {this.data.startTime.toLocaleDateString()} 到 {this.data.endTime.toLocaleDateString()}
-            </Form.Item>
+                <Form.Item label="出差时间">
+                  从 {this.data.startTime.toLocaleDateString()} 到 {this.data.endTime.toLocaleDateString()}
+                </Form.Item>
 
-            <Form.Item label="出差地点">
-              {this.data.province}省 {this.data.city}市
-            </Form.Item>
+                <Form.Item label="出差地点">
+                  {this.data.province}省 {this.data.city}市
+                </Form.Item>
 
-            <Form.Item label="出差事由">
-              <TextArea
-                disabled={true}
-                rows={10}
-                value={this.data.reason}/>
-            </Form.Item>
+                <Form.Item label="出差事由">
+                  <TextArea
+                    disabled={true}
+                    rows={10}
+                    value={this.data.reason}/>
+                </Form.Item>
+              </Col>
 
-            <Form.Item label="酒店预算">
-            {this.data.budget.hotel}元
-            </Form.Item>
+              <Col span={2}>
+                <Divider type="vertical" />
+              </Col>
 
-            <Form.Item label="车旅预算">
-              {this.data.budget.vehicle}元
-            </Form.Item>
+              <Col span={9}>
+                <Form.Item label="酒店预算">
+                  {this.data.budget.hotel}元
+                </Form.Item>
 
-            <Form.Item label="饮食预算">
-              {this.data.budget.food}元
-            </Form.Item>
+                <Form.Item label="车旅预算">
+                  {this.data.budget.vehicle}元
+                </Form.Item>
 
-            <Form.Item label="其他预算">
-              {this.data.budget.other}元
-            </Form.Item>
+                <Form.Item label="饮食预算">
+                  {this.data.budget.food}元
+                </Form.Item>
+
+                <Form.Item label="其他预算">
+                  {this.data.budget.other}元
+                </Form.Item>
+              </Col>
+            </Row>
+
           </Form>
         </Spin>
       </div>
