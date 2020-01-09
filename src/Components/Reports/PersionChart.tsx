@@ -37,24 +37,25 @@ export class PersonChart extends React.Component<PersonChartProps> {
 
   render() {
     return (
-        <Card title="月度报销费用"  className="card">
+      <Card title="月度报销费用" className="card">
+        <div style={{ marginLeft: 20 }}>
           <MonthPicker defaultPickerValue={this.defaultTime}
-          defaultValue={this.defaultTime}
-          onChange={(value: any, dateString: string) => {
-            this.time = dateString;
-            this.getPayment(this.time);
-          }} />
-          
-          {
-            this.loadingStatus?
+            defaultValue={this.defaultTime}
+            onChange={(value: any, dateString: string) => {
+              this.time = dateString;
+              this.getPayment(this.time);
+            }} />
+        </div>
+        {
+          this.loadingStatus ?
             null
-            :<HighchartsReact
-            options={renderData(this.payment)}
-            highcharts={Highcharts}
-            {...this.props}
-          />
-          }
-        </Card>
+            : <HighchartsReact
+              options={renderData(this.payment)}
+              highcharts={Highcharts}
+              {...this.props}
+            />
+        }
+      </Card>
     );
   }
 
@@ -77,27 +78,27 @@ const renderData = (payment: Payment) => {
   const sum = payment.food + payment.hotel + payment.other + payment.vehicle;
   let data = [
     {
-      name: `饮食`, 
-      y:payment.food
+      name: `饮食`,
+      y: payment.food
     },
     {
-      name: '酒店', 
-      y:payment.food
+      name: '酒店',
+      y: payment.food
     },
     {
-      name: '车旅', 
-      y:payment.vehicle
+      name: '车旅',
+      y: payment.vehicle
     },
     {
-      name: '其他', 
-      y:payment.other
+      name: '其他',
+      y: payment.other
     },
   ];
-  data.sort((a,b)=>{return b.y-a.y});
-  if(sum==0) data=[ { name: '未报销',  y:0.001  }];
+  data.sort((a, b) => { return b.y - a.y });
+  if (sum == 0) data = [{ name: '未报销', y: 0.001 }];
   const options: Highcharts.Options = {
-    chart:{
-      style:{height:500,minWidth:500}
+    chart: {
+      style: { height: 500, minWidth: 500 }
     },
     title: {
       text: '报销费用<br>占比',

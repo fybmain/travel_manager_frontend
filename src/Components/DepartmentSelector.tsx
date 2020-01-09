@@ -16,10 +16,10 @@ const radioValues = ["待审批", "已审批"];
 const pageSize = 8;
 const { Option } = Select;
 interface DepartmentSelectorProps {
-  changeSelect:(id:number)=>void;
+  changeSelect: (id: number) => void;
 }
 
- @observer
+@observer
 export class DepartmentSelector extends React.Component<DepartmentSelectorProps> {
 
   @observable departmentId = -1;
@@ -32,25 +32,24 @@ export class DepartmentSelector extends React.Component<DepartmentSelectorProps>
 
   render() {
     return (
-      <div>
-          {
-            UserInfoStore.userInfo.role === 2 ?
-              <span>
-                <label>&nbsp;&nbsp;&nbsp;部门：</label>
-                <Select value={this.departmentId} 
-                style={{ width: 120 }} 
+      <span>
+        {
+          UserInfoStore.userInfo.role === 2 ?
+            <span>
+              <label>&nbsp;&nbsp;&nbsp;部门：</label>
+              <Select value={this.departmentId}
+                style={{ width: 180 }}
                 defaultValue={UserInfoStore.userInfo.departmentId}
-                onChange={this.handleSelectChange} 
+                onChange={this.handleSelectChange}
                 key="select">
-                  <Option value={-1}>All</Option>
-                  {this.allDepartment.map((value: DepartmentInfo, index) =>
-                    <Option value={value.id} key={value.id}>{value.name}</Option>
-                  )}
-                </Select>
-              </span>
-              : null
-          }
-      </div>
+                <Option value={-1}>All</Option>
+                {this.allDepartment.map((value: DepartmentInfo, index) =>
+                  <Option value={value.id} key={value.id}>{value.name}</Option>
+                )}
+              </Select>
+            </span>
+            : null
+        }</span>
     );
   }
 

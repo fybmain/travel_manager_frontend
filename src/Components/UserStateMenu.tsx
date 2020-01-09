@@ -54,7 +54,7 @@ export class UserStateMenu extends React.Component<UserStateMenuProps> {
             </Link>
           </Menu.Item>
           <Menu.Item key="Logout" onClick={this.handleLogout}>
-            <Link to="/home">
+            <Link to="/login">
               退出登录
             </Link>
           </Menu.Item>
