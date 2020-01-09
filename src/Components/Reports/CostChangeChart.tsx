@@ -70,9 +70,7 @@ export class CostChangeChart extends React.Component<CostChangeChartProps> {
   render() {
     return (
       <Card title="过去一年预算与实际费用对比图" className="card">
-        <Row>
-          <Col span={4}>
-            <span>
+            <div style={{display:"inline",width:100,height:30,marginLeft:30}}>
               <label>&nbsp;&nbsp;&nbsp;费用类型：</label>
               <Select
                 style={{ width: 120 }}
@@ -85,16 +83,13 @@ export class CostChangeChart extends React.Component<CostChangeChartProps> {
                 <Option value="vehicle">车旅</Option>
                 <Option value="other">其他</Option>
               </Select>
-            </span>
-          </Col>
-          <Col>
+            </div>
+            <div style={{display:"inline",width:100,height:30}}>
             {
               this.props.mainStore.breadcrumb[1] === "公司报表" ?
                 <DepartmentSelector changeSelect={this.changeSelect} />
                 : null
-            }
-          </Col>
-        </Row>
+            }</div>
             <br/><br/>
         {
           this.loadingStatus ?

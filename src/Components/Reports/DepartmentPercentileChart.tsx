@@ -36,13 +36,12 @@ export class DepartmentPercentileChart extends React.Component<DepartmentPercent
     this.time = this.defaultTime.format('YYYY-MM');
     this.updateData();
     console.log("constructor DepartmentPercentileChart");
-    //Variablepie(Highcharts);
   }
 
   render() {
     return (
       <Card title="各部门报销金额对比图"  className="card">
-        <span>
+        <span style={{marginLeft:20}}>
           <label>&nbsp;&nbsp;&nbsp;时间：</label>
           <MonthPicker defaultPickerValue={this.defaultTime}
             defaultValue={this.defaultTime}

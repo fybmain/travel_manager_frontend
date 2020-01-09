@@ -15,15 +15,15 @@ class UserInfoStore {
     role: 0,
   };
 
-  constructor(){
-    this.tryAutoLogin().then(() => {this.whenAutoLogin = false;});
+  constructor() {
+    this.tryAutoLogin().then(() => { this.whenAutoLogin = false; });
   }
 
-  setLogin(userInfo: UserInfo){
+  setLogin(userInfo: UserInfo) {
     this.userInfo = userInfo;
     this.isLogin = true;
   }
-  setNotLogin(){
+  setNotLogin() {
     this.isLogin = false;
     this.userInfo = {
       id: "undefined",
@@ -36,14 +36,14 @@ class UserInfoStore {
     };
   }
 
-  async tryAutoLogin() {
-    if(localStorage.getItem('Travel-Manager-User-Token')===null){
+  public tryAutoLogin = async () => {
+    if (localStorage.getItem('Travel-Manager-User-Token') === null) {
       this.setNotLogin();
-    }else{
+    } else {
       let result;
-      try{
+      try {
         result = await UserApi.autoLogin();
-      }catch(e){
+      } catch (e) {
         this.setNotLogin();
         throw e;
       }
@@ -52,7 +52,7 @@ class UserInfoStore {
         const userInfo = result.userInfo as UserInfo;
         localStorage.setItem('Travel-Manager-User-Token', token);
         this.setLogin(userInfo);
-      }else{
+      } else {
         this.setNotLogin();
       }
     }
@@ -64,7 +64,7 @@ class UserInfoStore {
       const token = result.token as string;
       const userInfo = result.userInfo as UserInfo;
       localStorage.setItem('Travel-Manager-User-Token', token);
-      this.setLogin(userInfo); 
+      this.setLogin(userInfo);
     } else {
       this.setNotLogin();
     }
