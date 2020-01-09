@@ -33,6 +33,7 @@ export class UserInfoEditPage extends React.Component<UserInfoEditPageProps> {
       telephone: this.telephone,
     }).then((result) => {
       if(result.message==="ok"){
+        UserInfoStore.tryAutoLogin();
         message.success("修改成功");
         history.push('/user-info');
       }else{

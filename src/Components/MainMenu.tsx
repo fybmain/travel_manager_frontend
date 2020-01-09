@@ -55,7 +55,7 @@ export class MainMenu extends React.Component {
 const MenuSwitch = () => {
   switch (UserInfoStore.userInfo.role) {
     case UserRole.Admin:
-      return [Home(), Admin()];
+      return [Admin()];
     case UserRole.GeneralManager:
     case UserRole.DepartmentManager:
       return [Home(), Apply(), Approval(), Report()];
