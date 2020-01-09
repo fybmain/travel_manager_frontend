@@ -29,6 +29,7 @@ import { MainStore } from '../Stores/MainStore';
 import { MainMenu } from './MainMenu';
 import { UserStateMenu } from './UserStateMenu';
 import logo from '../Pictures/logo.png'
+import UserInfoStore from '../Stores/UserInfoStore';
 
 
 const { Header, Content, Sider } = Layout;
@@ -95,8 +96,12 @@ class MainLayout extends React.Component<MainLayoutProps, {}> {
                 <Route exact path="/user-info/edit" component={UserInfoEditPage} />
 
                 <Route exact path="/all-users" component={AllUsers} />
-
-                <Redirect to="/home" />
+                {
+                  UserInfoStore.userInfo.role!==3?
+                  <Redirect to="/home" />
+                  :<Redirect to="/all-users" />
+                }
+                
               </Switch>
             </Layout>
           </Content>
