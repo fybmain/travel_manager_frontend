@@ -1,5 +1,5 @@
 import React from 'react';
-import { Menu } from 'antd';
+import { Menu, Avatar } from 'antd';
 import { Link } from 'react-router-dom';
 import {  Persona, PersonaSize } from 'office-ui-fabric-react/lib/Persona';
 import { TestImages } from '@uifabric/example-data';
@@ -41,11 +41,13 @@ export class UserStateMenu extends React.Component<UserStateMenuProps> {
           className={menuStyles.subMenu}
           title={
           <div className={menuStyles.subMenuPeople}>
-            <Persona 
+            <Avatar>{UserInfoStore.userInfo.name.substr(0,1)}</Avatar>
+            {/* <Persona 
               imageUrl={TestImages.personaFemale} 
               size={PersonaSize.size40}
-              hidePersonaDetails={false}/>
-            <span>{UserInfoStore.userInfo.name}</span>
+              hidePersonaDetails={false}/> */}
+              <span>&nbsp;&nbsp;</span>
+            <span>{UserInfoStore.userInfo.name}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
           </div>
           }>
           <Menu.Item key="UserInfo">
