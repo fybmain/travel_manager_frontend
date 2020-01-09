@@ -3,8 +3,6 @@ import { Card, Icon } from 'antd';
 import { inject, observer } from 'mobx-react';
 
 import '../App.css';
-import { ApplyFlowChart } from './Reports/ApplyFlowChart';
-import { ApproveFlowChart } from './Reports/ApproveFlowChart';
 import { MainStore } from '../Stores/MainStore';
 
 interface HomeProps{
@@ -62,7 +60,6 @@ const box1 = () => {
       }
         bordered={false}
       >
-        <ApplyFlowChart/>
       </Card>
     </div>
   );
@@ -79,7 +76,6 @@ const box2 = () => {
           </span>
         }
         bordered={false}>
-        <ApproveFlowChart/>
       </Card>
     </div>
   );
