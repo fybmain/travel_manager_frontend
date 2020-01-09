@@ -4,7 +4,7 @@ import { Form, Input, Spin, message, Row, Col, Divider } from 'antd';
 import { observable } from 'mobx';
 import { inject, observer } from 'mobx-react';
 
-import { TravelApplyDetail, TravelApplyStatus } from '../Models';
+import { TravelApplyDetail, TravelApplyStatus, travelApplyStatusToString } from '../Models';
 import { TravelApplyApi } from '../api/TravelApplyApi';
 
 const { TextArea } = Input;
@@ -141,6 +141,10 @@ export class TravelApplyDetailPage extends React.Component<TravelApplyDetailPage
 
                 <Form.Item label="其他预算">
                   {this.data.budget.other}元
+                </Form.Item>
+
+                <Form.Item label="申请状态">
+                  {travelApplyStatusToString(this.data.status)}
                 </Form.Item>
               </Col>
             </Row>
