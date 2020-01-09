@@ -1,5 +1,6 @@
 import React from 'react';
 import { RouteComponentProps } from 'react-router';
+import { Link } from 'react-router-dom';
 import { Button, Table, Row, Col, Radio, message } from 'antd';
 import { RadioChangeEvent } from 'antd/lib/radio';
 import { observable } from 'mobx';
@@ -107,6 +108,9 @@ export class TravelApplyListPage extends React.Component<TravelApplyListPageProp
             <Column title="申请人" dataIndex="applicantName" key="applicantName" />
             <Column title="申请时间" dataIndex="applyTime" key="applyTime" render={renderDate} />
             <Column title="申请状态" dataIndex="status" key="status" render={travelApplyStatusToString}/>
+            <Column title="详情" render={(text, record: TravelApplyItem) => {
+              return <Link to={`/travel-apply/${record.applyId}/detail`}>查看详情</Link>;
+            }}/>
           </Table>
         }
 

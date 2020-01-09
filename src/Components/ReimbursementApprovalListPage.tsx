@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Table, Radio, Pagination, Select, message } from 'antd';
 import { RadioChangeEvent } from 'antd/lib/radio';
 import { observable } from 'mobx';
@@ -141,6 +142,13 @@ export class ReimbursementApprovalListPage extends React.Component<Reimbursement
           <Column title="申请状态" dataIndex="status" key="status"
             render={(text: number, record, index) => { return <span>{(ApplyStatus[text])}</span> }}
           />
+          <Column title="详情" render={(text, record: ApplyBaseInfo) => {
+            if (this.showFinished === 0) {
+              return <Link to={`/reimbursement-approval/approval?applyId=${record.applyId}`}>查看详情</Link>;
+            } else {
+              return <Link to={`/reimbursement/detail?applyId=${record.applyId}`}>查看详情</Link>;
+            }
+          }}/>
         </Table>
       </div>
     );
