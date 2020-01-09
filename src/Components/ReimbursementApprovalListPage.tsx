@@ -114,12 +114,25 @@ export class ReimbursementApprovalListPage extends React.Component<Reimbursement
   reimbursementTable = (data: ApplyBaseInfo[], loadingStatus: boolean) => {
     return (
       <div style={{ padding: '20px' }}>
-        <Table dataSource={data} className="table" size="middle" loading={loadingStatus}
-          rowKey={(record, index) => { return index.toString() }} pagination={false}
+        <Table
+          loading={loadingStatus}
+          dataSource={data}
+          className="table"
+          size="middle"
+          rowKey={(record, index) => { return index.toString() }}
           onRow={(record, rowKey) => {
             return {
               onDoubleClick: event => { this.handleDoubleClick(record.applyId) },
             };
+          }}
+          pagination={{
+            current: this.current,
+            total: this.total,
+            pageSize: pageSize,
+            hideOnSinglePage: true,
+            onChange: (page, size) => {
+              this.current = page; this.updateData();
+            }
           }}>
           <Column title="申请人" dataIndex="applicantName" key="applicantName" />
           <Column title="申请ID" dataIndex="applyId" key="applyId" />
@@ -129,11 +142,6 @@ export class ReimbursementApprovalListPage extends React.Component<Reimbursement
             render={(text: number, record, index) => { return <span>{(ApplyStatus[text])}</span> }}
           />
         </Table>
-        <Pagination current={this.current} total={this.total} pageSize={pageSize}
-          hideOnSinglePage={true}
-          onChange={(page, size) => {
-            this.current = page; this.updateData();
-          }} />
       </div>
     );
   }
