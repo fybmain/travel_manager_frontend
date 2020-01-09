@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Form, Button, Divider, Row, Col, message } from 'antd';
+import { Form, Button, Divider, Row, Col, Upload, Spin, message, Empty } from 'antd';
 import { inject, observer } from 'mobx-react';
 import { observable } from 'mobx';
 
@@ -8,14 +8,13 @@ import { Payment, ReimbursementApplyDetail, reimbursementApplyStatusToString } f
 import { ReimbursementApi } from '../api/ReimbursementApi';
 import { MainStore } from '../Stores/MainStore';
 
-import pic from "../Pictures/invoice1.png";
-
 interface ReimbursementDetailPageProps {
   mainStore: MainStore;
 }
 
 @inject("mainStore") @observer
 export class ReimbursementDetailPage extends Component<ReimbursementDetailPageProps> {
+  @observable private loading: boolean = true;
   private applyId: number;
   private traveApplyId: number = -1;
   private name: string = "";
@@ -32,8 +31,8 @@ export class ReimbursementDetailPage extends Component<ReimbursementDetailPagePr
     other: 0,
   }
   private applyStatus: number = 0;
+  private pictureURLs: string[] = [];
   private showButtons = false;
-  @observable pending = true;
 
   constructor(props: ReimbursementDetailPageProps) {
     super(props);
@@ -41,95 +40,121 @@ export class ReimbursementDetailPage extends Component<ReimbursementDetailPagePr
     const applyId = searchParams.get('applyId') as string;
     this.props.mainStore.breadcrumb = ["审批", "报销审批", applyId];
     this.applyId = Number(applyId);
-    this.getApplyInfo();
+
+    this.loading = true;
+
     if(history.location.pathname.endsWith("approval")){
       this.showButtons=true;
     }
+    this.getApplyInfo();
   }
 
   render() {
     const formItemLayout = {
       labelCol: {
-        xs: { span: 8, offset: 5 },
-        sm: { span: 6, offset: 4 },
+        xs: { span: 8 },
+        sm: { span: 6 },
       },
       wrapperCol: {
         xs: { span: 16 },
         sm: { span: 11 },
       },
     };
-
+  
     return (
-      <div>
-        {
-          this.pending ?
-            null
-            : <div className="tablePage">
-              <Form {...formItemLayout} layout="horizontal" labelAlign="left">
-                <div style={{ paddingTop: "50px" }} />
+      <div className="tablePage">
+        <Spin spinning={this.loading}>
+          <Form {...formItemLayout} layout="horizontal" labelAlign="left">
+            <div style={{ paddingTop: "50px" }} />
 
+            <Row>
+              <Col span={2}/>
+              <Col span={11}>
+                <Form.Item label="申请人">
+                  <p style={{ textAlign: "left" }}>{this.name}</p>
+                </Form.Item>
+
+                <Form.Item label="出差申请编号">
+                  <p style={{ textAlign: "left" }}>{this.traveApplyId}</p>
+                </Form.Item>
+
+                <Form.Item label="报销申请编号">
+                  <p style={{ textAlign: "left" }}>{this.applyId}</p>
+                </Form.Item>
+
+                <Form.Item label="发票" wrapperCol={{span:16}}>
+                  {
+                    (this.pictureURLs.length>0)?(
+                      <Upload
+                        listType="picture-card"
+                        showUploadList={{
+                          showDownloadIcon: true,
+                          showPreviewIcon: true,
+                          showRemoveIcon: false,
+                        }}
+                        disabled={true}
+                        fileList={
+                          this.pictureURLs.map((value) => (
+                            {
+                              uid: value.toString(),
+                              name: value.toString(),
+                              type: 'image/*',
+                              status: 'done',
+                              url: value,
+                              size: 0,
+                            }
+                          ))
+                        }/>
+                    ):(
+                      <p>无照片</p>
+                    )
+                  }
+
+                </Form.Item>
+              </Col>
+
+              <Col span={2}>
+                <Divider type="vertical" />
+              </Col>
+
+              <Col span={11}>
+                <Form.Item label="酒店报销金额" style={{ textAlign: "center" }}>
+                  <PaymentAndBudget payment={this.payment.hotel} budget={this.budget.hotel} />
+                </Form.Item>
+                <Form.Item label="车旅报销金额">
+                  <PaymentAndBudget payment={this.payment.vehicle} budget={this.budget.vehicle} />
+                </Form.Item>
+                <Form.Item label="饮食报销金额">
+                  <PaymentAndBudget payment={this.payment.food} budget={this.budget.food} />
+                </Form.Item>
+                <Form.Item label="其他报销金额">
+                  <PaymentAndBudget payment={this.payment.other} budget={this.budget.other} />
+                </Form.Item>
+                <Form.Item label="申请状态">
+                  {reimbursementApplyStatusToString(this.applyStatus)}
+                </Form.Item>
+              </Col>
+            </Row>
+            {
+              this.showButtons ?
                 <Row>
-                  <Col span={10}>
-                    <Form.Item label="申请人">
-                      <p style={{ textAlign: "left" }}>{this.name}</p>
-                    </Form.Item>
-
-                    <Form.Item label="出差申请编号">
-                      <p style={{ textAlign: "left" }}>{this.traveApplyId}</p>
-                    </Form.Item>
-
-                    <Form.Item label="报销申请编号">
-                      <p style={{ textAlign: "left" }}>{this.applyId}</p>
-                    </Form.Item>
-
-                    <Form.Item label="发票" wrapperCol={{ sm: { span: 4 } }}>
-                      <img src={pic} alt="发票" className="img-box" />
-                    </Form.Item>
+                  <Col span={7} />
+                  <Col span={4}>
+                    <Button type="primary" htmlType="submit" onClick={() => { approveApply(this.applyId, true) }}>
+                      通过
+                    </Button>
                   </Col>
-
-                  <Col span={2}>
-                    <Divider type="vertical" />
-                  </Col>
-
-                  <Col span={9} >
-                    <Form.Item label="酒店报销金额" style={{ textAlign: "center" }}>
-                      <PaymentAndBudget payment={this.payment.hotel} budget={this.budget.hotel} />
-                    </Form.Item>
-                    <Form.Item label="车旅报销金额">
-                      <PaymentAndBudget payment={this.payment.vehicle} budget={this.budget.vehicle} />
-                    </Form.Item>
-                    <Form.Item label="饮食报销金额">
-                      <PaymentAndBudget payment={this.payment.food} budget={this.budget.food} />
-                    </Form.Item>
-                    <Form.Item label="其他报销金额">
-                      <PaymentAndBudget payment={this.payment.other} budget={this.budget.other} />
-                    </Form.Item>
-                    <Form.Item label="申请状态">
-                      {reimbursementApplyStatusToString(this.applyStatus)}
-                    </Form.Item>
+                  <Col span={2} />
+                  <Col span={4}>
+                    <Button type="default" htmlType="button" onClick={() => { approveApply(this.applyId, false) }}>
+                      驳回
+                    </Button>
                   </Col>
                 </Row>
-                {
-                  this.showButtons ?
-                    <Row>
-                      <Col span={7} />
-                      <Col span={4}>
-                        <Button type="primary" htmlType="submit" onClick={() => { approveApply(this.applyId, true) }}>
-                          通过
-                        </Button>
-                      </Col>
-                      <Col span={2} />
-                      <Col span={4}>
-                        <Button type="default" htmlType="button" onClick={() => { approveApply(this.applyId, false) }}>
-                          驳回
-                        </Button>
-                      </Col>
-                    </Row>
-                    : null
-                }
-              </Form>
-            </div>
-        }
+                : null
+            }
+          </Form>
+        </Spin>
       </div>
     );
   }
@@ -145,7 +170,8 @@ export class ReimbursementDetailPage extends Component<ReimbursementDetailPagePr
       this.name = data.applicant;
       this.traveApplyId = data.travelApplyId;
       this.applyStatus = data.status;
-      this.pending = false;
+      this.pictureURLs = data.pictureURLs.split(' ').filter(value => !!value);
+      this.loading = false;
     }
     else {
       message.error(result.message);
