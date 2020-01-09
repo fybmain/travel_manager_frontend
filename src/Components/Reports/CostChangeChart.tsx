@@ -69,7 +69,7 @@ export class CostChangeChart extends React.Component<CostChangeChartProps> {
 
   render() {
     return (
-      <Card title="过去一年预算与实际费用对比图" style={{ height: 600 }}>
+      <Card title="过去一年预算与实际费用对比图" className="card">
         <Row>
           <Col span={4}>
             <span>
