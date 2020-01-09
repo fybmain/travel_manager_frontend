@@ -46,11 +46,11 @@
 }
 
 .background{
-  min-height:550px;
+  min-height:500px;
   background-position: top center;
   background-repeat: no-repeat;
   background-size: contain;
-  background-image: url(./Pictures/background.jpg);
+  background-image: url(./Pictures/background4.jpg);
 }
 
 .bottomButton{
@@ -220,6 +220,8 @@
   margin-left: 10%;
   margin-right: 10%;
 }
+
+
 
 
 

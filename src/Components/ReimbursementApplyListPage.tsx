@@ -91,6 +91,10 @@ export class ReimbursementApplyListPage extends React.Component<ReimbursementApp
     history.push(`/reimbursement/detail?applyId=${applyId}`);
   }
 
+  handleTravelDoubleClick = (applyId: number) => {
+    history.push(`/travel-apply/${applyId}/detail`);
+  }
+
   travelTable = (data: ApplyBaseInfo[], loadingStatus: boolean) => {
     return (
       <div>
@@ -100,6 +104,11 @@ export class ReimbursementApplyListPage extends React.Component<ReimbursementApp
           className="table"
           size="middle"
           rowKey={(record, index) => { return index.toString() }}
+          onRow={(record, rowKey) => {
+            return {
+              onDoubleClick: event => { this.handleTravelDoubleClick(record.applyId) },
+            };
+          }}
           pagination={{
             defaultCurrent: 1,
             total: this.total,
@@ -113,11 +122,11 @@ export class ReimbursementApplyListPage extends React.Component<ReimbursementApp
           }}>
           <Column title="申请人" dataIndex="applicantName" key="applicantName" />
           <Column title="申请ID" dataIndex="applyId" key="applyId" />
-          <Column title="申请时间" dataIndex="applyTime" key="applyTime" render={(text)=>renderDate(new Date(text))} />
+          <Column title="申请时间" dataIndex="applyTime" key="applyTime" render={(text) => renderDate(new Date(text))} />
           <Column title="部门" dataIndex="departmentName" key="departmentName" />
           <Column title="详情" render={(text, record: ApplyBaseInfo) => {
             return <Link to={`/travel-apply/${record.applyId}/detail`}>查看详情</Link>;
-          }}/>
+          }} />
           <Column
             title="报销"
             key="action"
@@ -160,14 +169,14 @@ export class ReimbursementApplyListPage extends React.Component<ReimbursementApp
           }}>
           <Column title="申请人" dataIndex="applicantName" key="applicantName" />
           <Column title="申请ID" dataIndex="applyId" key="applyId" />
-          <Column title="申请时间" dataIndex="applyTime" key="applyTime" render={(text)=>renderDate(new Date(text))} />
+          <Column title="申请时间" dataIndex="applyTime" key="applyTime" render={(text) => renderDate(new Date(text))} />
           <Column title="部门" dataIndex="departmentName" key="departmentName" />
           <Column title="申请状态" dataIndex="status" key="status"
             render={(text: number, record, index) => { return <span>{(ApplyStatus[text])}</span> }}
           />
           <Column title="详情" render={(text, record: ApplyBaseInfo) => {
             return <Link to={`/reimbursement/detail?applyId=${record.applyId}`}>查看详情</Link>;
-          }}/>
+          }} />
         </Table>
       </div>
     );
