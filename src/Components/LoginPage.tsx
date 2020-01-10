@@ -15,6 +15,8 @@ interface LoginPageProps extends FormComponentProps {
 }
 @inject("mainStore") @observer
 export class LoginPage extends React.Component<LoginPageProps> {
+  @observable registerDialogVisible = false;
+  @observable forgetPasswordDialogVisible = false;
 
   /*
   constructor(props: LoginPageProps) {
@@ -26,25 +28,41 @@ export class LoginPage extends React.Component<LoginPageProps> {
     return (
       <div className="login-background">
         <div className="login-content">
-          <h1 style={{ textAlign: "center" }}>登录</h1>
-          <LoginForm/>
+          <LoginForm
+            onRegister={() => {this.registerDialogVisible = true;}}
+            onForgetPassword={() => {this.forgetPasswordDialogVisible = true;}}/>
         </div>
+
+        <RegisterDialog
+          visible={this.registerDialogVisible}
+          onClose={() => {this.registerDialogVisible = false;}} />
+        <ForgetPasswordDialog
+          visible={this.forgetPasswordDialogVisible}
+          onClose={() => {this.forgetPasswordDialogVisible = false;}} />
       </div>
     );
   }
 }
 
+interface LoginFormProps extends FormComponentProps {
+  onSuccess?: () => void;
+  onRegister?: () => void;
+  onForgetPassword?: () => void;
+}
+
 @observer
-class LoginFormProto extends React.Component<FormComponentProps> {
-  @observable registerDialogVisible = false;
-  @observable forgetPasswordDialogVisible = false;
+class LoginFormProto extends React.Component<LoginFormProps> {
 
   handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     this.props.form.validateFieldsAndScroll(async (err, values) => {
       if (!err) {
         const result = await UserInfoStore.login({ workId: values.workId, password: values.password });
-        if (result !== "ok") {
+        if (result === "ok") {
+          if(this.props.onSuccess){
+            this.props.onSuccess();
+          }
+        }else{
           message.error(result);
         }
       }
@@ -57,6 +75,7 @@ class LoginFormProto extends React.Component<FormComponentProps> {
       <Form
         layout="horizontal"
         onSubmit={this.handleSubmit}>
+        <h1 style={{ textAlign: "center" }}>登录</h1>
 
         <Form.Item>
           {
@@ -100,14 +119,14 @@ class LoginFormProto extends React.Component<FormComponentProps> {
 
         <Row style={{ marginTop: 0 }}>
           <button
-            onClick={() => {this.registerDialogVisible = true;}}
+            onClick={() => {if(this.props.onRegister){this.props.onRegister();}}}
             type="button"
             className="button-like-link"
             style={{ float: "right" }}>
             注册
           </button>
           <button
-            onClick={() => {this.forgetPasswordDialogVisible = true;}}
+            onClick={() => {if(this.props.onForgetPassword){this.props.onForgetPassword();}}}
             type="button"
             className="button-like-link"
             style={{ float: "left" }}>
@@ -124,15 +143,9 @@ class LoginFormProto extends React.Component<FormComponentProps> {
         </Button>
         </Form.Item>
 
-        <RegisterDialog
-          visible={this.registerDialogVisible}
-          onClose={() => {this.registerDialogVisible = false;}} />
-        <ForgetPasswordDialog
-          visible={this.forgetPasswordDialogVisible}
-          onClose={() => {this.forgetPasswordDialogVisible = false;}} />
       </Form>
     );
   }
 }
 
-const LoginForm = Form.create({ name: 'login' })(LoginFormProto)
+const LoginForm = Form.create<LoginFormProps>({ name: 'login' })(LoginFormProto)
