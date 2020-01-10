@@ -1,9 +1,7 @@
 import React from 'react';
 import { Form, Input, Button, DatePicker, message, Row, Col } from 'antd';
 import { FormComponentProps } from 'antd/lib/form';
-import { observable } from 'mobx';
 import { inject, observer } from 'mobx-react';
-import moment from 'moment';
 
 import history from '../history';
 import { InputMoneyAmount } from './InputMoneyAmount';
