@@ -1,6 +1,6 @@
 import axios from '../axios';
 import { ApplyBaseInfo, CreateReimbursementRequest, ReimbursementApplyDetail, Payment } from '../Models';
-import { payBudgetDiffInfo } from '../Models/Report';
+import { payBudgetDiffInfo, MapData, MapResult } from '../Models/Report';
 
 export class ReportApi {
   static async getPersonalPayment(request: { time: string }): Promise<{ message: string, items?: Payment }> {
@@ -27,7 +27,7 @@ export class ReportApi {
   static async getPayBudgetDiff(request: { departmentId: number, endTime: string, startTime: string }):
     Promise<{ message: string, items?: payBudgetDiffInfo }> {
     try {
-      const result = await axios.post("api/statistics/pay_budget_diff_diagram", request );
+      const result = await axios.post("api/statistics/pay_budget_diff_diagram", request);
       return {
         message: "ok",
         items: result.data.data as payBudgetDiffInfo,
@@ -43,12 +43,42 @@ export class ReportApi {
     }
   }
 
-  static async getDepartmentPercentile(request: { startTime: string, endTime:string }): Promise<{ message: string, items?: {cost:number,departmentName:string}[] }> {
+  static async getDepartmentPercentile(request: { startTime: string, endTime: string }): Promise<{ message: string, items?: { cost: number, departmentName: string }[] }> {
     try {
       const result = await axios.get("api/statistics/departmentcost_diagram", { params: request });
       return {
         message: "ok",
         items: result.data.data,
+      }
+    } catch (e) {
+      if (!e.response) return { message: "network error" };
+      switch (e.response.status) {
+        case 400: return { message: "日期字符格式错误，正确格式：yyyy-mm" };
+        default: return { message: "unknown exception" };
+      }
+    }
+  }
+  static async getLocationDiagram(request: { startTime: string, endTime: string, departmentId?: number }): Promise<{ message: string, items?: MapData[] }> {
+    request.departmentId = request.departmentId || -1;
+    try {
+      const result = await axios.get("api/statistics/location_diagram", { params: request });
+      const data = result.data.data as MapResult[];
+      const items: MapData[] = data.map((value, index) => {
+        return {
+          name: value.province,
+          value: Number(value.count),
+          cityAndTimes: value.cityAndTimes.map((value2, index2) => {
+            return {
+              city: value2.city,
+              count: Number(value2.count)
+            }
+          })
+        }
+      });
+      console.log(result);
+      return {
+        message: "ok",
+        items: items,
       }
     } catch (e) {
       if (!e.response) return { message: "network error" };

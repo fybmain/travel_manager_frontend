@@ -35,7 +35,6 @@ export class DepartmentPercentileChart extends React.Component<DepartmentPercent
     this.defaultTime = moment().add(-1, 'month');
     this.time = this.defaultTime.format('YYYY-MM');
     this.updateData();
-    console.log("constructor DepartmentPercentileChart");
   }
 
   render() {
@@ -87,9 +86,6 @@ export class DepartmentPercentileChart extends React.Component<DepartmentPercent
   }
 
   renderData = (data: PieData[]) => {
-    const x = data;
-    console.log("x")
-    console.log(x);
     const options: Highcharts.Options = {
       chart: {
         type: 'pie'
