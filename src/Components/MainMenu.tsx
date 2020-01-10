@@ -131,40 +131,26 @@ const Approval = () => {
 }
 
 const Report = () => {
-  return (
-    <SubMenu
-      key="report"
-      title={
-        <span style={{ fontSize: "large" }}>
+  if(UserInfoStore.userInfo.role === 1){
+    return <Menu.Item key="/department-report">
+            <Link to="/department-report">
+            <span style={{ fontSize: "large" }}>
           <Icon type="bar-chart" />
           统计
           </span>
-      }
-    >
-      {/* <Menu.Item key="/personal-report" style={{ fontSize: "medium" }}>
-        <Link to="/personal-report">
-          个人报表
       </Link>
-      </Menu.Item> */}
-      {
-        UserInfoStore.userInfo.role === 1 ?
-          <Menu.Item key="/department-report" style={{ fontSize: "medium" }}>
-            <Link to="/department-report">
-              部门报表
-      </Link>
-          </Menu.Item>
-          : null
-      }{
-        UserInfoStore.userInfo.role === 2 ?
-          <Menu.Item key="/company-report" style={{ fontSize: "medium" }}>
+          </Menu.Item>;
+  }
+  else if(UserInfoStore.userInfo.role === 2){
+    return <Menu.Item key="/company-report">
             <Link to="/company-report">
-              公司报表
+            <span style={{ fontSize: "large" }}>
+          <Icon type="bar-chart" />
+          统计
+          </span>
       </Link>
-          </Menu.Item>
-          : null
-      }
-    </SubMenu>
-  );
+          </Menu.Item>;
+  };
 }
 
 const Admin = () => {
