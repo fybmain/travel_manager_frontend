@@ -13,6 +13,8 @@ module.exports = override(
       'menu-dark-submenu-bg': '#001529',
       '@menu-item-height': '50px',
       '@layout-header-height': '68px',
+      '@font-size-base': '18px',
+      '@font-size-sm': '15px',
     },
   }),
 );

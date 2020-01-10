@@ -1,5 +1,6 @@
 .App {
-  text-align: center;
+  font-family:arial,sans-serif;
+  font-size:15px;
 }
 
 .App-logo {
@@ -226,6 +227,10 @@
   margin-left: 10%;
   margin-right: 10%;
 }
+
+/* @font-face{
+  font-size: medium;
+} */
 
 
 

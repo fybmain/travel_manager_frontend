@@ -96,6 +96,15 @@ export class DepartmentPercentileChart extends React.Component<DepartmentPercent
       subtitle: {
         text: undefined
       },
+      legend: {
+        itemDistance: 30,//距离
+        symbolWidth: 12,  //设置为正方形
+        symbolHeight: 12,
+        symbolRadius: 0,
+        itemStyle: {
+          fontSize:"16px"
+        }
+      },
       plotOptions: {
           pie: {
               allowPointSelect: true,
@@ -116,7 +125,7 @@ export class DepartmentPercentileChart extends React.Component<DepartmentPercent
       tooltip: {
         headerFormat: '',
         pointFormat: '<span style="color:{point.color}">\u25CF</span> <b> {point.name}</b><br/>' +
-          '总花费: <b>{point.y}-{point.percentage:.1f}%</b><br/>'
+          '总花费: <b>{point.y}元</b><br/>'
       },
       series: [{
         type: 'pie',
