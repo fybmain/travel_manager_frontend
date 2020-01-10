@@ -164,7 +164,7 @@ class TravelApplyCreateFormProto extends React.Component<TravelApplyCreateFormPr
                 },
               ],
             })(
-              <TextArea rows={10}/>
+              <TextArea rows={6}/>
             )
           }
         </Form.Item>
