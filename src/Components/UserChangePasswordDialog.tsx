@@ -27,7 +27,8 @@ export class UserChangePasswordPage extends React.Component<UserChangePasswordPa
         visible={this.props.visible}
         onCancel={this.handleClose}
         footer={null}
-        destroyOnClose={true}>
+        destroyOnClose={true}
+        centered={true}>
         <UserChangePasswordForm onSuccess={this.handleClose}/>
       </Modal>
     );

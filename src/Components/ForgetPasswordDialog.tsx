@@ -32,7 +32,8 @@ export class ForgetPasswordDialog extends React.Component<ForgetPasswordDialogPr
         visible={this.props.visible}
         onCancel={this.handleClose}
         footer={null}
-        destroyOnClose={true}>
+        destroyOnClose={true}
+        centered={true}>
         {
           (this.step===2)?(
             <Result
