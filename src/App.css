@@ -207,7 +207,7 @@
   margin-left:3%;
   margin-right:3%;
   padding-bottom: 2%;
-  height: 700px;
+  min-height: 700px;
   border-radius: 10px;
   background-color: rgb(255,255,255);
 }
