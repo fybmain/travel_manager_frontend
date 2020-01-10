@@ -20,3 +20,21 @@ export interface payBudgetDiffInfo{
     payment: number[]
   }
 }
+
+export interface MapData {
+  "name": string,
+  "value": number,
+  "cityAndTimes": {
+    "city": string,
+    "count": number
+  }[]
+}
+
+export interface MapResult {
+  "province": string,
+  "count": number,
+  "cityAndTimes": {
+    "city": string,
+    "count": number
+  }[]
+}

@@ -1,5 +1,6 @@
 .App {
-  text-align: center;
+  font-family:arial,sans-serif;
+  font-size:15px;
 }
 
 .App-logo {
@@ -80,6 +81,12 @@
   box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.1);
   border-radius: 4px;
   height:600px;
+}
+
+.card-map{
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+  height:800px;
 }
 
 .card-margin{
@@ -220,6 +227,10 @@
   margin-left: 10%;
   margin-right: 10%;
 }
+
+/* @font-face{
+  font-size: medium;
+} */
 
 
 

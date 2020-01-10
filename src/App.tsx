@@ -21,19 +21,19 @@ class App extends React.Component {
   }
   */
 
-  renderContent(){
-    if(UserInfoStore.whenAutoLogin) {
+  renderContent() {
+    if (UserInfoStore.whenAutoLogin) {
       return <div />
-    }else{
+    } else {
       return (
         <Switch>
           <Route exact path="/reset-password" component={ResetPasswordPage} />
           {
-            (UserInfoStore.isLogin)?(
+            (UserInfoStore.isLogin) ? (
               <Route component={MainLayout} />
-            ):(
-              <Route component={LoginPage}/>
-            )
+            ) : (
+                <Route component={LoginPage} />
+              )
           }
         </Switch>
       );
@@ -42,11 +42,13 @@ class App extends React.Component {
 
   render() {
     return (
-      <Provider mainStore={this.mainStore}>
-        <Router history={history}>
-          { this.renderContent() }
-        </Router>
-      </Provider>
+      <div className="App">
+        <Provider mainStore={this.mainStore}>
+          <Router history={history}>
+            {this.renderContent()}
+          </Router>
+        </Provider>
+      </div>
     );
   }
 }

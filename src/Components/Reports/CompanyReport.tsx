@@ -4,6 +4,7 @@ import { inject, observer } from 'mobx-react';
 import { MainStore } from '../../Stores/MainStore';
 import { DepartmentPercentileChart } from './DepartmentPercentileChart';
 import { CostChangeChart } from './CostChangeChart';
+import { MapChart } from './MapChart';
 
 interface CompanyReportProps {
   mainStore: MainStore;
@@ -22,6 +23,8 @@ export class CompanyReport extends React.Component<CompanyReportProps> {
         <CostChangeChart mainStore={this.props.mainStore} />
         <br/><br/><br/>
         <DepartmentPercentileChart />
+        <br/><br/><br/>
+        <MapChart mainStore={this.props.mainStore} />
       </div>
     );
   }

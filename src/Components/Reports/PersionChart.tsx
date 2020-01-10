@@ -114,12 +114,14 @@ const renderData = (payment: Payment) => {
       pie: {
         dataLabels: {
           enabled: true,
-          distance: -50,
+          distance: 50,
           style: {
-            fontWeight: 'bold',
-            color: 'white',
-            textShadow: '0px 1px 2px black'
-          }
+            //fontWeight: 'bold',
+            fontSize:'15px',
+            //color: 'white',
+            //textShadow: '0px 1px 2px black'
+          },
+          format:'<b>{point.name}</b><br/>{point.percentage:.1f}%',
         },
         startAngle: -90, // 圆环的开始角度
         endAngle: 90,    // 圆环的结束角度
