@@ -9,14 +9,15 @@ import { TravelApplyApi } from '../api/TravelApplyApi';
 
 const { TextArea } = Input;
 
-export interface TravelApprovalDetailPageProps extends RouteComponentProps<{ applyId: string }>{
+export interface TravelApprovalDetailPageProps extends RouteComponentProps<{ applyId: string }> {
 }
 
 @inject("history") @observer
 export class TravelApprovalDetailPage extends React.Component<TravelApprovalDetailPageProps> {
   @observable loading: boolean = true;
-  @observable applyId:number = 0;
+  @observable applyId: number = 0;
   @observable data!: TravelApplyDetail;
+  @observable comment: string = "";
 
   constructor(props: TravelApprovalDetailPageProps) {
     super(props);
@@ -59,31 +60,31 @@ export class TravelApprovalDetailPage extends React.Component<TravelApprovalDeta
 
   async doRefreshData() {
     const result = await TravelApplyApi.getTravelApplicationDetail(this.applyId);
-    if(result.message==="ok"){
+    if (result.message === "ok") {
       this.data = result.data;
-    }else{
+    } else {
       message.error(result.message);
       throw result;
     }
   }
 
   handleApprove = () => {
-    TravelApplyApi.setTravelApplyApprovalStatus(this.applyId, true).then((result) => {
-      if(result.message==="ok"){
-        message.success("审批成功");
+    TravelApplyApi.setTravelApplyApprovalStatus(this.applyId, true,this.comment).then((result) => {
+      if (result.message === "ok") {
+        message.success("审核成功");
         this.props.history.push("/travel-approval");
-      }else{
+      } else {
         message.error(result.message);
       }
     })
   }
 
   handleReject = () => {
-    TravelApplyApi.setTravelApplyApprovalStatus(this.applyId, false).then((result) => {
-      if(result.message==="ok"){
+    TravelApplyApi.setTravelApplyApprovalStatus(this.applyId, false,this.comment).then((result) => {
+      if (result.message === "ok") {
         message.success("驳回成功");
         this.props.history.push("/travel-approval");
-      }else{
+      } else {
         message.error(result.message);
       }
     })
@@ -108,10 +109,10 @@ export class TravelApprovalDetailPage extends React.Component<TravelApprovalDeta
     };
     return (
       <div className="tablePage">
-        <div style={{paddingTop: "50px"}}/>
+        <div style={{ paddingTop: "50px" }} />
 
         <Spin spinning={this.loading}>
-          <Form { ...formItemLayout } layout="horizontal">
+          <Form {...formItemLayout} layout="horizontal">
             <Row>
               <Col span={10}>
                 <Form.Item label="申请人">
@@ -137,8 +138,8 @@ export class TravelApprovalDetailPage extends React.Component<TravelApprovalDeta
                 <Form.Item label="出差事由">
                   <TextArea
                     disabled={true}
-                    rows={10}
-                    value={this.data.reason}/>
+                    rows={8}
+                    value={this.data.reason} />
                 </Form.Item>
               </Col>
 
@@ -166,37 +167,44 @@ export class TravelApprovalDetailPage extends React.Component<TravelApprovalDeta
                 <Form.Item label="申请状态">
                   {travelApplyStatusToString(this.data.status)}
                 </Form.Item>
+
+                <Form.Item label="审批意见">
+                  <TextArea
+                    rows={8}
+                    value={this.comment}
+                    onChange={(e) => { this.comment = e.target.value }} />
+                </Form.Item>
               </Col>
             </Row>
 
             <Form.Item {...tailItemLayout}>
-            {
-              isApplicationDone(this.data.status)?(
-                <div/>
-              ):(
-                <Row>
-                  <Col span={7}/>
-                  <Col span={4}>
-                    <Button
-                      onClick={this.handleApprove}
-                      type="primary"
-                      htmlType="submit">
-                      通过
+              {
+                isApplicationDone(this.data.status) ? (
+                  <div />
+                ) : (
+                    <Row>
+                      <Col span={7} />
+                      <Col span={4}>
+                        <Button
+                          onClick={this.handleApprove}
+                          type="primary"
+                          htmlType="submit">
+                          通过
                     </Button>
-                  </Col>
-                  <Col span={2}/>
-                  <Col span={4}>
-                    <Button
-                      onClick={this.handleReject}
-                      type="danger"
-                      htmlType="button">
-                      驳回
+                      </Col>
+                      <Col span={2} />
+                      <Col span={4}>
+                        <Button
+                          onClick={this.handleReject}
+                          type="danger"
+                          htmlType="button">
+                          驳回
                     </Button>
-                  </Col>
-                  <Col span={7}/>
-                </Row>
-              )
-            }
+                      </Col>
+                      <Col span={7} />
+                    </Row>
+                  )
+              }
             </Form.Item>
           </Form>
         </Spin>

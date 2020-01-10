@@ -160,12 +160,13 @@ export class TravelApplyApi {
     }
   }
 
-  static async setTravelApplyApprovalStatus(applyId: number, approve: boolean) {
+  static async setTravelApplyApprovalStatus(applyId: number, approve: boolean, comment:string) {
     let result;
     try{
       result = await axios.put("api/travel/approval", {
         applyId,
         approved: approve,
+        comment:comment
       });
     }catch(err){
       if(err.response){

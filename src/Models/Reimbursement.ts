@@ -11,6 +11,7 @@ export interface ReimbursementApplyDetail {
   travelApplyId:number,
   pictureURLs:string,
   status: number,
+  comment:string,
 }
 
 export interface Payment {
