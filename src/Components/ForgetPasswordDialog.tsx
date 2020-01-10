@@ -42,7 +42,7 @@ export class ForgetPasswordDialog extends React.Component<ForgetPasswordDialogPr
                 <Button type="primary" onClick={this.handleClose}>确定</Button>
               }/>
           ):(
-            <ForgetPasswordForm onSubmit={() => {this.step = 2;}}/>
+            <ForgetPasswordForm onSuccess={() => {this.step = 2;}}/>
           )
         }
       </Modal>
@@ -51,7 +51,7 @@ export class ForgetPasswordDialog extends React.Component<ForgetPasswordDialogPr
 }
 
 export interface ForgetPasswordFormProps extends FormComponentProps {
-  onSubmit?: (e: React.FormEvent) => void;
+  onSuccess?: (e: React.FormEvent) => void;
 };
 
 @observer
@@ -63,8 +63,8 @@ class ForgetPasswordFormProto extends React.Component<ForgetPasswordFormProps> {
         UserApi.forgetPassword(values.workId, values.email).then(
           (result) => {
             if(result.message==="ok"){
-              if(this.props.onSubmit){
-                this.props.onSubmit(e);
+              if(this.props.onSuccess){
+                this.props.onSuccess(e);
               }
             }else{
               message.error(result.message);
