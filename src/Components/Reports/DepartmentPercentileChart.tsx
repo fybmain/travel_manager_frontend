@@ -96,6 +96,11 @@ export class DepartmentPercentileChart extends React.Component<DepartmentPercent
       subtitle: {
         text: undefined
       },
+      // colors:['rgb(128, 133, 233)', 'rgb(223, 83, 83)', 'rgb(124,181,236)', 
+      // 'rgb(170,238,238)', 'rgb(255,108,108)', 'rgb(238,170,238)', 
+      // '#55BF3B'],
+      colors:['#cc9999','#0099cc','#ff6666','#ffff66','#99cc66','#ffcc00','#ffcc99','#66cccc',
+      '#ffcc33','#663399','#FF9933'],
       legend: {
         itemDistance: 30,//距离
         symbolWidth: 12,  //设置为正方形

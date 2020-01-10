@@ -47,27 +47,16 @@ export class Home extends Component<HomeProps> {
   render() {
     return (
       <div className="homeBackground">
-        <div className="background">
-          <div className="introduction">
-            <div className="home-head1">
-              差旅报销
-            </div>
-            <div className="home-head2">
-              <p>差旅活动全过程管理，集出差，报销，审批, 统计一体</p>
-            </div>
-            <br /><br />
-            {/* <button className="home-button" onClick={() => { history.push('/travel-apply/create'); }}>去申请</button> */}
-          </div>
-        </div>
         <Row>
           <Col
-            span={8}
+            span={10}
             style={{
               width: "30%",
               overflow: "hidden",
-              padding: 20,
+              padding: 40,
               MozBoxShadow: "0 8px 16px 0 rgba(0, 0, 0, 0.1)",
-            }}>
+            }}
+            className="changeStyle">
             <Card
               className="card"
               bordered={false}
@@ -85,8 +74,31 @@ export class Home extends Component<HomeProps> {
               </Spin>
             </Card>
           </Col>
-          <Col span={16} style={{ margin: "auto", overflow: "hidden", padding: 20, MozBoxShadow: "0 8px 16px 0 rgba(0, 0, 0, 0.1)" }}>
-            <PersonChart mainStore={this.props.mainStore} />
+          <Col
+            span={14}
+            style={{
+              width: "70%",
+              overflow: "hidden",
+              padding: 40,
+              MozBoxShadow: "0 8px 16px 0 rgba(0, 0, 0, 0.1)",
+            }}
+            className="changeStyle">
+            <Card
+              className="card"
+              bordered={false}
+              title={
+                <span>
+                  <Icon type="form" />
+                  &nbsp;&nbsp;最新消息
+                </span>
+              }>
+              <Spin spinning={this.messageList===undefined}>
+                <List className="changeStyle"
+                  dataSource={this.messageList}
+                  renderItem={this.renderMessage}
+                  bordered={false}/>
+              </Spin>
+            </Card>
           </Col>
         </Row>
       </div>

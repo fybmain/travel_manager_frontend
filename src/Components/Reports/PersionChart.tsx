@@ -45,6 +45,7 @@ export class PersonChart extends React.Component<PersonChartProps> {
               this.time = dateString;
               this.getPayment(this.time);
             }} />
+          <br /><br /><br />
         </div>
         {
           this.loadingStatus ?
@@ -75,65 +76,67 @@ export class PersonChart extends React.Component<PersonChartProps> {
 }
 
 const renderData = (payment: Payment) => {
-  const sum = payment.food + payment.hotel + payment.other + payment.vehicle;
-  let data = [
-    {
-      name: `饮食`,
-      y: payment.food
-    },
-    {
-      name: '酒店',
-      y: payment.food
-    },
-    {
-      name: '车旅',
-      y: payment.vehicle
-    },
-    {
-      name: '其他',
-      y: payment.other
-    },
-  ];
-  data.sort((a, b) => { return b.y - a.y });
-  if (sum == 0) data = [{ name: '未报销', y: 0.001 }];
+  let data = [payment.food, payment.hotel, payment.vehicle, payment.other];
   const options: Highcharts.Options = {
     chart: {
-      style: { height: 450, minWidth: 500 }
+      type: 'column'
     },
     title: {
-      text: '报销费用<br>占比',
-      align: 'center',
-      verticalAlign: 'middle',
-      y: 70
+      text: ""
+    },
+    subtitle: {
+      text: ""
+    },
+    xAxis: {
+      categories: ['饮食', '酒店', '车旅', '其他'],
+      crosshair: true,
+      labels: {
+        style: {
+          fontSize: '16px'
+        }
+      },
+    },
+    yAxis: {
+      min: 0,
+      title: {
+        text: '<span style="font-size:16px">费用 (元)</span>'
+      },
+      labels: {
+        style: {
+          fontSize: '16px'
+        }
+      },
+    },
+    legend: {
+      enabled: false
     },
     tooltip: {
-      headerFormat: '',
-      pointFormat: '{point.name}费用<br>{point.y:.1f}元-<b>{point.percentage:.1f}%</b>'
+      headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+      pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+        '<td style="padding:0"><b>{point.y:.1f} 元</b></td></tr>',
+      footerFormat: '</table>',
+      shared: true,
+      useHTML: true
     },
     plotOptions: {
-      pie: {
+      column: {
+        borderWidth: 0,
         dataLabels: {
           enabled: true,
-          distance: 50,
+          format:'<b>{point.y:.1f}元</b>',
           style: {
-            //fontWeight: 'bold',
             fontSize:'15px',
-            //color: 'white',
-            //textShadow: '0px 1px 2px black'
           },
-          format:'<b>{point.name}</b><br/>{point.percentage:.1f}%',
-        },
-        startAngle: -90, // 圆环的开始角度
-        endAngle: 90,    // 圆环的结束角度
-        center: ['50%', '75%']
+         
+      },
+      showInLegend: true
       }
     },
     series: [{
-      type: 'pie',
-      name: '报销费用占比',
-      innerSize: '50%',
+      type: 'column',
+      name: '报销金额',
       data: data
-    }],
+    }]
   };
   return options;
 }

@@ -59,7 +59,6 @@ export class CostChangeChart extends React.Component<CostChangeChartProps> {
       this.categories.push(moment(this.startTime).add(i, 'months').format('YYYY-MM'));
     }
     this.updateSourceData();
-    console.log("constructor CostChangeChart");
   }
 
   handleSelectChange = (value: string) => {
@@ -69,7 +68,7 @@ export class CostChangeChart extends React.Component<CostChangeChartProps> {
 
   render() {
     return (
-      <Card title="过去一年预算与实际费用对比图" className="card">
+      <Card title="过去一年预算与实际费用对比图" className="card-high">
         <div style={{ display: "inline", width: 100, height: 30, marginLeft: 30 }}>
           <label>&nbsp;&nbsp;&nbsp;费用类型：</label>
           <Select
@@ -84,6 +83,7 @@ export class CostChangeChart extends React.Component<CostChangeChartProps> {
             <Option value="other">其他</Option>
           </Select>
         </div>
+        <br/><br/>
         <div style={{ display: "inline", width: 100, height: 30 }}>
           {
             this.props.mainStore.breadcrumb[1] === "公司报表" ?
