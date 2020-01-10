@@ -22,7 +22,7 @@ class UserInfoPage extends React.Component<UserInfoPageProps> {
     this.showChangePassword = true;
   }
 
-  handleChangePasswordCancel = (e: React.MouseEvent) => {
+  handleChangePasswordDialogClose = () => {
     this.showChangePassword = false;
   }
 
@@ -113,7 +113,7 @@ class UserInfoPage extends React.Component<UserInfoPageProps> {
         </div>
         <UserChangePasswordPage
           visible={this.showChangePassword}
-          onClose={this.handleChangePasswordCancel}/>
+          onClose={this.handleChangePasswordDialogClose}/>
       </div>
     );
   }

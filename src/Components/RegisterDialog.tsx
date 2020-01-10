@@ -25,7 +25,8 @@ export class RegisterDialog extends React.Component<RegisterDialogProps> {
         visible={this.props.visible}
         onCancel={this.handleClose}
         footer={null}
-        destroyOnClose={true}>
+        destroyOnClose={true}
+        centered={true}>
         <h1 style={{ textAlign: "center" }}>注册</h1>
         <RegisterForm onSuccess={this.handleClose}/>
       </Modal>
