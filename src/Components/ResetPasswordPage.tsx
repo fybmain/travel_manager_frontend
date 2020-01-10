@@ -7,15 +7,15 @@ import { observable } from 'mobx';
 import '../App.css';
 import { UserApi } from '../api/UserApi';
 import { MainStore } from '../Stores/MainStore';
+import { FormComponentProps } from 'antd/lib/form';
 
 interface ResetPasswordPageProps extends RouteComponentProps {
   mainStore: MainStore;
 }
+
 @inject("mainStore", "history") @observer
 export class ResetPasswordPage extends React.Component<ResetPasswordPageProps> {
   private token = "";
-  @observable private password = "";
-  @observable private repeatPassword="";
 
   constructor(props: ResetPasswordPageProps) {
     super(props);
@@ -27,58 +27,119 @@ export class ResetPasswordPage extends React.Component<ResetPasswordPageProps> {
     }
   }
 
-  handleSubmit = async (e: React.MouseEvent) => {
-    if(this.password===this.repeatPassword){
-      const result = await UserApi.resetPassword(this.token, this.password);
-      if(result.message==="ok"){
-        message.success("重置密码成功");
-        this.props.history.replace("/home");
-      }else{
-        message.error(result.message);
-      }
-    }else{
-      message.warning("两次密码输入不一致");
-    }
-  }
-
   render() {
     return (
       <div className="login-background">
         <div className="login-content">
-          <h1 style={{ textAlign: "center" }}>重置密码</h1>
-          <Form>
-            <Form.Item>
-              <Input.Password
-                placeholder="密码"
-                prefix={<Icon type="key"/>}
-                size="large"
-                value={this.password}
-                onChange={(e)=>{this.password=e.target.value;}}>
-              </Input.Password>
-            </Form.Item>
-
-            <Form.Item>
-              <Input.Password
-                placeholder="确认密码"
-                prefix={<Icon type="key"/>}
-                size="large"
-                value={this.repeatPassword}
-                onChange={(e)=>{this.repeatPassword=e.target.value;}}>
-              </Input.Password>
-            </Form.Item>
-
-            <Form.Item>
-              <Button
-                onClick={this.handleSubmit}
-                type="primary"
-                htmlType="submit"
-                style={{ width: "100%" }}>
-                重置密码
-            </Button>
-            </Form.Item>
-          </Form>
+          <ResetPasswordForm
+            token={this.token}
+            onSuccess={() => {this.props.history.replace('/home');}}/>
         </div>
       </div>
     );
   }
 }
+
+interface ResetPasswordFormProps extends FormComponentProps {
+  token: string;
+  onSuccess: () => void;
+}
+
+class ResetPasswordFormProto extends React.Component<ResetPasswordFormProps> {
+  @observable private repeatPasswordDirty: boolean = false;
+
+  handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    this.props.form.validateFieldsAndScroll(async(err, values) => {
+      if(!err){
+        const result = await UserApi.resetPassword(values.token, values.password);
+        if(result.message==="ok"){
+          message.success("重置密码成功");
+          if(this.props.onSuccess){
+            this.props.onSuccess();
+          }
+        }else{
+          message.error(result.message);
+        }
+      }
+    });
+  }
+
+  compareToFirstPassword = (rule: any, value: any, callback: any) => {
+    if(value&&(value!==this.props.form.getFieldValue('password'))){
+      callback('两次输入密码不一致');
+    }else{
+      callback();
+    }
+  };
+
+  validateRepeatPassword = (rule: any, value: any, callback: any) => {
+    if(value&&this.repeatPasswordDirty){
+      this.props.form.validateFields(['repeatPassword'], { force: true });
+    }
+    callback();
+  };
+
+  render() {
+    return (
+      <Form onSubmit={this.handleSubmit}>
+        <h1 style={{ textAlign: "center" }}>重置密码</h1>
+
+        <Form.Item>
+          {
+            this.props.form.getFieldDecorator('password', {
+              rules: [
+                {
+                  required: true,
+                  message: '新密码不能为空',
+                },
+                {
+                  validator: this.validateRepeatPassword,
+                },
+              ]
+            })(
+              <Input.Password
+                placeholder="新密码"
+                prefix={<Icon type="key" />}
+                size="large"/>
+            )
+          }
+        </Form.Item>
+      
+        <Form.Item>
+          {
+            this.props.form.getFieldDecorator('repeatPassword', {
+              rules: [
+                {
+                  required: true,
+                  message: '请再次输入密码',
+                },
+                {
+                  validator: this.compareToFirstPassword,
+                },
+              ]
+            })(
+              <Input.Password
+                placeholder="确认密码"
+                prefix={<Icon type="key" />}
+                size="large"
+                onBlur={(e) => {this.repeatPasswordDirty = this.repeatPasswordDirty || (!!e.target.value);}}/>
+            )
+          }
+        </Form.Item>
+
+        <Form.Item>
+          <Button
+            type="primary"
+            htmlType="submit"
+            style={{ width: "100%" }}>
+            重置密码
+          </Button>
+        </Form.Item>
+
+      </Form>
+    );
+  }
+}
+
+const ResetPasswordForm = Form.create<ResetPasswordFormProps>({ name: 'resetPasssword' })(ResetPasswordFormProto);
