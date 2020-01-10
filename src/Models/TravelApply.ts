@@ -1,3 +1,5 @@
+import { Address } from './Address';
+
 export interface GetTravelApplyListRequest {
   page:number,
   size:number,
@@ -14,8 +16,7 @@ export interface TravelApplyDetail {
   departmentName: string,
   startTime: Date,
   endTime: Date,
-  province: string,
-  city: string,
+  address: Address,
   paid: boolean,
   budget: {
     food: number,
@@ -35,8 +36,7 @@ export interface TravelApplyItem {
   status: number,
 }
 export interface TravelApplyRequest {
-  city: string,
-  province: string,
+  address: Address,
   startTime: Date,
   endTime: Date,
   budget: {
