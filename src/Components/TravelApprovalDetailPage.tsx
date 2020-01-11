@@ -35,8 +35,11 @@ export class TravelApprovalDetailPage extends React.Component<TravelApprovalDeta
       departmentName: "",
       startTime: new Date(),
       endTime: new Date(),
-      province: "",
-      city: "",
+      address: {
+        province: "",
+        city: "",
+        detail: "",
+      },
       paid: false,
       budget: {
         food: 0,
@@ -132,7 +135,7 @@ export class TravelApprovalDetailPage extends React.Component<TravelApprovalDeta
                 </Form.Item>
 
                 <Form.Item label="出差地点">
-                  {this.data.province}省 {this.data.city}市
+                  {this.data.address.province} {this.data.address.city} {this.data.address.detail}
                 </Form.Item>
 
                 <Form.Item label="出差事由">

@@ -2,7 +2,7 @@ import React from 'react';
 import { inject, observer } from 'mobx-react';
 
 import { MainStore } from '../../Stores/MainStore';
-import { PersonChart } from './PersionChart';
+import { PersonChart } from './PersonChart';
 
 interface PersonalReportProps {
   mainStore: MainStore;

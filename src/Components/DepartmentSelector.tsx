@@ -1,20 +1,14 @@
 import React from 'react';
-import { Table, Radio, Pagination, Select, message } from 'antd';
-import { RadioChangeEvent } from 'antd/lib/radio';
+import { Select } from 'antd';
 import { observable } from 'mobx';
-import { observer, inject } from 'mobx-react';
+import { observer } from 'mobx-react';
 
-import history from '../history';
-import { ApplyStatus, ApplyBaseInfo, FinishStatus, renderDate, DepartmentInfo } from '../Models';
-import { ReimbursementApi } from '../api/ReimbursementApi';
-import { MainStore } from '../Stores/MainStore';
+import { DepartmentInfo } from '../Models';
 import DepartmentInfoStore from '../Stores/DepartmentInfoStore';
 import UserInfoStore from '../Stores/UserInfoStore';
 
-const { Column } = Table;
-const radioValues = ["待审批", "已审批"];
-const pageSize = 8;
 const { Option } = Select;
+
 interface DepartmentSelectorProps {
   changeSelect: (id: number) => void;
 }

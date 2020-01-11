@@ -110,10 +110,13 @@ export class TravelApplyApi {
           comment:result.data.data.comment,
           departmentId: result.data.data.departmentId,
           departmentName: result.data.data.departmentName,
-          province: result.data.data.province,
           startTime: new Date(result.data.data.startTime),
           endTime: new Date(result.data.data.endTime),
-          city: result.data.data.city,
+          address: {
+            province: result.data.data.province,
+            city: result.data.data.city,
+            detail: result.data.data.detailAddress,
+          },
           paid: result.data.data.paid,
           budget: {
             food: result.data.data.foodBudget,
@@ -132,8 +135,9 @@ export class TravelApplyApi {
 
   static async createTravelApplication(request: TravelApplyRequest) {
     const requestBody = {
-      city: request.city,
-      province: request.province,
+      province: request.address.province,
+      city: request.address.city,
+      detailAddress: request.address.detail,
       startTime: request.startTime.toISOString(),
       endTime: request.endTime.toISOString(),
       budget: {
