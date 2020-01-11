@@ -10,6 +10,7 @@ export interface TravelApplyDetail {
   applyTime: Date,
   applicantId: number,
   applicantName: string,
+  comment: string,
   departmentId: number,
   departmentName: string,
   startTime: Date,

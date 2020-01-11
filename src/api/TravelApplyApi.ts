@@ -107,6 +107,7 @@ export class TravelApplyApi {
           applyTime: new Date(result.data.data.applyTime),
           applicantId: result.data.data.applicantId,
           applicantName: result.data.data.applicantName,
+          comment:result.data.data.comment,
           departmentId: result.data.data.departmentId,
           departmentName: result.data.data.departmentName,
           province: result.data.data.province,

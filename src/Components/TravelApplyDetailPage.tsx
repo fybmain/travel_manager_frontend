@@ -9,13 +9,13 @@ import { TravelApplyApi } from '../api/TravelApplyApi';
 
 const { TextArea } = Input;
 
-export interface TravelApplyDetailPageProps extends RouteComponentProps<{ applyId: string }>{
+export interface TravelApplyDetailPageProps extends RouteComponentProps<{ applyId: string }> {
 }
 
 @inject("history") @observer
 export class TravelApplyDetailPage extends React.Component<TravelApplyDetailPageProps> {
   @observable loading: boolean = true;
-  @observable applyId:number = 0;
+  @observable applyId: number = 0;
   @observable data!: TravelApplyDetail;
 
   constructor(props: TravelApplyDetailPageProps) {
@@ -31,6 +31,7 @@ export class TravelApplyDetailPage extends React.Component<TravelApplyDetailPage
       applyTime: new Date(),
       applicantId: 0,
       applicantName: "",
+      comment: "",
       departmentId: 0,
       departmentName: "",
       startTime: new Date(),
@@ -59,9 +60,9 @@ export class TravelApplyDetailPage extends React.Component<TravelApplyDetailPage
 
   async doRefreshData() {
     const result = await TravelApplyApi.getTravelApplicationDetail(this.applyId);
-    if(result.message==="ok"){
+    if (result.message === "ok") {
       this.data = result.data;
-    }else{
+    } else {
       message.error(result.message);
       throw result;
     }
@@ -88,10 +89,10 @@ export class TravelApplyDetailPage extends React.Component<TravelApplyDetailPage
     */
     return (
       <div className="tablePage">
-        <div style={{paddingTop: "50px"}}/>
+        <div style={{ paddingTop: "50px" }} />
 
         <Spin spinning={this.loading}>
-          <Form { ...formItemLayout } layout="horizontal">
+          <Form {...formItemLayout} layout="horizontal">
             <Row>
               <Col span={10}>
                 <Form.Item label="申请人">
@@ -114,11 +115,14 @@ export class TravelApplyDetailPage extends React.Component<TravelApplyDetailPage
                   {this.data.province}省 {this.data.city}市
                 </Form.Item>
 
+                <Form.Item label="申请状态">
+                  {travelApplyStatusToString(this.data.status)}
+                </Form.Item>
                 <Form.Item label="出差事由">
                   <TextArea
                     disabled={true}
                     rows={10}
-                    value={this.data.reason}/>
+                    value={this.data.reason} />
                 </Form.Item>
               </Col>
 
@@ -142,9 +146,12 @@ export class TravelApplyDetailPage extends React.Component<TravelApplyDetailPage
                 <Form.Item label="其他预算">
                   {this.data.budget.other}元
                 </Form.Item>
-
-                <Form.Item label="申请状态">
-                  {travelApplyStatusToString(this.data.status)}
+                
+                <Form.Item label="审批意见">
+                  <TextArea
+                    rows={8}
+                    value={this.data.comment}
+                    disabled={true} />
                 </Form.Item>
               </Col>
             </Row>

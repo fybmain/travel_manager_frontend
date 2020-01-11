@@ -17,7 +17,6 @@ export class TravelApprovalDetailPage extends React.Component<TravelApprovalDeta
   @observable loading: boolean = true;
   @observable applyId: number = 0;
   @observable data!: TravelApplyDetail;
-  @observable comment: string = "";
 
   constructor(props: TravelApprovalDetailPageProps) {
     super(props);
@@ -47,6 +46,7 @@ export class TravelApprovalDetailPage extends React.Component<TravelApprovalDeta
       },
       reason: "",
       status: TravelApplyStatus.DepartmentManagerRejected,
+      comment:"",
     };
   }
 
@@ -69,7 +69,7 @@ export class TravelApprovalDetailPage extends React.Component<TravelApprovalDeta
   }
 
   handleApprove = () => {
-    TravelApplyApi.setTravelApplyApprovalStatus(this.applyId, true,this.comment).then((result) => {
+    TravelApplyApi.setTravelApplyApprovalStatus(this.applyId, true,this.data.comment).then((result) => {
       if (result.message === "ok") {
         message.success("审核成功");
         this.props.history.push("/travel-approval");
@@ -80,7 +80,7 @@ export class TravelApprovalDetailPage extends React.Component<TravelApprovalDeta
   }
 
   handleReject = () => {
-    TravelApplyApi.setTravelApplyApprovalStatus(this.applyId, false,this.comment).then((result) => {
+    TravelApplyApi.setTravelApplyApprovalStatus(this.applyId, false,this.data.comment).then((result) => {
       if (result.message === "ok") {
         message.success("驳回成功");
         this.props.history.push("/travel-approval");
@@ -168,12 +168,24 @@ export class TravelApprovalDetailPage extends React.Component<TravelApprovalDeta
                   {travelApplyStatusToString(this.data.status)}
                 </Form.Item>
 
-                <Form.Item label="审批意见">
+                {
+                isApplicationDone(this.data.status) ? (
+                  <Form.Item label="审批意见">
                   <TextArea
                     rows={8}
-                    value={this.comment}
-                    onChange={(e) => { this.comment = e.target.value }} />
+                    value={this.data.comment}
+                    disabled={true} />
                 </Form.Item>
+                ) : (
+                    <Form.Item label="审批意见">
+                  <TextArea
+                    rows={8}
+                    value={this.data.comment}
+                    onChange={(e) => { this.data.comment = e.target.value }} />
+                </Form.Item>
+                  )
+              }
+                
               </Col>
             </Row>
 
