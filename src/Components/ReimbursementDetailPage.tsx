@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { Form, Button, Divider, Row, Col, Upload, Spin, message, Empty } from 'antd';
+import { Form, Button, Divider, Row, Col, Upload, Spin, message } from 'antd';
+import TextArea from 'antd/lib/input/TextArea';
 import { inject, observer } from 'mobx-react';
 import { observable } from 'mobx';
 
@@ -7,7 +8,6 @@ import history from '../history';
 import { Payment, ReimbursementApplyDetail, reimbursementApplyStatusToString } from '../Models';
 import { ReimbursementApi } from '../api/ReimbursementApi';
 import { MainStore } from '../Stores/MainStore';
-import TextArea from 'antd/lib/input/TextArea';
 
 interface ReimbursementDetailPageProps {
   mainStore: MainStore;

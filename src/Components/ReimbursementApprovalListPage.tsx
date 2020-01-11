@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Table, Radio, Pagination, Select, message } from 'antd';
+import { Table, Radio, Select, message } from 'antd';
 import { RadioChangeEvent } from 'antd/lib/radio';
 import { observable } from 'mobx';
 import { observer, inject } from 'mobx-react';

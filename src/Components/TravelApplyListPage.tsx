@@ -1,7 +1,7 @@
 import React from 'react';
 import { RouteComponentProps } from 'react-router';
 import { Link } from 'react-router-dom';
-import { Button, Table, Row, Col, Radio, message } from 'antd';
+import { Button, Table, Row, Radio, message } from 'antd';
 import { RadioChangeEvent } from 'antd/lib/radio';
 import { observable } from 'mobx';
 import { inject, observer } from 'mobx-react';

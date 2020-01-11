@@ -1,8 +1,6 @@
 import React from 'react';
 import { Menu, Avatar } from 'antd';
 import { Link } from 'react-router-dom';
-import {  Persona, PersonaSize } from 'office-ui-fabric-react/lib/Persona';
-import { TestImages } from '@uifabric/example-data';
 
 import UserInfoStore from '../Stores/UserInfoStore';
 import { mergeStyleSets } from 'office-ui-fabric-react/lib/Styling';

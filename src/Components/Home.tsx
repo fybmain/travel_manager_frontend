@@ -3,15 +3,14 @@ import { Card, Icon, Col, Row, message, Spin, List } from 'antd';
 import { observable } from 'mobx';
 import { inject, observer } from 'mobx-react';
 
-import history from '../history';
 import '../App.css';
+import "antd/dist/antd.less";
+import "../App.less";
+
 import { Message } from '../Models';
 import { MessageApi } from '../api/MessageApi';
 import { MainStore } from '../Stores/MainStore';
-import { PersonChart } from './Reports/PersionChart';
-import "antd/dist/antd.less";
-import "../App.less";
-import { RGBA_REGEX } from 'office-ui-fabric-react';
+
 interface HomeProps {
   mainStore: MainStore;
 }

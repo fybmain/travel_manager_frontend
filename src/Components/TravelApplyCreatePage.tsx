@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, Input, Button, DatePicker, message, Row, Col } from 'antd';
+import { Form, Input, Button, DatePicker, message } from 'antd';
 import { FormComponentProps } from 'antd/lib/form';
 import { inject, observer } from 'mobx-react';
 
@@ -46,7 +46,7 @@ class TravelApplyCreateFormProto extends React.Component<TravelApplyCreateFormPr
       callback('必须填写出差地址');
       return;
     }
-    if(value.province==undefined||value.province===""){
+    if(value.province===undefined||value.province===""){
       callback('必须填写省份');
       return;
     }

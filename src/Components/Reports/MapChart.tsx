@@ -1,18 +1,14 @@
 import React from 'react';
+import { DatePicker, message, Card } from 'antd';
+import moment from 'moment';
+import { observable } from 'mobx';
 import { inject, observer } from 'mobx-react';
-
-import { MainStore } from '../../Stores/MainStore';
-
+import echarts from 'echarts';
 import ReactEcharts from 'echarts-for-react';
-
 import chinaJson from 'echarts/map/json/china.json'
 
-import echarts from 'echarts';
-import { DatePicker, Card } from 'antd';
-import { observable } from 'mobx';
-import moment from 'moment';
 import { ReportApi } from '../../api/ReportApi';
-import { message } from 'antd';
+import { MainStore } from '../../Stores/MainStore';
 import { MapData } from '../../Models/Report';
 
 interface MapChartProps {

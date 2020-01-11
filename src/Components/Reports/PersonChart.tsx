@@ -1,14 +1,14 @@
 import React from 'react';
+import moment from 'moment';
+import { message, DatePicker, Card } from 'antd';
+import { observable } from 'mobx';
 import { inject, observer } from 'mobx-react';
+import Highcharts from 'highcharts';
 
 import { MainStore } from '../../Stores/MainStore';
-import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
 import { Payment } from '../../Models';
-import { observable } from 'mobx';
 import { ReportApi } from '../../api/ReportApi';
-import { message, Select, DatePicker, Card } from 'antd';
-import moment from 'moment';
 
 const { MonthPicker } = DatePicker;
 interface PersonChartProps {
