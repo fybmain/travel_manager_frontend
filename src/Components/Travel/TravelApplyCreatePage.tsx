@@ -54,10 +54,6 @@ class TravelApplyCreateFormProto extends React.Component<TravelApplyCreateFormPr
       callback('必须填写城市');
       return;
     }
-    if(value.detail===undefined||value.detail===""){
-      callback('必须填写详细地址');
-      return;
-    }
     callback();
   };
 
