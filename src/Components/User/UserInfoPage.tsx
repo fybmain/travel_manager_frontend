@@ -4,11 +4,11 @@ import { RouteComponentProps, withRouter } from 'react-router-dom';
 import { observable } from 'mobx';
 import { observer, inject } from 'mobx-react';
 
-import history from '../history';
-import { MainStore } from '../Stores/MainStore';
-import UserInfoStore from '../Stores/UserInfoStore';
+import history from '../../history';
+import { MainStore } from '../../Stores/MainStore';
+import UserInfoStore from '../../Stores/UserInfoStore';
 import { UserChangePasswordPage } from './UserChangePasswordDialog';
-import DepartmentInfoStore from '../Stores/DepartmentInfoStore';
+import DepartmentInfoStore from '../../Stores/DepartmentInfoStore';
 
 interface UserInfoPageProps extends RouteComponentProps{
   mainStore: MainStore;

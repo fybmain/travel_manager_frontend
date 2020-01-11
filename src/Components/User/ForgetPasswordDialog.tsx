@@ -4,7 +4,7 @@ import { FormComponentProps } from 'antd/lib/form';
 import { observable } from 'mobx';
 import { observer } from 'mobx-react';
 
-import { UserApi } from '../api/UserApi';
+import { UserApi } from '../../api/UserApi';
 
 export interface ForgetPasswordDialogProps {
   visible: boolean;

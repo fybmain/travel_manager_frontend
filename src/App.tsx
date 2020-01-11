@@ -7,7 +7,7 @@ import history from './history';
 import { MainStore } from './Stores/MainStore';
 import MainLayout from './Components/MainLayout';
 import { LoginPage } from './Components/LoginPage';
-import { ResetPasswordPage } from './Components/ResetPasswordPage';
+import { ResetPasswordPage } from './Components/User/ResetPasswordPage';
 import UserInfoStore from './Stores/UserInfoStore';
 
 @observer

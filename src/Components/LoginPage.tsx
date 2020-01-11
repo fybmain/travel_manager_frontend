@@ -8,7 +8,7 @@ import '../App.css';
 import { RegisterDialog } from './RegisterDialog';
 import { MainStore } from '../Stores/MainStore';
 import UserInfoStore from '../Stores/UserInfoStore';
-import { ForgetPasswordDialog } from './ForgetPasswordDialog';
+import { ForgetPasswordDialog } from './User/ForgetPasswordDialog';
 
 interface LoginPageProps extends FormComponentProps {
   mainStore: MainStore;

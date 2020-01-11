@@ -5,11 +5,11 @@ import { RadioChangeEvent } from 'antd/lib/radio';
 import { observable } from 'mobx';
 import { observer, inject } from 'mobx-react';
 
-import '../App.css';
-import { AdminListUserItem, UserRole } from '../Models';
-import { UserAdminApi } from '../api/UserAdminApi';
-import { MainStore } from '../Stores/MainStore';
-import DepartmentInfoStore from '../Stores/DepartmentInfoStore';
+import '../../App.css';
+import { AdminListUserItem, UserRole } from '../../Models';
+import { UserAdminApi } from '../../api/UserAdminApi';
+import { MainStore } from '../../Stores/MainStore';
+import DepartmentInfoStore from '../../Stores/DepartmentInfoStore';
 
 const { Column } = Table;
 const { Option } = Select;

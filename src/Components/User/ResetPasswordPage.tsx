@@ -4,9 +4,9 @@ import { Form, Input, Icon, Button, message } from 'antd';
 import { observer, inject } from 'mobx-react';
 import { observable } from 'mobx';
 
-import '../App.css';
-import { UserApi } from '../api/UserApi';
-import { MainStore } from '../Stores/MainStore';
+import '../../App.css';
+import { UserApi } from '../../api/UserApi';
+import { MainStore } from '../../Stores/MainStore';
 import { FormComponentProps } from 'antd/lib/form';
 
 interface ResetPasswordPageProps extends RouteComponentProps {

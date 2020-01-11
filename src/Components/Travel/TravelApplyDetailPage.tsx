@@ -1,24 +1,24 @@
 import React from 'react';
 import { RouteComponentProps } from 'react-router';
-import { Form, Button, Input, Row, Col, Spin, message, Divider } from 'antd';
+import { Form, Input, Spin, message, Row, Col, Divider } from 'antd';
 import { observable } from 'mobx';
 import { inject, observer } from 'mobx-react';
 
-import { TravelApplyDetail, TravelApplyStatus, isApplicationDone, travelApplyStatusToString } from '../Models';
-import { TravelApplyApi } from '../api/TravelApplyApi';
+import { TravelApplyDetail, TravelApplyStatus, travelApplyStatusToString } from '../../Models';
+import { TravelApplyApi } from '../../api/TravelApplyApi';
 
 const { TextArea } = Input;
 
-export interface TravelApprovalDetailPageProps extends RouteComponentProps<{ applyId: string }> {
+export interface TravelApplyDetailPageProps extends RouteComponentProps<{ applyId: string }> {
 }
 
 @inject("history") @observer
-export class TravelApprovalDetailPage extends React.Component<TravelApprovalDetailPageProps> {
+export class TravelApplyDetailPage extends React.Component<TravelApplyDetailPageProps> {
   @observable loading: boolean = true;
   @observable applyId: number = 0;
   @observable data!: TravelApplyDetail;
 
-  constructor(props: TravelApprovalDetailPageProps) {
+  constructor(props: TravelApplyDetailPageProps) {
     super(props);
     this.applyId = parseInt(this.props.match.params.applyId);
     this.resetData();
@@ -31,6 +31,7 @@ export class TravelApprovalDetailPage extends React.Component<TravelApprovalDeta
       applyTime: new Date(),
       applicantId: 0,
       applicantName: "",
+      comment: "",
       departmentId: 0,
       departmentName: "",
       startTime: new Date(),
@@ -46,7 +47,6 @@ export class TravelApprovalDetailPage extends React.Component<TravelApprovalDeta
       },
       reason: "",
       status: TravelApplyStatus.DepartmentManagerRejected,
-      comment:"",
     };
   }
 
@@ -68,28 +68,6 @@ export class TravelApprovalDetailPage extends React.Component<TravelApprovalDeta
     }
   }
 
-  handleApprove = () => {
-    TravelApplyApi.setTravelApplyApprovalStatus(this.applyId, true,this.data.comment).then((result) => {
-      if (result.message === "ok") {
-        message.success("审核成功");
-        this.props.history.push("/travel-approval");
-      } else {
-        message.error(result.message);
-      }
-    })
-  }
-
-  handleReject = () => {
-    TravelApplyApi.setTravelApplyApprovalStatus(this.applyId, false,this.data.comment).then((result) => {
-      if (result.message === "ok") {
-        message.success("驳回成功");
-        this.props.history.push("/travel-approval");
-      } else {
-        message.error(result.message);
-      }
-    })
-  }
-
   render() {
     const formItemLayout = {
       labelCol: {
@@ -101,12 +79,14 @@ export class TravelApprovalDetailPage extends React.Component<TravelApprovalDeta
         sm: { span: 11 },
       },
     };
+    /*
     const tailItemLayout = {
       wrapperCol: {
         xs: { span: 24 },
         sm: { span: 24 },
       },
     };
+    */
     return (
       <div className="tablePage">
         <div style={{ paddingTop: "50px" }} />
@@ -135,10 +115,13 @@ export class TravelApprovalDetailPage extends React.Component<TravelApprovalDeta
                   {this.data.province}省 {this.data.city}市
                 </Form.Item>
 
+                <Form.Item label="申请状态">
+                  {travelApplyStatusToString(this.data.status)}
+                </Form.Item>
                 <Form.Item label="出差事由">
                   <TextArea
                     disabled={true}
-                    rows={8}
+                    rows={10}
                     value={this.data.reason} />
                 </Form.Item>
               </Col>
@@ -163,61 +146,16 @@ export class TravelApprovalDetailPage extends React.Component<TravelApprovalDeta
                 <Form.Item label="其他预算">
                   {this.data.budget.other}元
                 </Form.Item>
-
-                <Form.Item label="申请状态">
-                  {travelApplyStatusToString(this.data.status)}
-                </Form.Item>
-
-                {
-                isApplicationDone(this.data.status) ? (
-                  <Form.Item label="审批意见">
+                
+                <Form.Item label="审批意见">
                   <TextArea
                     rows={8}
                     value={this.data.comment}
                     disabled={true} />
                 </Form.Item>
-                ) : (
-                    <Form.Item label="审批意见">
-                  <TextArea
-                    rows={8}
-                    value={this.data.comment}
-                    onChange={(e) => { this.data.comment = e.target.value }} />
-                </Form.Item>
-                  )
-              }
-                
               </Col>
             </Row>
 
-            <Form.Item {...tailItemLayout}>
-              {
-                isApplicationDone(this.data.status) ? (
-                  <div />
-                ) : (
-                    <Row>
-                      <Col span={7} />
-                      <Col span={4}>
-                        <Button
-                          onClick={this.handleApprove}
-                          type="primary"
-                          htmlType="submit">
-                          通过
-                    </Button>
-                      </Col>
-                      <Col span={2} />
-                      <Col span={4}>
-                        <Button
-                          onClick={this.handleReject}
-                          type="danger"
-                          htmlType="button">
-                          驳回
-                    </Button>
-                      </Col>
-                      <Col span={7} />
-                    </Row>
-                  )
-              }
-            </Form.Item>
           </Form>
         </Spin>
       </div>

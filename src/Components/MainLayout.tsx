@@ -7,24 +7,24 @@ import { inject, observer } from 'mobx-react';
 import '../App.css';
 
 import { Home } from './Home';
-import { TravelApplyListPage } from './TravelApplyListPage';
-import { TravelApplyDetailPage } from './TravelApplyDetailPage';
-import { TravelApplyCreatePage } from './TravelApplyCreatePage';
-import { ReimbursementApplyListPage } from './ReimbursementApplyListPage';
-import { ReimbursementApplyCreatePage } from './ReimbursementApplyCreatePage';
-import { TravelApprovalListPage } from './TravelApprovalListPage';
-import { TravelApprovalDetailPage } from './TravelApprovalDetailPage';
-import { ReimbursementApprovalListPage } from './ReimbursementApprovalListPage';
-import { ReimbursementDetailPage } from './ReimbursementDetailPage';
+import { TravelApplyListPage } from './Travel/TravelApplyListPage';
+import { TravelApplyDetailPage } from './Travel/TravelApplyDetailPage';
+import { TravelApplyCreatePage } from './Travel/TravelApplyCreatePage';
+import { ReimbursementApplyListPage } from './Reimbursement/ReimbursementApplyListPage';
+import { ReimbursementApplyCreatePage } from './Reimbursement/ReimbursementApplyCreatePage';
+import { TravelApprovalListPage } from './Travel/TravelApprovalListPage';
+import { TravelApprovalDetailPage } from './Travel/TravelApprovalDetailPage';
+import { ReimbursementApprovalListPage } from './Reimbursement/ReimbursementApprovalListPage';
+import { ReimbursementDetailPage } from './Reimbursement/ReimbursementDetailPage';
 
 import { PersonalReport } from './Reports/PersonalReport';
 import { DepartmentReport } from './Reports/DepartmentReport';
 import { CompanyReport } from './Reports/CompanyReport';
 
-import UserInfoPage from './UserInfoPage';
-import { UserInfoEditPage } from './UserInfoEditPage';
+import UserInfoPage from './User/UserInfoPage';
+import { UserInfoEditPage } from './User/UserInfoEditPage';
 
-import AllUsers from './AllUsers';
+import AllUsers from './User/AllUsers';
 import { MainStore } from '../Stores/MainStore';
 import { MainMenu } from './MainMenu';
 import { UserStateMenu } from './UserStateMenu';

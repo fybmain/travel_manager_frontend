@@ -4,8 +4,8 @@ import { FormComponentProps } from 'antd/lib/form';
 import { observable } from 'mobx';
 import { observer } from 'mobx-react';
 
-import { UserApi } from '../api/UserApi';
-import UserInfoStore from '../Stores/UserInfoStore';
+import { UserApi } from '../../api/UserApi';
+import UserInfoStore from '../../Stores/UserInfoStore';
 
 export interface UserChangePasswordPageProps {
     visible: boolean;

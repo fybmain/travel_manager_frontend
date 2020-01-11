@@ -5,10 +5,10 @@ import { RadioChangeEvent } from 'antd/lib/radio';
 import { observable } from 'mobx';
 import { observer, inject } from 'mobx-react';
 
-import history from '../history';
-import { ApplyStatus, ApplyBaseInfo, FinishStatus, renderDate } from '../Models';
-import { MainStore } from '../Stores/MainStore';
-import { ReimbursementApi } from '../api/ReimbursementApi';
+import history from '../../history';
+import { ApplyStatus, ApplyBaseInfo, FinishStatus, renderDate } from '../../Models';
+import { MainStore } from '../../Stores/MainStore';
+import { ReimbursementApi } from '../../api/ReimbursementApi';
 
 const { Column } = Table;
 const radioValues = ["未报销", "审核中", "已审批"];

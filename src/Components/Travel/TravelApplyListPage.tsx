@@ -6,10 +6,10 @@ import { RadioChangeEvent } from 'antd/lib/radio';
 import { observable } from 'mobx';
 import { inject, observer } from 'mobx-react';
 
-import history from '../history';
-import { TravelApplyItem, travelApplyStatusToString, renderDate } from '../Models';
-import { MainStore } from '../Stores/MainStore';
-import { TravelApplyApi } from '../api/TravelApplyApi';
+import history from '../../history';
+import { TravelApplyItem, travelApplyStatusToString, renderDate } from '../../Models';
+import { MainStore } from '../../Stores/MainStore';
+import { TravelApplyApi } from '../../api/TravelApplyApi';
 
 const { Column } = Table;
 

@@ -5,12 +5,12 @@ import { RadioChangeEvent } from 'antd/lib/radio';
 import { observable } from 'mobx';
 import { observer, inject } from 'mobx-react';
 
-import history from '../history';
-import { TravelApplyItem, travelApplyStatusToString, renderDate, DepartmentInfo } from '../Models';
-import { MainStore } from '../Stores/MainStore';
-import { TravelApplyApi } from '../api/TravelApplyApi';
-import DepartmentInfoStore from '../Stores/DepartmentInfoStore';
-import UserInfoStore from '../Stores/UserInfoStore';
+import history from '../../history';
+import { TravelApplyItem, travelApplyStatusToString, renderDate, DepartmentInfo } from '../../Models';
+import { MainStore } from '../../Stores/MainStore';
+import { TravelApplyApi } from '../../api/TravelApplyApi';
+import DepartmentInfoStore from '../../Stores/DepartmentInfoStore';
+import UserInfoStore from '../../Stores/UserInfoStore';
 
 const { Column } = Table;
 

@@ -3,10 +3,10 @@ import { Form, Button, Divider, Row, Col, Upload, Spin, message, Empty } from 'a
 import { inject, observer } from 'mobx-react';
 import { observable } from 'mobx';
 
-import history from '../history';
-import { Payment, ReimbursementApplyDetail, reimbursementApplyStatusToString } from '../Models';
-import { ReimbursementApi } from '../api/ReimbursementApi';
-import { MainStore } from '../Stores/MainStore';
+import history from '../../history';
+import { Payment, ReimbursementApplyDetail, reimbursementApplyStatusToString } from '../../Models';
+import { ReimbursementApi } from '../../api/ReimbursementApi';
+import { MainStore } from '../../Stores/MainStore';
 import TextArea from 'antd/lib/input/TextArea';
 
 interface ReimbursementDetailPageProps {
