@@ -5,10 +5,11 @@ import { observable } from 'mobx';
 import { observer, inject } from 'mobx-react';
 
 import history from '../history';
+import { UserRoleString } from '../Models';
 import { MainStore } from '../Stores/MainStore';
 import UserInfoStore from '../Stores/UserInfoStore';
-import { UserChangePasswordPage } from './UserChangePasswordDialog';
 import DepartmentInfoStore from '../Stores/DepartmentInfoStore';
+import { UserChangePasswordPage } from './UserChangePasswordDialog';
 
 interface UserInfoPageProps extends RouteComponentProps{
   mainStore: MainStore;
@@ -82,7 +83,9 @@ class UserInfoPage extends React.Component<UserInfoPageProps> {
                     <p style={{ textAlign: "left", marginLeft: "20%" }}>{UserInfoStore.userInfo.workId}</p>
                   </Form.Item>
                   <Form.Item label="职位">
-                    <p style={{ textAlign: "left", marginLeft: "20%" }}>{UserInfoStore.userInfo.role}</p>
+                    <p style={{ textAlign: "left", marginLeft: "20%" }}>
+                      {UserRoleString.get(UserInfoStore.userInfo.role)}
+                    </p>
                   </Form.Item>
                   <Form.Item label="手机号">
                     <p style={{ textAlign: "left", marginLeft: "20%" }}>{UserInfoStore.userInfo.telephone}</p>

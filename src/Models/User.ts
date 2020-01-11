@@ -45,3 +45,10 @@ export interface AdminListUserItem {
   status: boolean,
   role: UserRole,
 }
+
+export const UserRoleString = new Map([
+  [UserRole.Employee, '员工'],
+  [UserRole.DepartmentManager, '部门经理'],
+  [UserRole.GeneralManager, '总经理'],
+  [UserRole.Admin, '管理员'],
+]);
