@@ -6,6 +6,7 @@ export interface CreateReimbursementRequest {
 
 export interface ReimbursementApplyDetail {
   applicant: string,
+  department: string,
   budget: Payment,
   payment: Payment,
   travelApplyId:number,
