@@ -65,7 +65,7 @@ export class ReportApi {
       const data = result.data.data as MapResult[];
       const items: MapData[] = data.map((value, index) => {
         return {
-          name: value.province,
+          name: removeExtraSuffix(value.province),
           value: Number(value.count),
           cityAndTimes: value.cityAndTimes.map((value2, index2) => {
             return {
@@ -88,4 +88,11 @@ export class ReportApi {
       }
     }
   }
+}
+
+const removeExtraSuffix=(location:string)=>{
+  if(location.endsWith("省")||location.endsWith("市")){
+    return location.substr(0,location.length-1);
+  }
+  return location;
 }
