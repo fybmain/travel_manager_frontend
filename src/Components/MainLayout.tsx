@@ -63,11 +63,11 @@ class MainLayout extends React.Component<MainLayoutProps, {}> {
     return (
       <div>
         <Layout>
-          <Sider style={{ background: '#d3d3d3', width:'240'}}>
+          <Sider style={{ width:'240'}}>
             <MainMenu/>
           </Sider>
-          <Content style={{background:"#d3d3d3"}}>
-            <Layout style={{ padding: '0 20px 24px 0', position: "fixed", top: 64, left: 240, right: 0, bottom: 0, overflowY: "auto",background:"#d3d3d3" }}>
+          <Content>
+            <Layout style={{ padding: '0 20px 24px 0', position: "fixed", top: 64, left: 240, right: 0, bottom: 0, overflowY: "auto",background:"#ebebf0" }}>
               <Breadcrumb style={{ margin: '24px 0 0 24px' }}>
                 {
                   this.props.mainStore.breadcrumb.map((value, index) => <Breadcrumb.Item key={index}>{value}</Breadcrumb.Item>)
