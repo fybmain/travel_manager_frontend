@@ -43,12 +43,12 @@ class UserInfoPage extends React.Component<UserInfoPageProps> {
   render() {
     const formItemLayout = {
       labelCol: {
-        xs: { span: 5, offset: 0 },
-        sm: { span: 5, offset: 0 },
-      },
-      wrapperCol: {
         xs: { span: 5 },
         sm: { span: 5 },
+      },
+      wrapperCol: {
+        xs: { span: 8 },
+        sm: { span: 8 },
       },
     };
     const tailItemLayout = {
@@ -64,8 +64,8 @@ class UserInfoPage extends React.Component<UserInfoPageProps> {
           <Card title="个人信息" className="userInfo-box">
             <Form {...formItemLayout} layout="horizontal">
               <Row>
-                <Col span={3} />
-                <Col span={10}>
+                <Col span={4} />
+                <Col span={9}>
                   <Form.Item label="姓名">
                     <p style={{ textAlign: "left", marginLeft: "20%" }}>{UserInfoStore.userInfo.name}</p>
                   </Form.Item>
@@ -92,27 +92,26 @@ class UserInfoPage extends React.Component<UserInfoPageProps> {
                   </Form.Item>
                 </Col>
               </Row>
+              <Form.Item {...tailItemLayout}>
+                <br />
+                <div style={{ textAlign: "center" }}>
+                  <Button
+                    onClick={this.handleEdit}
+                    type="primary"
+                    htmlType="button">
+                    修改信息
+                  </Button>
+                  <Button
+                    onClick={this.handleChangePassword}
+                    type="primary"
+                    htmlType="button"
+                    style={{ marginLeft: "20%" }}>
+                    修改密码
+                  </Button>
+                </div>
+              </Form.Item>
             </Form>
-        <Form>
-          <Form.Item {...tailItemLayout}>
-            <br />
-            <div style={{ textAlign: "center" }}>
-              <Button
-                onClick={this.handleEdit}
-                type="primary"
-                htmlType="submit">
-                修改信息
-              </Button>
-              <Button
-                onClick={this.handleChangePassword}
-                type="primary"
-                htmlType="button"
-                style={{ marginLeft: "20%" }}>
-                修改密码
-              </Button>
-            </div>
-          </Form.Item>
-        </Form></Card>
+          </Card>
         </div>
         <UserChangePasswordPage
           visible={this.showChangePassword}
