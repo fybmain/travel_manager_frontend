@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import { Form, Button, Divider, Row, Col, Upload, Spin, message } from 'antd';
 import TextArea from 'antd/lib/input/TextArea';
 import { inject, observer } from 'mobx-react';
@@ -19,6 +20,7 @@ export class ReimbursementDetailPage extends Component<ReimbursementDetailPagePr
   private applyId: number;
   private traveApplyId: number = -1;
   private name: string = "";
+  private department: string = "";
   @observable comment: string = "";
   private budget: Payment = {
     food: 0,
@@ -76,12 +78,16 @@ export class ReimbursementDetailPage extends Component<ReimbursementDetailPagePr
                   <p style={{ textAlign: "left" }}>{this.name}</p>
                 </Form.Item>
 
-                <Form.Item label="出差申请编号">
-                  <p style={{ textAlign: "left" }}>{this.traveApplyId}</p>
+                <Form.Item label="部门">
+                  <p style={{ textAlign: "left" }}>{this.department}</p>
                 </Form.Item>
 
-                <Form.Item label="报销申请编号">
-                  <p style={{ textAlign: "left" }}>{this.applyId}</p>
+                <Form.Item label="出差申请">
+                  <Link
+                    to={`/travel-apply/${this.traveApplyId}/detail`}
+                    style={{ textAlign: "left" }}>
+                    #{this.traveApplyId}
+                  </Link>
                 </Form.Item>
 
                 <Form.Item label="申请状态">
@@ -188,6 +194,7 @@ export class ReimbursementDetailPage extends Component<ReimbursementDetailPagePr
       this.payment = data.payment;
       this.name = data.applicant;
       this.traveApplyId = data.travelApplyId;
+      this.department = data.department;
       this.applyStatus = data.status;
       this.pictureURLs = data.pictureURLs.split(' ').filter(value => !!value);
       this.comment=data.comment;

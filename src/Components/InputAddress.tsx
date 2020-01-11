@@ -5,17 +5,17 @@ import { observer } from 'mobx-react';
 
 import { CityList, Address } from '../Models';
 
-export interface InputAdressProps {
+export interface InputAddressProps {
   value?: Address;
   onChange?: (value: Address) => void;
 }
 
 @observer
-export class InputAdress extends React.Component<InputAdressProps> {
+export class InputAddress extends React.Component<InputAddressProps> {
   @observable private adress: Address;
   @observable private cityList!: string[];
 
-  constructor(props: InputAdressProps){
+  constructor(props: InputAddressProps){
     super(props);
     if(props.value){
       this.adress = props.value;

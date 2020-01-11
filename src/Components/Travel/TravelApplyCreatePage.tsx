@@ -9,7 +9,7 @@ import { MainStore } from '../../Stores/MainStore';
 import UserInfoStore from '../../Stores/UserInfoStore';
 import { TravelApplyApi } from '../../api/TravelApplyApi';
 import { Address } from '../../Models';
-import { InputAdress } from '../InputAdress';
+import { InputAddress } from '../InputAddress';
 
 const { TextArea } = Input;
 const { RangePicker } = DatePicker;
@@ -145,7 +145,7 @@ class TravelApplyCreateFormProto extends React.Component<TravelApplyCreateFormPr
                 },
               ]
             })(
-              <InputAdress/>
+              <InputAddress/>
             )
           }
         </Form.Item>
