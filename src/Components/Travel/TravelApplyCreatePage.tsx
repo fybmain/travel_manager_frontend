@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, Input, Button, DatePicker, message, Row, Col } from 'antd';
+import { Form, Input, Button, DatePicker, message } from 'antd';
 import { FormComponentProps } from 'antd/lib/form';
 import { inject, observer } from 'mobx-react';
 
@@ -8,6 +8,8 @@ import { InputMoneyAmount } from '../InputMoneyAmount';
 import { MainStore } from '../../Stores/MainStore';
 import UserInfoStore from '../../Stores/UserInfoStore';
 import { TravelApplyApi } from '../../api/TravelApplyApi';
+import { Address } from '../../Models';
+import { InputAdress } from '../InputAdress';
 
 const { TextArea } = Input;
 const { RangePicker } = DatePicker;
@@ -39,6 +41,26 @@ interface TravelApplyCreateFormProps extends FormComponentProps {
 
 class TravelApplyCreateFormProto extends React.Component<TravelApplyCreateFormProps> {
 
+  validateAdress = (rule: any, value: Address|undefined, callback: any) => {
+    if(value===undefined){
+      callback('必须填写出差地址');
+      return;
+    }
+    if(value.province===undefined||value.province===""){
+      callback('必须填写省份');
+      return;
+    }
+    if(value.city===undefined||value.city===""){
+      callback('必须填写城市');
+      return;
+    }
+    if(value.detail===undefined||value.detail===""){
+      callback('必须填写详细地址');
+      return;
+    }
+    callback();
+  };
+
   handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     this.props.form.validateFieldsAndScroll(async(err, values) => {
@@ -46,8 +68,7 @@ class TravelApplyCreateFormProto extends React.Component<TravelApplyCreateFormPr
         TravelApplyApi.createTravelApplication({
           startTime: values.timeRange[0].toDate(),
           endTime: values.timeRange[1].toDate(),
-          province: values.province,
-          city: values.city,
+          address: values.address,
           reason: values.reason,
           budget: {
             hotel: values.hotelBudget,
@@ -116,42 +137,17 @@ class TravelApplyCreateFormProto extends React.Component<TravelApplyCreateFormPr
         </Form.Item>
 
         <Form.Item label="出差地点">
-          <Row>
-            <Col span={6}>
-              <span>
+          {
+            this.props.form.getFieldDecorator('address', {
+              rules: [
                 {
-                  this.props.form.getFieldDecorator('province', {
-                    rules: [
-                      {
-                        required: true,
-                        message: '省份不能为空',
-                      },
-                    ]
-                  })(
-                    <Input/>
-                  )
-                }
-              </span>
-            </Col>
-            <Col span={1}>省</Col>
-            <Col span={6}>
-              <span>
-                {
-                  this.props.form.getFieldDecorator('city', {
-                    rules: [
-                      {
-                        required: true,
-                        message: '城市不能为空',
-                      },
-                    ],
-                  })(
-                    <Input/>
-                  )
-                }
-              </span>
-            </Col>
-            <Col span={1}>市</Col>
-          </Row>
+                  validator: this.validateAdress,
+                },
+              ]
+            })(
+              <InputAdress/>
+            )
+          }
         </Form.Item>
 
         <Form.Item label="出差事由">

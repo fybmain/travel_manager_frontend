@@ -28,9 +28,9 @@ import AllUsers from './User/AllUsers';
 import { MainStore } from '../Stores/MainStore';
 import { MainMenu } from './MainMenu';
 import { UserStateMenu } from './UserStateMenu';
-import logo from '../Pictures/logo.png'
 import UserInfoStore from '../Stores/UserInfoStore';
 
+import logo from '../Pictures/logo.png'
 
 const { Header, Content, Sider } = Layout;
 
@@ -53,9 +53,11 @@ const headerStyles=mergeStyleSets({
 @inject("mainStore") @observer
 class MainLayout extends React.Component<MainLayoutProps, {}> {
 
+  /*
   constructor(props: MainLayoutProps) {
     super(props);
   }
+  */
 
   render() {
     return (

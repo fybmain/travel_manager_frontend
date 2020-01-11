@@ -1,14 +1,12 @@
 import React from 'react';
+import { message, DatePicker, Card } from 'antd';
+import moment from 'moment';
+import { observable } from 'mobx';
 import { inject, observer } from 'mobx-react';
-
 import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
-import { observable } from 'mobx';
-import { ReportApi } from '../../api/ReportApi';
-import { message, Select, DatePicker, Card } from 'antd';
-import moment from 'moment';
 
-const { Option } = Select;
+import { ReportApi } from '../../api/ReportApi';
 
 const { MonthPicker } = DatePicker;
 
