@@ -3,13 +3,13 @@ import { Form, Input, Button, DatePicker, message } from 'antd';
 import { FormComponentProps } from 'antd/lib/form';
 import { inject, observer } from 'mobx-react';
 
-import history from '../history';
-import { Address } from '../Models';
-import { TravelApplyApi } from '../api/TravelApplyApi';
-import { MainStore } from '../Stores/MainStore';
-import UserInfoStore from '../Stores/UserInfoStore';
-import { InputAdress } from './InputAdress';
-import { InputMoneyAmount } from './InputMoneyAmount';
+import history from '../../history';
+import { InputMoneyAmount } from '../InputMoneyAmount';
+import { MainStore } from '../../Stores/MainStore';
+import UserInfoStore from '../../Stores/UserInfoStore';
+import { TravelApplyApi } from '../../api/TravelApplyApi';
+import { Address } from '../../Models';
+import { InputAdress } from '../InputAdress';
 
 const { TextArea } = Input;
 const { RangePicker } = DatePicker;

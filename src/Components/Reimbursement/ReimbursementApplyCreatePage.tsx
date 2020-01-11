@@ -6,11 +6,11 @@ import { FormComponentProps } from 'antd/lib/form';
 import { observable } from 'mobx';
 import { inject, observer } from 'mobx-react';
 
-import history from '../history';
-import { ReimbursementApi } from '../api/ReimbursementApi';
-import { MainStore } from '../Stores/MainStore';
-import UserInfoStore from '../Stores/UserInfoStore';
-import { InputMoneyAmount } from './InputMoneyAmount';
+import history from '../../history';
+import { ReimbursementApi } from '../../api/ReimbursementApi';
+import { MainStore } from '../../Stores/MainStore';
+import UserInfoStore from '../../Stores/UserInfoStore';
+import { InputMoneyAmount } from '../InputMoneyAmount';
 
 interface ReimbursementApplyCreatePageProps {
   mainStore: MainStore;

@@ -4,10 +4,10 @@ import TextArea from 'antd/lib/input/TextArea';
 import { inject, observer } from 'mobx-react';
 import { observable } from 'mobx';
 
-import history from '../history';
-import { Payment, ReimbursementApplyDetail, reimbursementApplyStatusToString } from '../Models';
-import { ReimbursementApi } from '../api/ReimbursementApi';
-import { MainStore } from '../Stores/MainStore';
+import history from '../../history';
+import { Payment, ReimbursementApplyDetail, reimbursementApplyStatusToString } from '../../Models';
+import { ReimbursementApi } from '../../api/ReimbursementApi';
+import { MainStore } from '../../Stores/MainStore';
 
 interface ReimbursementDetailPageProps {
   mainStore: MainStore;

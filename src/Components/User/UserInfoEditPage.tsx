@@ -3,10 +3,10 @@ import { Form, Input, Button, Icon, message } from 'antd';
 import { FormComponentProps } from 'antd/lib/form';
 import { inject, observer } from 'mobx-react';
 
-import history from '../history';
-import { MainStore } from '../Stores/MainStore';
-import UserInfoStore from '../Stores/UserInfoStore';
-import { UserApi } from '../api/UserApi';
+import history from '../../history';
+import { MainStore } from '../../Stores/MainStore';
+import UserInfoStore from '../../Stores/UserInfoStore';
+import { UserApi } from '../../api/UserApi';
 
 interface UserInfoEditPageProps{
   mainStore: MainStore;
