@@ -1,5 +1,5 @@
 import axios from '../axios';
-import { ApplyBaseInfo, CreateReimbursementRequest, ReimbursementApplyDetail, Payment } from '../Models';
+import { Payment } from '../Models';
 import { payBudgetDiffInfo, MapData, MapResult } from '../Models/Report';
 
 export class ReportApi {

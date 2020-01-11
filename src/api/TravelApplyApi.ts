@@ -107,6 +107,7 @@ export class TravelApplyApi {
           applyTime: new Date(result.data.data.applyTime),
           applicantId: result.data.data.applicantId,
           applicantName: result.data.data.applicantName,
+          comment:result.data.data.comment,
           departmentId: result.data.data.departmentId,
           departmentName: result.data.data.departmentName,
           startTime: new Date(result.data.data.startTime),
@@ -164,12 +165,13 @@ export class TravelApplyApi {
     }
   }
 
-  static async setTravelApplyApprovalStatus(applyId: number, approve: boolean) {
+  static async setTravelApplyApprovalStatus(applyId: number, approve: boolean, comment:string) {
     let result;
     try{
       result = await axios.put("api/travel/approval", {
         applyId,
         approved: approve,
+        comment:comment
       });
     }catch(err){
       if(err.response){

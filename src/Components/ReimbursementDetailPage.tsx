@@ -7,6 +7,7 @@ import history from '../history';
 import { Payment, ReimbursementApplyDetail, reimbursementApplyStatusToString } from '../Models';
 import { ReimbursementApi } from '../api/ReimbursementApi';
 import { MainStore } from '../Stores/MainStore';
+import TextArea from 'antd/lib/input/TextArea';
 
 interface ReimbursementDetailPageProps {
   mainStore: MainStore;
@@ -18,6 +19,7 @@ export class ReimbursementDetailPage extends Component<ReimbursementDetailPagePr
   private applyId: number;
   private traveApplyId: number = -1;
   private name: string = "";
+  @observable comment: string = "";
   private budget: Payment = {
     food: 0,
     hotel: 0,
@@ -43,8 +45,8 @@ export class ReimbursementDetailPage extends Component<ReimbursementDetailPagePr
 
     this.loading = true;
 
-    if(history.location.pathname.endsWith("approval")){
-      this.showButtons=true;
+    if (history.location.pathname.endsWith("approval")) {
+      this.showButtons = true;
     }
     this.getApplyInfo();
   }
@@ -60,7 +62,7 @@ export class ReimbursementDetailPage extends Component<ReimbursementDetailPagePr
         sm: { span: 11 },
       },
     };
-  
+
     return (
       <div className="tablePage">
         <Spin spinning={this.loading}>
@@ -68,7 +70,7 @@ export class ReimbursementDetailPage extends Component<ReimbursementDetailPagePr
             <div style={{ paddingTop: "50px" }} />
 
             <Row>
-              <Col span={2}/>
+              <Col span={2} />
               <Col span={11}>
                 <Form.Item label="申请人">
                   <p style={{ textAlign: "left" }}>{this.name}</p>
@@ -82,9 +84,13 @@ export class ReimbursementDetailPage extends Component<ReimbursementDetailPagePr
                   <p style={{ textAlign: "left" }}>{this.applyId}</p>
                 </Form.Item>
 
-                <Form.Item label="发票" wrapperCol={{span:16}}>
+                <Form.Item label="申请状态">
+                  {reimbursementApplyStatusToString(this.applyStatus)}
+                </Form.Item>
+
+                <Form.Item label="发票" wrapperCol={{ span: 16 }}>
                   {
-                    (this.pictureURLs.length>0)?(
+                    (this.pictureURLs.length > 0) ? (
                       <Upload
                         listType="picture-card"
                         showUploadList={{
@@ -104,10 +110,10 @@ export class ReimbursementDetailPage extends Component<ReimbursementDetailPagePr
                               size: 0,
                             }
                           ))
-                        }/>
-                    ):(
-                      <p>无照片</p>
-                    )
+                        } />
+                    ) : (
+                        <p>无照片</p>
+                      )
                   }
 
                 </Form.Item>
@@ -130,9 +136,22 @@ export class ReimbursementDetailPage extends Component<ReimbursementDetailPagePr
                 <Form.Item label="其他报销金额">
                   <PaymentAndBudget payment={this.payment.other} budget={this.budget.other} />
                 </Form.Item>
-                <Form.Item label="申请状态">
-                  {reimbursementApplyStatusToString(this.applyStatus)}
-                </Form.Item>
+                {
+                  this.showButtons ?
+                    <Form.Item label="审批意见">
+                      <TextArea
+                        rows={8}
+                        value={this.comment}
+                        onChange={(e) => { this.comment = e.target.value }} />
+                    </Form.Item>
+                    : <Form.Item label="审批意见">
+                      <TextArea
+                        rows={8}
+                        value={this.comment}
+                        disabled={true} />
+                    </Form.Item>
+                }
+
               </Col>
             </Row>
             {
@@ -140,13 +159,13 @@ export class ReimbursementDetailPage extends Component<ReimbursementDetailPagePr
                 <Row>
                   <Col span={7} />
                   <Col span={4}>
-                    <Button type="primary" htmlType="submit" onClick={() => { approveApply(this.applyId, true) }}>
+                    <Button type="primary" htmlType="submit" onClick={() => { this.approveApply(this.applyId, true) }}>
                       通过
                     </Button>
                   </Col>
                   <Col span={2} />
                   <Col span={4}>
-                    <Button type="default" htmlType="button" onClick={() => { approveApply(this.applyId, false) }}>
+                    <Button type="danger" htmlType="button" onClick={() => { this.approveApply(this.applyId, false) }}>
                       驳回
                     </Button>
                   </Col>
@@ -171,7 +190,23 @@ export class ReimbursementDetailPage extends Component<ReimbursementDetailPagePr
       this.traveApplyId = data.travelApplyId;
       this.applyStatus = data.status;
       this.pictureURLs = data.pictureURLs.split(' ').filter(value => !!value);
+      this.comment=data.comment;
       this.loading = false;
+    }
+    else {
+      message.error(result.message);
+    }
+  }
+  approveApply = async (applyId: number, approved: boolean) => {
+    const result = await ReimbursementApi.approveReimbursementApply({
+      applyId: applyId,
+      approved: approved,
+      comment: this.comment
+    });
+    if (result.message === "ok") {
+      if (approved) message.success("审核成功");
+      else message.success("驳回成功");
+      history.push("/reimbursement-approval");
     }
     else {
       message.error(result.message);
@@ -179,18 +214,6 @@ export class ReimbursementDetailPage extends Component<ReimbursementDetailPagePr
   }
 }
 
-const approveApply = async (applyId: number, approved: boolean) => {
-  const result = await ReimbursementApi.approveReimbursementApply({
-    applyId: applyId,
-    approved: approved,
-  });
-  if (result.message === "ok") {
-    history.push("/reimbursement-approval");
-  }
-  else {
-    message.error(result.message);
-  }
-}
 class PaymentAndBudget extends Component<{ payment: number, budget: number }>{
   render() {
     return (
