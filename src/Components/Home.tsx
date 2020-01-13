@@ -32,13 +32,6 @@ export class Home extends Component<HomeProps> {
       (result) => {
         if(result.message==="ok"){
           this.messageList = result.items.slice(0,10);
-          const msg:Message[]=[];
-          for(var i=0;i<15;i++){
-            msg.push({
-              content: i.toString(),
-            })
-          }
-          this.messageList=msg;
         }else{
           message.error(result.message);
         }
@@ -48,13 +41,6 @@ export class Home extends Component<HomeProps> {
       (result) => {
         if(result.message==="ok"){
           this.messageList2 = result.items;
-          const msg:Message[]=[];
-          for(var i=0;i<15;i++){
-            msg.push({
-              content: i.toString(),
-            })
-          }
-          this.messageList2=msg;
         }else{
           message.error(result.message);
         }
